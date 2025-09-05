@@ -31,12 +31,19 @@ class Verificacao(Resource):
             detector = "opencv"
             align = True
 
-            obj = DeepFace.verify(
-                img1_path=imgDocument,
-                img2_path=imgSelfie,
-                detector_backend=detector,
-                align=align
-            )
+            try:
+                obj = DeepFace.verify(
+                    img1_path=imgDocument,
+                    img2_path=imgSelfie,
+                    detector_backend=detector,
+                    align=align
+                )
+            except ValueError as ve:
+                return {
+                    "error": "Nenhum rosto detectado em uma ou ambas as imagens.",
+                    "details": str(ve)
+                }, 400
+
 
             # face_doc = obj['facial_areas']['img1']
             # face_selfie = obj['facial_areas']['img2']
@@ -44,11 +51,11 @@ class Verificacao(Resource):
             # cropped_doc = Verificacao.crop_face(imgDocument, face_doc)
             # cropped_selfie = Verificacao.crop_face(imgSelfie, face_selfie)
 
-            return jsonify({
+            return {
                 "verified": obj["verified"],
                 "distance": obj["distance"],
                 "similarity_percent": round((1 - obj["distance"]) * 100, 2),
-            })
+            }, 200
         
         except Exception as e:
-            return jsonify({"error": str(e)}), 400
+            return {"error": str(e)}, 400
