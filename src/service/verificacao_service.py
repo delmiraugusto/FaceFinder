@@ -9,19 +9,19 @@ def base64_to_cv2_image(base64_str):
     img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
     return img
 
-def validate_image_quality(img, min_size=100, blur_threshold=100.0, min_brightness=50, max_brightness=200):
+def validate_image_quality(img, name, min_size=100, blur_threshold=100.0, min_brightness=50, max_brightness=200):
     
     if img.shape[0] < min_size or img.shape[1] < min_size:
-        raise ValueError("A imagem é muito pequena para análise.")
+        raise ValueError(f"A imagem: {name}, é muito pequena para análise.")
 
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     variance = cv2.Laplacian(gray, cv2.CV_64F).var()
     if variance < blur_threshold:
-        raise ValueError("A imagem está borrada, envie uma foto mais nítida.")
+        raise ValueError(f"A imagem: {name}, está borrada, envie uma foto mais nítida.")
 
     mean_brightness = np.mean(gray)
     if mean_brightness < min_brightness or mean_brightness > max_brightness:
-        raise ValueError("A imagem está muito escura ou muito clara.")
+        raise ValueError(f"A imagem: {name}, está muito escura ou muito clara.")
 
     return True
 
@@ -34,7 +34,7 @@ def verify_Presente_face(imgDocument, imgSelfie):
             align=True
         )
     except ValueError:
-        raise ValueError("Nenhum rosto detectado em uma ou ambas as imagens.") 
+        raise ValueError("Nenhum rosto detectado em uma ou em ambas as imagens.") 
 
     return obj
 
@@ -42,8 +42,8 @@ def verify_faces(document_base64, selfie_base64):
     imgDocument = base64_to_cv2_image(document_base64)
     imgSelfie = base64_to_cv2_image(selfie_base64)
 
-    validate_image_quality(imgDocument)
-    validate_image_quality(imgSelfie)
+    validate_image_quality(imgDocument, name="Documento")
+    validate_image_quality(imgSelfie, name="Selfie")
 
     obj = verify_Presente_face(imgDocument, imgSelfie)
 
