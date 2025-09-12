@@ -1,0 +1,270 @@
+[
+    {
+        "label": "Resource",
+        "importPath": "flask_restful",
+        "description": "flask_restful",
+        "isExtraImport": true,
+        "detail": "flask_restful",
+        "documentation": {}
+    },
+    {
+        "label": "Resource",
+        "importPath": "flask_restful",
+        "description": "flask_restful",
+        "isExtraImport": true,
+        "detail": "flask_restful",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "verify_faces",
+        "importPath": "src.service.verificacao_service",
+        "description": "src.service.verificacao_service",
+        "isExtraImport": true,
+        "detail": "src.service.verificacao_service",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "declarative_base",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "SQLAlchemy",
+        "importPath": "flask_sqlalchemy",
+        "description": "flask_sqlalchemy",
+        "isExtraImport": true,
+        "detail": "flask_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Hello",
+        "importPath": "src.controllers.HelloWorld",
+        "description": "src.controllers.HelloWorld",
+        "isExtraImport": true,
+        "detail": "src.controllers.HelloWorld",
+        "documentation": {}
+    },
+    {
+        "label": "VerificacaoController",
+        "importPath": "src.controllers.Verificacao",
+        "description": "src.controllers.Verificacao",
+        "isExtraImport": true,
+        "detail": "src.controllers.Verificacao",
+        "documentation": {}
+    },
+    {
+        "label": "DeepFace",
+        "importPath": "deepface",
+        "description": "deepface",
+        "isExtraImport": true,
+        "detail": "deepface",
+        "documentation": {}
+    },
+    {
+        "label": "cv2",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "cv2",
+        "description": "cv2",
+        "detail": "cv2",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "base64",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "base64",
+        "description": "base64",
+        "detail": "base64",
+        "documentation": {}
+    },
+    {
+        "label": "pytesseract",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pytesseract",
+        "description": "pytesseract",
+        "detail": "pytesseract",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "create_app",
+        "importPath": "src",
+        "description": "src",
+        "isExtraImport": true,
+        "detail": "src",
+        "documentation": {}
+    },
+    {
+        "label": "Hello",
+        "kind": 6,
+        "importPath": "src.controllers.HelloWorld",
+        "description": "src.controllers.HelloWorld",
+        "peekOfCode": "class Hello(Resource):\n    def get(self):\n        return {\"message\": \"Ola delmir!\"}",
+        "detail": "src.controllers.HelloWorld",
+        "documentation": {}
+    },
+    {
+        "label": "VerificacaoController",
+        "kind": 6,
+        "importPath": "src.controllers.Verificacao",
+        "description": "src.controllers.Verificacao",
+        "peekOfCode": "class VerificacaoController(Resource):\n    def post(self):\n        try:\n            data = request.get_json()\n            if 'document' not in data or 'selfie' not in data:\n                return {\"error\": \"Campos 'document' e 'selfie' são obrigatórios.\"}, 400\n            result = verify_faces(data['document'], data['selfie'])\n            return result, 200\n        except ValueError as ve:\n            return {\"error\": str(ve)}, 400",
+        "detail": "src.controllers.Verificacao",
+        "documentation": {}
+    },
+    {
+        "label": "VerificacaoDto",
+        "kind": 6,
+        "importPath": "src.dto.VerificacaoDto",
+        "description": "src.dto.VerificacaoDto",
+        "peekOfCode": "class VerificacaoDto(BaseModel):\n    document: str\n    selfie: str",
+        "detail": "src.dto.VerificacaoDto",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "kind": 5,
+        "importPath": "src.models.Base",
+        "description": "src.models.Base",
+        "peekOfCode": "Base = declarative_base()\ndb = SQLAlchemy()",
+        "detail": "src.models.Base",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "kind": 5,
+        "importPath": "src.models.Base",
+        "description": "src.models.Base",
+        "peekOfCode": "db = SQLAlchemy()",
+        "detail": "src.models.Base",
+        "documentation": {}
+    },
+    {
+        "label": "initialize_endpoints",
+        "kind": 2,
+        "importPath": "src.routes.endpoints",
+        "description": "src.routes.endpoints",
+        "peekOfCode": "def initialize_endpoints(api):\n    api.add_resource(Hello, \"/hello\")\n    api.add_resource(VerificacaoController, \"/verify_faces\")",
+        "detail": "src.routes.endpoints",
+        "documentation": {}
+    },
+    {
+        "label": "base64_to_cv2_image",
+        "kind": 2,
+        "importPath": "src.service.verificacao_service",
+        "description": "src.service.verificacao_service",
+        "peekOfCode": "def base64_to_cv2_image(base64_str):\n    img_data = base64.b64decode(base64_str)\n    np_arr = np.frombuffer(img_data, np.uint8)\n    img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)\n    return img\ndef validate_image_quality(img, name, min_size=100, blur_threshold=100.0, min_brightness=30, max_brightness=300):\n    if img.shape[0] < min_size or img.shape[1] < min_size:\n        raise ValueError(f\"A imagem: {name}, é muito pequena para análise.\")\n    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)\n    variance = cv2.Laplacian(gray, cv2.CV_64F).var()",
+        "detail": "src.service.verificacao_service",
+        "documentation": {}
+    },
+    {
+        "label": "validate_image_quality",
+        "kind": 2,
+        "importPath": "src.service.verificacao_service",
+        "description": "src.service.verificacao_service",
+        "peekOfCode": "def validate_image_quality(img, name, min_size=100, blur_threshold=100.0, min_brightness=30, max_brightness=300):\n    if img.shape[0] < min_size or img.shape[1] < min_size:\n        raise ValueError(f\"A imagem: {name}, é muito pequena para análise.\")\n    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)\n    variance = cv2.Laplacian(gray, cv2.CV_64F).var()\n    if variance < blur_threshold:\n        raise ValueError(f\"A imagem: {name}, está borrada, envie uma foto mais nítida.\")\n    mean_brightness = np.mean(gray)\n    if mean_brightness < min_brightness or mean_brightness > max_brightness:\n        raise ValueError(f\"A imagem: {name}, está muito escura ou muito clara.\")",
+        "detail": "src.service.verificacao_service",
+        "documentation": {}
+    },
+    {
+        "label": "verify_Presente_face",
+        "kind": 2,
+        "importPath": "src.service.verificacao_service",
+        "description": "src.service.verificacao_service",
+        "peekOfCode": "def verify_Presente_face(imgDocument, imgSelfie):\n    try:\n        result = DeepFace.verify(\n            img1_path=imgDocument,\n            img2_path=imgSelfie)\n    except ValueError:\n        raise ValueError(\"Nenhum rosto detectado em uma ou em ambas as imagens.\") \n    return result\ndef extract_document_data(img):\n    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)",
+        "detail": "src.service.verificacao_service",
+        "documentation": {}
+    },
+    {
+        "label": "extract_document_data",
+        "kind": 2,
+        "importPath": "src.service.verificacao_service",
+        "description": "src.service.verificacao_service",
+        "peekOfCode": "def extract_document_data(img):\n    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)\n    gray = cv2.GaussianBlur(gray, (3,3), 0)\n    gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]\n    text = pytesseract.image_to_string(gray, lang=\"por\")\n    dob_pattern = r\"(\\d{2}[/-]\\d{2}[/-]\\d{4})\"\n    dob_match = re.search(dob_pattern, text)\n    nascimento = dob_match.group(1) if dob_match else None\n    lines = [line.strip() for line in text.split(\"\\n\") if line.strip()]\n    invalid_keywords = [\"FILAÇÃO\", \"NOME DO PAI\", \"NOME DA MÃE\", \"ESTADO\", \"GOVERNO\", \"IDENTIFICAÇÃO\"]",
+        "detail": "src.service.verificacao_service",
+        "documentation": {}
+    },
+    {
+        "label": "crop_face",
+        "kind": 2,
+        "importPath": "src.service.verificacao_service",
+        "description": "src.service.verificacao_service",
+        "peekOfCode": "def crop_face(img, face_coords):\n    x, y, w, h = face_coords['x'], face_coords['y'], face_coords['w'], face_coords['h']\n    face_img = img[y:y+h, x:x+w]\n    return face_img\ndef cv2_to_base64(img):\n    _, buffer = cv2.imencode('.jpg', img)\n    return base64.b64encode(buffer).decode('utf-8')\ndef verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)",
+        "detail": "src.service.verificacao_service",
+        "documentation": {}
+    },
+    {
+        "label": "cv2_to_base64",
+        "kind": 2,
+        "importPath": "src.service.verificacao_service",
+        "description": "src.service.verificacao_service",
+        "peekOfCode": "def cv2_to_base64(img):\n    _, buffer = cv2.imencode('.jpg', img)\n    return base64.b64encode(buffer).decode('utf-8')\ndef verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")\n    result = verify_Presente_face(imgDocument, imgSelfie)\n    document_data = extract_document_data(imgDocument)",
+        "detail": "src.service.verificacao_service",
+        "documentation": {}
+    },
+    {
+        "label": "verify_faces",
+        "kind": 2,
+        "importPath": "src.service.verificacao_service",
+        "description": "src.service.verificacao_service",
+        "peekOfCode": "def verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")\n    result = verify_Presente_face(imgDocument, imgSelfie)\n    document_data = extract_document_data(imgDocument)\n    face_document_img = crop_face(imgDocument, result['facial_areas']['img1'])\n    face_selfie_img = crop_face(imgSelfie, result['facial_areas']['img2'])\n    face_document_base64 = cv2_to_base64(face_document_img)",
+        "detail": "src.service.verificacao_service",
+        "documentation": {}
+    },
+    {
+        "label": "pytesseract.pytesseract.tesseract_cmd",
+        "kind": 5,
+        "importPath": "src.service.verificacao_service",
+        "description": "src.service.verificacao_service",
+        "peekOfCode": "pytesseract.pytesseract.tesseract_cmd = r\"C:\\Program Files\\Tesseract-OCR\\tesseract.exe\"\ndef base64_to_cv2_image(base64_str):\n    img_data = base64.b64decode(base64_str)\n    np_arr = np.frombuffer(img_data, np.uint8)\n    img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)\n    return img\ndef validate_image_quality(img, name, min_size=100, blur_threshold=100.0, min_brightness=30, max_brightness=300):\n    if img.shape[0] < min_size or img.shape[1] < min_size:\n        raise ValueError(f\"A imagem: {name}, é muito pequena para análise.\")\n    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)",
+        "detail": "src.service.verificacao_service",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "manage",
+        "description": "manage",
+        "peekOfCode": "app = create_app()",
+        "detail": "manage",
+        "documentation": {}
+    }
+]

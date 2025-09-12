@@ -15,5 +15,3 @@ class VerificacaoController(Resource):
 
         except ValueError as ve:
             return {"error": str(ve)}, 400
-        except Exception as e:
-            return {"error": "Erro interno ao processar a verificação.", "details": str(e)}, 500

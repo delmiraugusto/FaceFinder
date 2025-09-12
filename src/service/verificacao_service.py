@@ -31,18 +31,13 @@ def validate_image_quality(img, name, min_size=100, blur_threshold=100.0, min_br
 
 def verify_Presente_face(imgDocument, imgSelfie):
     try:
-        obj = DeepFace.verify(
+        result = DeepFace.verify(
             img1_path=imgDocument,
-            img2_path=imgSelfie,
-            detector_backend="opencv",
-            align=True
-        )
+            img2_path=imgSelfie)
     except ValueError:
         raise ValueError("Nenhum rosto detectado em uma ou em ambas as imagens.") 
 
-    return obj
-
-import re
+    return result
 
 def extract_document_data(img):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -81,8 +76,14 @@ def extract_document_data(img):
         "data_nascimento": nascimento
     }
 
+def crop_face(img, face_coords):
+    x, y, w, h = face_coords['x'], face_coords['y'], face_coords['w'], face_coords['h']
+    face_img = img[y:y+h, x:x+w]
+    return face_img
 
-
+def cv2_to_base64(img):
+    _, buffer = cv2.imencode('.jpg', img)
+    return base64.b64encode(buffer).decode('utf-8')
     
 def verify_faces(document_base64, selfie_base64):
     imgDocument = base64_to_cv2_image(document_base64)
@@ -91,14 +92,21 @@ def verify_faces(document_base64, selfie_base64):
     validate_image_quality(imgDocument, name="Documento")
     validate_image_quality(imgSelfie, name="Selfie")
 
-    obj = verify_Presente_face(imgDocument, imgSelfie)
+    result = verify_Presente_face(imgDocument, imgSelfie)
 
     document_data = extract_document_data(imgDocument)
 
+    face_document_img = crop_face(imgDocument, result['facial_areas']['img1'])
+    face_selfie_img = crop_face(imgSelfie, result['facial_areas']['img2'])
+
+    face_document_base64 = cv2_to_base64(face_document_img)
+    face_selfie_base64 = cv2_to_base64(face_selfie_img)
 
     return {
-        "verified": obj["verified"],
-        "distance": obj["distance"],
-        "similarity_percent": round((1 - obj["distance"]) * 100, 2),
-        "document_data": document_data
+        "verification": result,
+        "document_data": document_data,
+        "faces": {
+            "document_face": face_document_base64,
+            "selfie_face": face_selfie_base64
+        }
     }
