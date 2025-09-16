@@ -48,11 +48,77 @@
         "documentation": {}
     },
     {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
         "label": "SQLAlchemy",
         "importPath": "flask_sqlalchemy",
         "description": "flask_sqlalchemy",
         "isExtraImport": true,
         "detail": "flask_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Integer",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "String",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "ForeignKey",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "DateTime",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "datetime",
+        "description": "datetime",
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "uuid",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uuid",
+        "description": "uuid",
+        "detail": "uuid",
         "documentation": {}
     },
     {
@@ -175,6 +241,15 @@
         "description": "src.models.Base",
         "peekOfCode": "db = SQLAlchemy()",
         "detail": "src.models.Base",
+        "documentation": {}
+    },
+    {
+        "label": "Reserva",
+        "kind": 6,
+        "importPath": "src.models.Reserva",
+        "description": "src.models.Reserva",
+        "peekOfCode": "class Reserva(Base):\n    __tablename__ = 'reserva'\n    codigo_uuid = Column(String(36), primary_key=True, unique=True, nullable=False, default=lambda: str(uuid.uuid4()))\n    numero_reserva = Column(String(50), nullable=False)\n    status = Column(bool)\n    data_checkin = Column(DateTime, nullable=False, default=datetime.datetime.now)\n    # hospede_id = Column(Integer, ForeignKey('hospede.id'), nullable=False)\n    def __init__(self, numero_reserva, status, data_checkout, quarto_id):\n        self.numero_reserva = numero_reserva\n        self.status = status",
+        "detail": "src.models.Reserva",
         "documentation": {}
     },
     {

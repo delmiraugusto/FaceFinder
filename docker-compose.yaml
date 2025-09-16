@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: FaceFinder
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: facefinder
+    volumes:
+      - polls_pg_data:/bitname/postgresql
+
+volumes:
+  polls_pg_data:

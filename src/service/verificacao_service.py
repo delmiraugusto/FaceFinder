@@ -4,6 +4,7 @@ import numpy as np
 import base64
 import pytesseract
 import re
+from sqlalchemy.orm import Session
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
