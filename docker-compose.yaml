@@ -1,7 +1,19 @@
 services:
+
+  api:
+    build: .
+    container_name: FaceFinderApi
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    environment:
+      FLASK_DEBUG: 1
+      FLASK_ENV: development
+      DATABASE_URL: postgresql+psycopg2://postgres:123456@postgres:5432/facefinder
   postgres:
     image: postgres:17
-    container_name: FaceFinder
+    container_name: FaceFinderdb
     ports:
       - "5432:5432"
     environment:

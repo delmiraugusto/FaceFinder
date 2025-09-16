@@ -1,5 +1,7 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Boolean
+from sqlalchemy import Column, String, DateTime, Boolean
+from sqlalchemy.orm import relationship
 import datetime
+from src.models.Hospede_Reserva import hospede_reserva
 from .Base import Base
 import uuid
 
@@ -11,7 +13,9 @@ class Reserva(Base):
     status = Column(Boolean)
     data_checkin = Column(DateTime, nullable=False, default=datetime.datetime.now)
 
-    # hospede_id = Column(Integer, ForeignKey('hospede.id'), nullable=False)
-    def __init__(self, numero_reserva, status):
+    hospedes = relationship("Hospede", secondary=hospede_reserva, back_populates="reservas")
+
+    def __init__(self, numero_reserva, status, hospede_id):
         self.numero_reserva = numero_reserva
         self.status = status
+        self.hospede_id = hospede_id

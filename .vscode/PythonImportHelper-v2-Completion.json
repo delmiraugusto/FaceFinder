@@ -64,6 +64,22 @@
         "documentation": {}
     },
     {
+        "label": "relationship",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "relationship",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
         "label": "Session",
         "importPath": "sqlalchemy.orm",
         "description": "sqlalchemy.orm",
@@ -128,23 +144,7 @@
         "documentation": {}
     },
     {
-        "label": "Integer",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
-        "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
         "label": "String",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
-        "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
-        "label": "ForeignKey",
         "importPath": "sqlalchemy",
         "description": "sqlalchemy",
         "isExtraImport": true,
@@ -168,12 +168,75 @@
         "documentation": {}
     },
     {
-        "label": "datetime",
-        "kind": 6,
+        "label": "Table",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
         "isExtraImport": true,
-        "importPath": "datetime",
-        "description": "datetime",
-        "detail": "datetime",
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "ForeignKey",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "String",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "DateTime",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Boolean",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "hospede_reserva",
+        "importPath": "src.models.Hospede_Reserva",
+        "description": "src.models.Hospede_Reserva",
+        "isExtraImport": true,
+        "detail": "src.models.Hospede_Reserva",
+        "documentation": {}
+    },
+    {
+        "label": "hospede_reserva",
+        "importPath": "src.models.Hospede_Reserva",
+        "description": "src.models.Hospede_Reserva",
+        "isExtraImport": true,
+        "detail": "src.models.Hospede_Reserva",
         "documentation": {}
     },
     {
@@ -183,6 +246,15 @@
         "importPath": "uuid",
         "description": "uuid",
         "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "datetime",
+        "description": "datetime",
+        "detail": "datetime",
         "documentation": {}
     },
     {
@@ -308,7 +380,7 @@
         "kind": 6,
         "importPath": "src.controllers.ReservaController",
         "description": "src.controllers.ReservaController",
-        "peekOfCode": "class ReservaListResource(Resource):\n    def post(self):\n        data = request.get_json()\n        reserva_service = ReservaService(db.session)\n        try:\n            reserva = reserva_service.criar_reserva(data)\n            return {\n                \"codigo_uuid\": reserva.codigo_uuid,\n                \"numero_reserva\": reserva.numero_reserva,\n                \"status\": str(reserva.status),",
+        "peekOfCode": "class ReservaListResource(Resource):\n    def post(self):\n        reserva_service = ReservaService(db.session)\n        try:\n            data = request.get_json()\n            reserva = reserva_service.criar_reserva(data)\n            return {\n                \"codigo_uuid\": reserva.codigo_uuid,\n                \"numero_reserva\": reserva.numero_reserva,\n                \"status\": str(reserva.status),",
         "detail": "src.controllers.ReservaController",
         "documentation": {}
     },
@@ -349,11 +421,29 @@
         "documentation": {}
     },
     {
+        "label": "Hospede",
+        "kind": 6,
+        "importPath": "src.models.Hospede",
+        "description": "src.models.Hospede",
+        "peekOfCode": "class Hospede(Base):\n    __tablename__ = 'hospede'\n    codigo_uuid = Column(String(36), primary_key=True, unique=True, nullable=False, default=lambda: str(uuid.uuid4()))\n    status = Column(Boolean)\n    reservas = relationship(\"Reserva\", secondary=hospede_reserva, back_populates=\"hospedes\")\n    def __init__(self, status):\n        self.status = status",
+        "detail": "src.models.Hospede",
+        "documentation": {}
+    },
+    {
+        "label": "hospede_reserva",
+        "kind": 5,
+        "importPath": "src.models.Hospede_Reserva",
+        "description": "src.models.Hospede_Reserva",
+        "peekOfCode": "hospede_reserva = Table(\n    'hospede_reserva',\n    Base.metadata,\n    Column('hospede_id', ForeignKey('hospede.id'), primary_key=True),\n    Column('reserva_id', ForeignKey('reserva.id'), primary_key=True)\n)",
+        "detail": "src.models.Hospede_Reserva",
+        "documentation": {}
+    },
+    {
         "label": "Reserva",
         "kind": 6,
         "importPath": "src.models.Reserva",
         "description": "src.models.Reserva",
-        "peekOfCode": "class Reserva(Base):\n    __tablename__ = 'reserva'\n    codigo_uuid = Column(String(36), primary_key=True, unique=True, nullable=False, default=lambda: str(uuid.uuid4()))\n    numero_reserva = Column(String(50), nullable=False)\n    status = Column(Boolean)\n    data_checkin = Column(DateTime, nullable=False, default=datetime.datetime.now)\n    # hospede_id = Column(Integer, ForeignKey('hospede.id'), nullable=False)\n    def __init__(self, numero_reserva, status):\n        self.numero_reserva = numero_reserva\n        self.status = status",
+        "peekOfCode": "class Reserva(Base):\n    __tablename__ = 'reserva'\n    codigo_uuid = Column(String(36), primary_key=True, unique=True, nullable=False, default=lambda: str(uuid.uuid4()))\n    numero_reserva = Column(String(50), nullable=False)\n    status = Column(Boolean)\n    data_checkin = Column(DateTime, nullable=False, default=datetime.datetime.now)\n    hospedes = relationship(\"Hospede\", secondary=hospede_reserva, back_populates=\"reservas\")\n    def __init__(self, numero_reserva, status, hospede_id):\n        self.numero_reserva = numero_reserva\n        self.status = status",
         "detail": "src.models.Reserva",
         "documentation": {}
     },

@@ -7,9 +7,9 @@ from src.models.Base import db
 class ReservaListResource(Resource):
 
     def post(self):
-        data = request.get_json()
         reserva_service = ReservaService(db.session)
         try:
+            data = request.get_json()
             reserva = reserva_service.criar_reserva(data)
             return {
                 "codigo_uuid": reserva.codigo_uuid,
