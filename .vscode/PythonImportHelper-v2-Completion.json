@@ -16,6 +16,14 @@
         "documentation": {}
     },
     {
+        "label": "Resource",
+        "importPath": "flask_restful",
+        "description": "flask_restful",
+        "isExtraImport": true,
+        "detail": "flask_restful",
+        "documentation": {}
+    },
+    {
         "label": "request",
         "importPath": "flask",
         "description": "flask",
@@ -24,19 +32,27 @@
         "documentation": {}
     },
     {
-        "label": "verify_faces",
-        "importPath": "src.service.verificacao_service",
-        "description": "src.service.verificacao_service",
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
         "isExtraImport": true,
-        "detail": "src.service.verificacao_service",
+        "detail": "flask",
         "documentation": {}
     },
     {
-        "label": "BaseModel",
-        "importPath": "pydantic",
-        "description": "pydantic",
+        "label": "ReservaService",
+        "importPath": "src.service.reserva_service",
+        "description": "src.service.reserva_service",
         "isExtraImport": true,
-        "detail": "pydantic",
+        "detail": "src.service.reserva_service",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
         "documentation": {}
     },
     {
@@ -53,6 +69,46 @@
         "description": "sqlalchemy.orm",
         "isExtraImport": true,
         "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "src.models.Base",
+        "description": "src.models.Base",
+        "isExtraImport": true,
+        "detail": "src.models.Base",
+        "documentation": {}
+    },
+    {
+        "label": "verify_faces",
+        "importPath": "src.service.verificacao_service",
+        "description": "src.service.verificacao_service",
+        "isExtraImport": true,
+        "detail": "src.service.verificacao_service",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
         "documentation": {}
     },
     {
@@ -104,6 +160,14 @@
         "documentation": {}
     },
     {
+        "label": "Boolean",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
         "label": "datetime",
         "kind": 6,
         "isExtraImport": true,
@@ -122,6 +186,22 @@
         "documentation": {}
     },
     {
+        "label": "Reserva",
+        "importPath": "src.models.Reserva",
+        "description": "src.models.Reserva",
+        "isExtraImport": true,
+        "detail": "src.models.Reserva",
+        "documentation": {}
+    },
+    {
+        "label": "Reserva",
+        "importPath": "src.models.Reserva",
+        "description": "src.models.Reserva",
+        "isExtraImport": true,
+        "detail": "src.models.Reserva",
+        "documentation": {}
+    },
+    {
         "label": "Hello",
         "importPath": "src.controllers.HelloWorld",
         "description": "src.controllers.HelloWorld",
@@ -135,6 +215,22 @@
         "description": "src.controllers.Verificacao",
         "isExtraImport": true,
         "detail": "src.controllers.Verificacao",
+        "documentation": {}
+    },
+    {
+        "label": "ReservaListResource",
+        "importPath": "src.controllers.ReservaController",
+        "description": "src.controllers.ReservaController",
+        "isExtraImport": true,
+        "detail": "src.controllers.ReservaController",
+        "documentation": {}
+    },
+    {
+        "label": "ReservaRepository",
+        "importPath": "src.repository.reserva_repository",
+        "description": "src.repository.reserva_repository",
+        "isExtraImport": true,
+        "detail": "src.repository.reserva_repository",
         "documentation": {}
     },
     {
@@ -208,6 +304,15 @@
         "documentation": {}
     },
     {
+        "label": "ReservaListResource",
+        "kind": 6,
+        "importPath": "src.controllers.ReservaController",
+        "description": "src.controllers.ReservaController",
+        "peekOfCode": "class ReservaListResource(Resource):\n    def post(self):\n        data = request.get_json()\n        reserva_service = ReservaService(db.session)\n        try:\n            reserva = reserva_service.criar_reserva(data)\n            return {\n                \"codigo_uuid\": reserva.codigo_uuid,\n                \"numero_reserva\": reserva.numero_reserva,\n                \"status\": str(reserva.status),",
+        "detail": "src.controllers.ReservaController",
+        "documentation": {}
+    },
+    {
         "label": "VerificacaoController",
         "kind": 6,
         "importPath": "src.controllers.Verificacao",
@@ -248,8 +353,17 @@
         "kind": 6,
         "importPath": "src.models.Reserva",
         "description": "src.models.Reserva",
-        "peekOfCode": "class Reserva(Base):\n    __tablename__ = 'reserva'\n    codigo_uuid = Column(String(36), primary_key=True, unique=True, nullable=False, default=lambda: str(uuid.uuid4()))\n    numero_reserva = Column(String(50), nullable=False)\n    status = Column(bool)\n    data_checkin = Column(DateTime, nullable=False, default=datetime.datetime.now)\n    # hospede_id = Column(Integer, ForeignKey('hospede.id'), nullable=False)\n    def __init__(self, numero_reserva, status, data_checkout, quarto_id):\n        self.numero_reserva = numero_reserva\n        self.status = status",
+        "peekOfCode": "class Reserva(Base):\n    __tablename__ = 'reserva'\n    codigo_uuid = Column(String(36), primary_key=True, unique=True, nullable=False, default=lambda: str(uuid.uuid4()))\n    numero_reserva = Column(String(50), nullable=False)\n    status = Column(Boolean)\n    data_checkin = Column(DateTime, nullable=False, default=datetime.datetime.now)\n    # hospede_id = Column(Integer, ForeignKey('hospede.id'), nullable=False)\n    def __init__(self, numero_reserva, status):\n        self.numero_reserva = numero_reserva\n        self.status = status",
         "detail": "src.models.Reserva",
+        "documentation": {}
+    },
+    {
+        "label": "ReservaRepository",
+        "kind": 6,
+        "importPath": "src.repository.reserva_repository",
+        "description": "src.repository.reserva_repository",
+        "peekOfCode": "class ReservaRepository:\n    def __init__(self, session: Session):\n        self.session = session\n    def add(self, reserva):\n        self.session.add(reserva)\n        self.session.commit()\n        self.session.refresh(reserva)\n        return reserva",
+        "detail": "src.repository.reserva_repository",
         "documentation": {}
     },
     {
@@ -257,8 +371,17 @@
         "kind": 2,
         "importPath": "src.routes.endpoints",
         "description": "src.routes.endpoints",
-        "peekOfCode": "def initialize_endpoints(api):\n    api.add_resource(Hello, \"/hello\")\n    api.add_resource(VerificacaoController, \"/verify_faces\")",
+        "peekOfCode": "def initialize_endpoints(api):\n    api.add_resource(Hello, \"/hello\")\n    api.add_resource(VerificacaoController, \"/verify_faces\")\n    api.add_resource(ReservaListResource, \"/reserva\")",
         "detail": "src.routes.endpoints",
+        "documentation": {}
+    },
+    {
+        "label": "ReservaService",
+        "kind": 6,
+        "importPath": "src.service.reserva_service",
+        "description": "src.service.reserva_service",
+        "peekOfCode": "class ReservaService:\n    def __init__(self, session: Session):\n        self.repo = ReservaRepository(session)\n        self.session = session\n    def criar_reserva(self, data):\n        reserva = Reserva(\n            numero_reserva=data.get(\"numero_reserva\"),\n            status=data.get(\"status\")\n        )\n        return self.repo.add(reserva)",
+        "detail": "src.service.reserva_service",
         "documentation": {}
     },
     {
