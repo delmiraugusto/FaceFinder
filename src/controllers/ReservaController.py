@@ -1,7 +1,6 @@
 from flask import request
 from flask_restful import Resource
 from src.service.reserva_service import ReservaService
-from sqlalchemy.orm import Session
 from src.models.Base import db
 
 class ReservaListResource(Resource):

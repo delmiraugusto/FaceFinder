@@ -1,4 +1,3 @@
-from src.models.Reserva import Reserva
 from sqlalchemy.orm import Session
 
 class ReservaRepository:

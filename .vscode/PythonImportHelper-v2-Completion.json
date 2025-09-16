@@ -24,6 +24,14 @@
         "documentation": {}
     },
     {
+        "label": "Resource",
+        "importPath": "flask_restful",
+        "description": "flask_restful",
+        "isExtraImport": true,
+        "detail": "flask_restful",
+        "documentation": {}
+    },
+    {
         "label": "request",
         "importPath": "flask",
         "description": "flask",
@@ -37,6 +45,62 @@
         "description": "flask",
         "isExtraImport": true,
         "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "src.models.Base",
+        "description": "src.models.Base",
+        "isExtraImport": true,
+        "detail": "src.models.Base",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "src.models.Base",
+        "description": "src.models.Base",
+        "isExtraImport": true,
+        "detail": "src.models.Base",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "importPath": "src.models.Base",
+        "description": "src.models.Base",
+        "isExtraImport": true,
+        "detail": "src.models.Base",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "importPath": "src.models.Base",
+        "description": "src.models.Base",
+        "isExtraImport": true,
+        "detail": "src.models.Base",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "importPath": "src.models.Base",
+        "description": "src.models.Base",
+        "isExtraImport": true,
+        "detail": "src.models.Base",
+        "documentation": {}
+    },
+    {
+        "label": "HospedeService",
+        "importPath": "src.service.hospede_service",
+        "description": "src.service.hospede_service",
+        "isExtraImport": true,
+        "detail": "src.service.hospede_service",
         "documentation": {}
     },
     {
@@ -48,11 +112,19 @@
         "documentation": {}
     },
     {
-        "label": "Session",
-        "importPath": "sqlalchemy.orm",
-        "description": "sqlalchemy.orm",
+        "label": "verify_faces",
+        "importPath": "src.service.verificacao_service",
+        "description": "src.service.verificacao_service",
         "isExtraImport": true,
-        "detail": "sqlalchemy.orm",
+        "detail": "src.service.verificacao_service",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
         "documentation": {}
     },
     {
@@ -104,27 +176,19 @@
         "documentation": {}
     },
     {
-        "label": "db",
-        "importPath": "src.models.Base",
-        "description": "src.models.Base",
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
         "isExtraImport": true,
-        "detail": "src.models.Base",
+        "detail": "sqlalchemy.orm",
         "documentation": {}
     },
     {
-        "label": "verify_faces",
-        "importPath": "src.service.verificacao_service",
-        "description": "src.service.verificacao_service",
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
         "isExtraImport": true,
-        "detail": "src.service.verificacao_service",
-        "documentation": {}
-    },
-    {
-        "label": "BaseModel",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
+        "detail": "sqlalchemy.orm",
         "documentation": {}
     },
     {
@@ -145,14 +209,6 @@
     },
     {
         "label": "String",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
-        "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
-        "label": "DateTime",
         "importPath": "sqlalchemy",
         "description": "sqlalchemy",
         "isExtraImport": true,
@@ -208,7 +264,7 @@
         "documentation": {}
     },
     {
-        "label": "DateTime",
+        "label": "Boolean",
         "importPath": "sqlalchemy",
         "description": "sqlalchemy",
         "isExtraImport": true,
@@ -216,7 +272,7 @@
         "documentation": {}
     },
     {
-        "label": "Boolean",
+        "label": "DateTime",
         "importPath": "sqlalchemy",
         "description": "sqlalchemy",
         "isExtraImport": true,
@@ -249,28 +305,12 @@
         "documentation": {}
     },
     {
-        "label": "datetime",
+        "label": "datetime,",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "datetime",
-        "description": "datetime",
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "Reserva",
-        "importPath": "src.models.Reserva",
-        "description": "src.models.Reserva",
-        "isExtraImport": true,
-        "detail": "src.models.Reserva",
-        "documentation": {}
-    },
-    {
-        "label": "Reserva",
-        "importPath": "src.models.Reserva",
-        "description": "src.models.Reserva",
-        "isExtraImport": true,
-        "detail": "src.models.Reserva",
+        "importPath": "datetime.",
+        "description": "datetime.",
+        "detail": "datetime.",
         "documentation": {}
     },
     {
@@ -295,6 +335,38 @@
         "description": "src.controllers.ReservaController",
         "isExtraImport": true,
         "detail": "src.controllers.ReservaController",
+        "documentation": {}
+    },
+    {
+        "label": "HospedeListResource",
+        "importPath": "src.controllers.HospedeController",
+        "description": "src.controllers.HospedeController",
+        "isExtraImport": true,
+        "detail": "src.controllers.HospedeController",
+        "documentation": {}
+    },
+    {
+        "label": "HospedeRepository",
+        "importPath": "src.repository.hospede_repository",
+        "description": "src.repository.hospede_repository",
+        "isExtraImport": true,
+        "detail": "src.repository.hospede_repository",
+        "documentation": {}
+    },
+    {
+        "label": "Hospede",
+        "importPath": "src.models.Hospede",
+        "description": "src.models.Hospede",
+        "isExtraImport": true,
+        "detail": "src.models.Hospede",
+        "documentation": {}
+    },
+    {
+        "label": "Reserva",
+        "importPath": "src.models.Reserva",
+        "description": "src.models.Reserva",
+        "isExtraImport": true,
+        "detail": "src.models.Reserva",
         "documentation": {}
     },
     {
@@ -376,6 +448,15 @@
         "documentation": {}
     },
     {
+        "label": "HospedeListResource",
+        "kind": 6,
+        "importPath": "src.controllers.HospedeController",
+        "description": "src.controllers.HospedeController",
+        "peekOfCode": "class HospedeListResource(Resource):\n    def post(self):\n        hospede_service = HospedeService(db.session)\n        try:\n            data = request.get_json()\n            hospede = hospede_service.criar_hospede(data)\n            return {\n                \"codigo_uuid\": hospede.codigo_uuid,\n                \"status\": str(hospede.status),\n            }, 201",
+        "detail": "src.controllers.HospedeController",
+        "documentation": {}
+    },
+    {
         "label": "ReservaListResource",
         "kind": 6,
         "importPath": "src.controllers.ReservaController",
@@ -425,7 +506,7 @@
         "kind": 6,
         "importPath": "src.models.Hospede",
         "description": "src.models.Hospede",
-        "peekOfCode": "class Hospede(Base):\n    __tablename__ = 'hospede'\n    codigo_uuid = Column(String(36), primary_key=True, unique=True, nullable=False, default=lambda: str(uuid.uuid4()))\n    status = Column(Boolean)\n    reservas = relationship(\"Reserva\", secondary=hospede_reserva, back_populates=\"hospedes\")\n    def __init__(self, status):\n        self.status = status",
+        "peekOfCode": "class Hospede(Base):\n    __tablename__ = 'hospede'\n    codigo_uuid = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))\n    status = Column(Boolean)\n    reservas = relationship(\n        \"Reserva\",\n        secondary=hospede_reserva,\n        back_populates=\"hospedes\"\n    )\n    def __init__(self, status=None):",
         "detail": "src.models.Hospede",
         "documentation": {}
     },
@@ -434,7 +515,7 @@
         "kind": 5,
         "importPath": "src.models.Hospede_Reserva",
         "description": "src.models.Hospede_Reserva",
-        "peekOfCode": "hospede_reserva = Table(\n    'hospede_reserva',\n    Base.metadata,\n    Column('hospede_id', ForeignKey('hospede.id'), primary_key=True),\n    Column('reserva_id', ForeignKey('reserva.id'), primary_key=True)\n)",
+        "peekOfCode": "hospede_reserva = Table(\n    'hospede_reserva',\n    Base.metadata,\n    Column('hospede_uuid', ForeignKey('hospede.codigo_uuid'), primary_key=True),\n    Column('reserva_uuid', ForeignKey('reserva.codigo_uuid'), primary_key=True)\n)",
         "detail": "src.models.Hospede_Reserva",
         "documentation": {}
     },
@@ -443,8 +524,17 @@
         "kind": 6,
         "importPath": "src.models.Reserva",
         "description": "src.models.Reserva",
-        "peekOfCode": "class Reserva(Base):\n    __tablename__ = 'reserva'\n    codigo_uuid = Column(String(36), primary_key=True, unique=True, nullable=False, default=lambda: str(uuid.uuid4()))\n    numero_reserva = Column(String(50), nullable=False)\n    status = Column(Boolean)\n    data_checkin = Column(DateTime, nullable=False, default=datetime.datetime.now)\n    hospedes = relationship(\"Hospede\", secondary=hospede_reserva, back_populates=\"reservas\")\n    def __init__(self, numero_reserva, status, hospede_id):\n        self.numero_reserva = numero_reserva\n        self.status = status",
+        "peekOfCode": "class Reserva(Base):\n    __tablename__ = 'reserva'\n    codigo_uuid = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))\n    numero_reserva = Column(String(50), nullable=False)\n    status = Column(Boolean)\n    data_checkin = Column(DateTime, default=datetime.datetime.now)\n    hospedes = relationship(\n        \"Hospede\",\n        secondary=hospede_reserva,\n        back_populates=\"reservas\"",
         "detail": "src.models.Reserva",
+        "documentation": {}
+    },
+    {
+        "label": "HospedeRepository",
+        "kind": 6,
+        "importPath": "src.repository.hospede_repository",
+        "description": "src.repository.hospede_repository",
+        "peekOfCode": "class HospedeRepository:\n    def __init__(self, session: Session):\n        self.session = session\n    def add(self, hospede):\n        self.session.add(hospede)\n        self.session.commit()\n        self.session.refresh(hospede)\n        return hospede",
+        "detail": "src.repository.hospede_repository",
         "documentation": {}
     },
     {
@@ -461,8 +551,17 @@
         "kind": 2,
         "importPath": "src.routes.endpoints",
         "description": "src.routes.endpoints",
-        "peekOfCode": "def initialize_endpoints(api):\n    api.add_resource(Hello, \"/hello\")\n    api.add_resource(VerificacaoController, \"/verify_faces\")\n    api.add_resource(ReservaListResource, \"/reserva\")",
+        "peekOfCode": "def initialize_endpoints(api):\n    api.add_resource(Hello, \"/hello\")\n    api.add_resource(VerificacaoController, \"/verify_faces\")\n    api.add_resource(ReservaListResource, \"/reserva\")\n    api.add_resource(HospedeListResource, \"/hospede\")",
         "detail": "src.routes.endpoints",
+        "documentation": {}
+    },
+    {
+        "label": "HospedeService",
+        "kind": 6,
+        "importPath": "src.service.hospede_service",
+        "description": "src.service.hospede_service",
+        "peekOfCode": "class HospedeService:\n    def __init__(self, session: Session):\n        self.repo = HospedeRepository(session)\n        self.session = session\n    def criar_hospede(self, data):\n        hospede = Hospede(\n            status=data.get(\"status\")\n        )\n        return self.repo.add(hospede)",
+        "detail": "src.service.hospede_service",
         "documentation": {}
     },
     {
