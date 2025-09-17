@@ -137,6 +137,14 @@
         "documentation": {}
     },
     {
+        "label": "require_api_key",
+        "importPath": "src.config.auth",
+        "description": "src.config.auth",
+        "isExtraImport": true,
+        "detail": "src.config.auth",
+        "documentation": {}
+    },
+    {
         "label": "ReservaService",
         "importPath": "src.service.reserva_service",
         "description": "src.service.reserva_service",
@@ -599,11 +607,20 @@
         "documentation": {}
     },
     {
+        "label": "ReservaBaseResource",
+        "kind": 6,
+        "importPath": "src.controllers.ReservaController",
+        "description": "src.controllers.ReservaController",
+        "peekOfCode": "class ReservaBaseResource(Resource):\n    method_decorators = [require_api_key(RESERVA_API_KEY)]\nclass ReservaResource(ReservaBaseResource):\n    def post(self):\n        reserva_service = ReservaService(db.session)\n        try:\n            data = request.get_json()\n            reserva = reserva_service.criar_reserva(data)\n            return {\n                \"codigo_uuid\": reserva.codigo_uuid,",
+        "detail": "src.controllers.ReservaController",
+        "documentation": {}
+    },
+    {
         "label": "ReservaResource",
         "kind": 6,
         "importPath": "src.controllers.ReservaController",
         "description": "src.controllers.ReservaController",
-        "peekOfCode": "class ReservaResource(Resource):\n    def post(self):\n        reserva_service = ReservaService(db.session)\n        try:\n            data = request.get_json()\n            reserva = reserva_service.criar_reserva(data)\n            return {\n                \"codigo_uuid\": reserva.codigo_uuid,\n                \"numero_reserva\": reserva.numero_reserva,\n                \"status\": str(reserva.status),",
+        "peekOfCode": "class ReservaResource(ReservaBaseResource):\n    def post(self):\n        reserva_service = ReservaService(db.session)\n        try:\n            data = request.get_json()\n            reserva = reserva_service.criar_reserva(data)\n            return {\n                \"codigo_uuid\": reserva.codigo_uuid,\n                \"numero_reserva\": reserva.numero_reserva,\n                \"status\": str(reserva.status),",
         "detail": "src.controllers.ReservaController",
         "documentation": {}
     },
@@ -612,7 +629,7 @@
         "kind": 6,
         "importPath": "src.controllers.ReservaController",
         "description": "src.controllers.ReservaController",
-        "peekOfCode": "class ReservaListResource(Resource):\n    def get(self, reserva_id):\n        reserva_service = ReservaService(db.session)\n        try:\n            reserva = reserva_service.listar_reserva(reserva_id)\n            return {\n                \"codigo_uuid\": reserva.codigo_uuid,\n                \"numero_reserva\": reserva.numero_reserva,\n                \"status\": str(reserva.status),\n                \"data_checkin\": reserva.data_checkin.isoformat(),",
+        "peekOfCode": "class ReservaListResource(ReservaBaseResource):\n    def get(self, reserva_id):\n        reserva_service = ReservaService(db.session)\n        try:\n            reserva = reserva_service.listar_reserva(reserva_id)\n            return {\n                \"codigo_uuid\": reserva.codigo_uuid,\n                \"numero_reserva\": reserva.numero_reserva,\n                \"status\": str(reserva.status),\n                \"data_checkin\": reserva.data_checkin.isoformat(),",
         "detail": "src.controllers.ReservaController",
         "documentation": {}
     },
@@ -621,7 +638,7 @@
         "kind": 6,
         "importPath": "src.controllers.ReservaController",
         "description": "src.controllers.ReservaController",
-        "peekOfCode": "class ReservaStatusResource(Resource):\n    def patch(self, reserva_id):\n        reserva_service = ReservaService(db.session)\n        try:\n            reserva = reserva_service.forcar_status_reserva(reserva_id)\n            return {\n                \"codigo_uuid\": reserva.codigo_uuid,\n                \"numero_reserva\": reserva.numero_reserva,\n                \"status\": str(reserva.status),\n                \"data_checkin\": reserva.data_checkin.isoformat(),",
+        "peekOfCode": "class ReservaStatusResource(ReservaBaseResource):\n    def patch(self, reserva_id):\n        reserva_service = ReservaService(db.session)\n        try:\n            reserva = reserva_service.forcar_status_reserva(reserva_id)\n            return {\n                \"codigo_uuid\": reserva.codigo_uuid,\n                \"numero_reserva\": reserva.numero_reserva,\n                \"status\": str(reserva.status),\n                \"data_checkin\": reserva.data_checkin.isoformat(),",
         "detail": "src.controllers.ReservaController",
         "documentation": {}
     },
@@ -630,7 +647,16 @@
         "kind": 6,
         "importPath": "src.controllers.ReservaController",
         "description": "src.controllers.ReservaController",
-        "peekOfCode": "class ReservaHospedeResource(Resource):\n    def post(self, reserva_id, hospede_id):\n        reserva_service = ReservaService(db.session)\n        try:\n            reserva = reserva_service.adicionar_hospede_a_reserva(reserva_id, hospede_id)\n            return {\n                \"codigo_uuid\": reserva.codigo_uuid,\n                \"numero_reserva\": reserva.numero_reserva,\n                \"status\": str(reserva.status),\n                \"data_checkin\": reserva.data_checkin.isoformat(),",
+        "peekOfCode": "class ReservaHospedeResource(ReservaBaseResource):\n    def post(self, reserva_id, hospede_id):\n        reserva_service = ReservaService(db.session)\n        try:\n            reserva = reserva_service.adicionar_hospede_a_reserva(reserva_id, hospede_id)\n            return {\n                \"codigo_uuid\": reserva.codigo_uuid,\n                \"numero_reserva\": reserva.numero_reserva,\n                \"status\": str(reserva.status),\n                \"data_checkin\": reserva.data_checkin.isoformat(),",
+        "detail": "src.controllers.ReservaController",
+        "documentation": {}
+    },
+    {
+        "label": "RESERVA_API_KEY",
+        "kind": 5,
+        "importPath": "src.controllers.ReservaController",
+        "description": "src.controllers.ReservaController",
+        "peekOfCode": "RESERVA_API_KEY = os.getenv(\"RESERVA_API_KEY\")\nclass ReservaBaseResource(Resource):\n    method_decorators = [require_api_key(RESERVA_API_KEY)]\nclass ReservaResource(ReservaBaseResource):\n    def post(self):\n        reserva_service = ReservaService(db.session)\n        try:\n            data = request.get_json()\n            reserva = reserva_service.criar_reserva(data)\n            return {",
         "detail": "src.controllers.ReservaController",
         "documentation": {}
     },

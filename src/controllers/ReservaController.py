@@ -1,9 +1,17 @@
 from flask import request
 from flask_restful import Resource
+import os
 from src.service.reserva_service import ReservaService
 from src.models.Base import db
+from src.config.auth import require_api_key
 
-class ReservaResource(Resource):
+RESERVA_API_KEY = os.getenv("RESERVA_API_KEY")
+
+class ReservaBaseResource(Resource):
+    method_decorators = [require_api_key(RESERVA_API_KEY)]
+
+
+class ReservaResource(ReservaBaseResource):
     def post(self):
         reserva_service = ReservaService(db.session)
         try:
@@ -18,7 +26,7 @@ class ReservaResource(Resource):
         except Exception as e:
             return {"error": str(e)}, 400
         
-class ReservaListResource(Resource):
+class ReservaListResource(ReservaBaseResource):
         
     def get(self, reserva_id):
         reserva_service = ReservaService(db.session)
@@ -94,7 +102,7 @@ class ReservaListResource(Resource):
         except Exception as e:
             return {"error": str(e)}, 400
         
-class ReservaStatusResource(Resource):
+class ReservaStatusResource(ReservaBaseResource):
 
     def patch(self, reserva_id):
         reserva_service = ReservaService(db.session)
@@ -116,7 +124,7 @@ class ReservaStatusResource(Resource):
         except Exception as e:
             return {"error": str(e)}, 400
 
-class ReservaHospedeResource(Resource):
+class ReservaHospedeResource(ReservaBaseResource):
 
     def post(self, reserva_id, hospede_id):
         reserva_service = ReservaService(db.session)
