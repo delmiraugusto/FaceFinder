@@ -51,7 +51,49 @@ class ReservaListResource(Resource):
             
         except Exception as e:
             return {"error": str(e)}, 400
+        
+    def patch(self, reserva_id):
+        reserva_service = ReservaService(db.session)
+        try:
+            data = request.get_json()
+            reserva = reserva_service.atualizar_reserva_parcial(reserva_id, data)
+            return {
+                "codigo_uuid": reserva.codigo_uuid,
+                "numero_reserva": reserva.numero_reserva,
+                "status": str(reserva.status),
+                "data_checkin": reserva.data_checkin.isoformat(),
+                "hospedes": [
+                    {
+                        "codigo_uuid": hospede.codigo_uuid,
+                        "status": bool(hospede.status)
+                    }
+                    for hospede in reserva.hospedes
+                ]
+            }, 200
+        except Exception as e:
+            return {"error": str(e)}, 400
     
+
+    def put(self, reserva_id):
+        reserva_service = ReservaService(db.session)
+        try:
+            data = request.get_json()
+            reserva = reserva_service.atualizar_reserva_total(reserva_id, data)
+            return {
+                "codigo_uuid": reserva.codigo_uuid,
+                "numero_reserva": reserva.numero_reserva,
+                "status": str(reserva.status),
+                "data_checkin": reserva.data_checkin.isoformat(),
+                "hospedes": [
+                    {
+                        "codigo_uuid": hospede.codigo_uuid,
+                        "status": bool(hospede.status)
+                    }
+                    for hospede in reserva.hospedes
+                ]
+            }, 200
+        except Exception as e:
+            return {"error": str(e)}, 400
 
 class ReservaHospedeResource(Resource):
 

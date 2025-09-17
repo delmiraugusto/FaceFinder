@@ -19,7 +19,26 @@ class ReservaRepository:
         self.session.delete(reserva)
         self.session.commit()
         return True
+
+    def update_patch_reserva(self, reserva, data: dict):
+        for key, value in data.items():
+            if hasattr(reserva, key):
+                setattr(reserva, key, value)
+
+        self.session.commit()
+
+        return reserva
     
+    def update_put_reserva(self, reserva, data: dict):
+
+        for key, value in data.items():
+            if hasattr(reserva, key):
+                setattr(reserva, key, value)
+
+        self.session.commit()
+
+        return reserva
+
     def add_hospede(self, reserva_id, hospede_id):
         reserva = self.session.query(Reserva).get(reserva_id)
         hospede = self.session.query(Hospede).get(hospede_id)

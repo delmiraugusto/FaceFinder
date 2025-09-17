@@ -33,6 +33,28 @@ class ReservaService:
         reserva = self.listar_reserva(reserva_id)
 
         return self.repo.deletar_reserva(reserva)
+    
+    def atualizar_reserva_parcial(self, reserva_id, data: dict):
+        reserva = self.listar_reserva(reserva_id)
+
+        if not data:
+            raise ValueError("Nenhum dado fornecido para atualizar")
+
+        return self.repo.update_patch_reserva(reserva, data)
+    
+    def atualizar_reserva_total(self, reserva_id, data: dict):
+        reserva = self.listar_reserva(reserva_id)
+
+        if not data:
+            raise ValueError("Nenhum dado fornecido para atualizar")
+        
+        required_fields = ["numero_reserva", "status"]
+
+        for field in required_fields:
+            if field not in data:
+                raise ValueError(f"O campo {field} é obrigatório para atualização")
+
+        return self.repo.update_put_reserva(reserva, data)
 
 
     def adicionar_hospede_a_reserva(self, reserva_id, hospede_id):
