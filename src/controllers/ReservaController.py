@@ -94,6 +94,28 @@ class ReservaListResource(Resource):
             }, 200
         except Exception as e:
             return {"error": str(e)}, 400
+        
+class ReservaStatusResource(Resource):
+
+    def patch(self, reserva_id):
+        reserva_service = ReservaService(db.session)
+        try:
+            reserva = reserva_service.forcar_status_reserva(reserva_id)
+            return {
+                "codigo_uuid": reserva.codigo_uuid,
+                "numero_reserva": reserva.numero_reserva,
+                "status": str(reserva.status),
+                "data_checkin": reserva.data_checkin.isoformat(),
+                "hospedes": [
+                    {
+                        "codigo_uuid": hospede.codigo_uuid,
+                        "status": bool(hospede.status)
+                    }
+                    for hospede in reserva.hospedes
+                ]
+            }, 200
+        except Exception as e:
+            return {"error": str(e)}, 400
 
 class ReservaHospedeResource(Resource):
 

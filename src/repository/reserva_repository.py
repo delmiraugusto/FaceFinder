@@ -38,6 +38,11 @@ class ReservaRepository:
         self.session.commit()
 
         return reserva
+    
+    def forcar_status_reserva(self, reserva):
+        self.session.merge(reserva)
+        self.session.commit()
+        return reserva
 
     def add_hospede(self, reserva_id, hospede_id):
         reserva = self.session.query(Reserva).get(reserva_id)

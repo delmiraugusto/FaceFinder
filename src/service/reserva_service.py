@@ -55,6 +55,16 @@ class ReservaService:
                 raise ValueError(f"O campo {field} é obrigatório para atualização")
 
         return self.repo.update_put_reserva(reserva, data)
+    
+    def forcar_status_reserva(self, reserva_id):
+        reserva = self.listar_reserva(reserva_id)
+
+        if reserva.status is True:
+            reserva.status = False
+        else:
+            reserva.status = True
+        
+        return self.repo.forcar_status_reserva(reserva)
 
 
     def adicionar_hospede_a_reserva(self, reserva_id, hospede_id):

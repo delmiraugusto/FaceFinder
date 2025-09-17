@@ -386,6 +386,14 @@
         "documentation": {}
     },
     {
+        "label": "ReservaStatusResource",
+        "importPath": "src.controllers.ReservaController",
+        "description": "src.controllers.ReservaController",
+        "isExtraImport": true,
+        "detail": "src.controllers.ReservaController",
+        "documentation": {}
+    },
+    {
         "label": "HospedeListResource",
         "importPath": "src.controllers.HospedeController",
         "description": "src.controllers.HospedeController",
@@ -507,6 +515,15 @@
         "documentation": {}
     },
     {
+        "label": "ReservaStatusResource",
+        "kind": 6,
+        "importPath": "src.controllers.ReservaController",
+        "description": "src.controllers.ReservaController",
+        "peekOfCode": "class ReservaStatusResource(Resource):\n    def patch(self, reserva_id):\n        reserva_service = ReservaService(db.session)\n        try:\n            reserva = reserva_service.forcar_status_reserva(reserva_id)\n            return {\n                \"codigo_uuid\": reserva.codigo_uuid,\n                \"numero_reserva\": reserva.numero_reserva,\n                \"status\": str(reserva.status),\n                \"data_checkin\": reserva.data_checkin.isoformat(),",
+        "detail": "src.controllers.ReservaController",
+        "documentation": {}
+    },
+    {
         "label": "ReservaHospedeResource",
         "kind": 6,
         "importPath": "src.controllers.ReservaController",
@@ -601,7 +618,7 @@
         "kind": 2,
         "importPath": "src.routes.endpoints",
         "description": "src.routes.endpoints",
-        "peekOfCode": "def initialize_endpoints(api):\n    api.add_resource(Hello, \"/hello\")\n    api.add_resource(VerificacaoController, \"/verify_faces\")\n    #Reserva Endpoints\n    api.add_resource(ReservaResource, \"/reserva\")\n    api.add_resource(ReservaHospedeResource, \"/reserva/<string:reserva_id>/hospede/<string:hospede_id>\")\n    api.add_resource(ReservaListResource, \"/reserva/<string:reserva_id>\")\n    api.add_resource(HospedeListResource, \"/hospede\")",
+        "peekOfCode": "def initialize_endpoints(api):\n    api.add_resource(Hello, \"/hello\")\n    api.add_resource(VerificacaoController, \"/verify_faces\")\n    #Reserva Endpoints\n    api.add_resource(ReservaResource, \"/reserva\")\n    api.add_resource(ReservaHospedeResource, \"/reserva/<string:reserva_id>/hospede/<string:hospede_id>\")\n    api.add_resource(ReservaListResource, \"/reserva/<string:reserva_id>\")\n    api.add_resource(ReservaStatusResource, \"/reserva/status/<string:reserva_id>\")\n    api.add_resource(HospedeListResource, \"/hospede\")",
         "detail": "src.routes.endpoints",
         "documentation": {}
     },
