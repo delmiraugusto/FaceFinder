@@ -1,34 +1,10 @@
 [
     {
-        "label": "Resource",
-        "importPath": "flask_restful",
-        "description": "flask_restful",
+        "label": "wraps",
+        "importPath": "functools",
+        "description": "functools",
         "isExtraImport": true,
-        "detail": "flask_restful",
-        "documentation": {}
-    },
-    {
-        "label": "Resource",
-        "importPath": "flask_restful",
-        "description": "flask_restful",
-        "isExtraImport": true,
-        "detail": "flask_restful",
-        "documentation": {}
-    },
-    {
-        "label": "Resource",
-        "importPath": "flask_restful",
-        "description": "flask_restful",
-        "isExtraImport": true,
-        "detail": "flask_restful",
-        "documentation": {}
-    },
-    {
-        "label": "Resource",
-        "importPath": "flask_restful",
-        "description": "flask_restful",
-        "isExtraImport": true,
-        "detail": "flask_restful",
+        "detail": "functools",
         "documentation": {}
     },
     {
@@ -53,6 +29,55 @@
         "description": "flask",
         "isExtraImport": true,
         "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Resource",
+        "importPath": "flask_restful",
+        "description": "flask_restful",
+        "isExtraImport": true,
+        "detail": "flask_restful",
+        "documentation": {}
+    },
+    {
+        "label": "Resource",
+        "importPath": "flask_restful",
+        "description": "flask_restful",
+        "isExtraImport": true,
+        "detail": "flask_restful",
+        "documentation": {}
+    },
+    {
+        "label": "Resource",
+        "importPath": "flask_restful",
+        "description": "flask_restful",
+        "isExtraImport": true,
+        "detail": "flask_restful",
+        "documentation": {}
+    },
+    {
+        "label": "Resource",
+        "importPath": "flask_restful",
+        "description": "flask_restful",
+        "isExtraImport": true,
+        "detail": "flask_restful",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
         "documentation": {}
     },
     {
@@ -101,6 +126,14 @@
         "description": "src.service.hospede_service",
         "isExtraImport": true,
         "detail": "src.service.hospede_service",
+        "documentation": {}
+    },
+    {
+        "label": "require_api_key",
+        "importPath": "src.config.auth",
+        "description": "src.config.auth",
+        "isExtraImport": true,
+        "detail": "src.config.auth",
         "documentation": {}
     },
     {
@@ -503,6 +536,15 @@
         "documentation": {}
     },
     {
+        "label": "require_api_key",
+        "kind": 2,
+        "importPath": "src.config.auth",
+        "description": "src.config.auth",
+        "peekOfCode": "def require_api_key(expected_key):\n    def decorator(func):\n        @wraps(func)\n        def wrapper(*args, **kwargs):\n            key = request.headers.get(\"api-key\")\n            if key != expected_key:\n                return {\"error\": \"Nao Autorizado\"}, 401\n            return func(*args, **kwargs)\n        return wrapper\n    return decorator",
+        "detail": "src.config.auth",
+        "documentation": {}
+    },
+    {
         "label": "Hello",
         "kind": 6,
         "importPath": "src.controllers.HelloWorld",
@@ -512,11 +554,20 @@
         "documentation": {}
     },
     {
+        "label": "HospedeBaseResource",
+        "kind": 6,
+        "importPath": "src.controllers.HospedeController",
+        "description": "src.controllers.HospedeController",
+        "peekOfCode": "class HospedeBaseResource(Resource):\n    method_decorators = [require_api_key(HOSPEDE_API_KEY)]\nclass HospedeResource(HospedeBaseResource):\n    def post(self):\n        hospede_service = HospedeService(db.session)\n        try:\n            data = request.get_json()\n            hospede = hospede_service.criar_hospede(data)\n            return {\n                \"codigo_uuid\": hospede.codigo_uuid,",
+        "detail": "src.controllers.HospedeController",
+        "documentation": {}
+    },
+    {
         "label": "HospedeResource",
         "kind": 6,
         "importPath": "src.controllers.HospedeController",
         "description": "src.controllers.HospedeController",
-        "peekOfCode": "class HospedeResource(Resource):\n    def post(self):\n        hospede_service = HospedeService(db.session)\n        try:\n            data = request.get_json()\n            hospede = hospede_service.criar_hospede(data)\n            return {\n                \"codigo_uuid\": hospede.codigo_uuid,\n                \"status\": str(hospede.status),\n            }, 201",
+        "peekOfCode": "class HospedeResource(HospedeBaseResource):\n    def post(self):\n        hospede_service = HospedeService(db.session)\n        try:\n            data = request.get_json()\n            hospede = hospede_service.criar_hospede(data)\n            return {\n                \"codigo_uuid\": hospede.codigo_uuid,\n                \"status\": str(hospede.status),\n            }, 201",
         "detail": "src.controllers.HospedeController",
         "documentation": {}
     },
@@ -525,7 +576,7 @@
         "kind": 6,
         "importPath": "src.controllers.HospedeController",
         "description": "src.controllers.HospedeController",
-        "peekOfCode": "class HospedeListResource(Resource):\n    def get(self, hospede_id):\n        hospede_service = HospedeService(db.session)\n        try:\n            hospede = hospede_service.listar_hospede(hospede_id)\n            return {\n                \"codigo_uuid\": hospede.codigo_uuid,\n                \"status\": str(hospede.status),\n                \"reservas\": [\n                    {",
+        "peekOfCode": "class HospedeListResource(HospedeBaseResource):\n    def get(self, hospede_id):\n        hospede_service = HospedeService(db.session)\n        try:\n            hospede = hospede_service.listar_hospede(hospede_id)\n            return {\n                \"codigo_uuid\": hospede.codigo_uuid,\n                \"status\": str(hospede.status),\n                \"reservas\": [\n                    {",
         "detail": "src.controllers.HospedeController",
         "documentation": {}
     },
@@ -534,7 +585,16 @@
         "kind": 6,
         "importPath": "src.controllers.HospedeController",
         "description": "src.controllers.HospedeController",
-        "peekOfCode": "class HospedeStatusResource(Resource):\n    def patch(self, hospede_id):\n        hospede_service = HospedeService(db.session)\n        try:\n            hospede = hospede_service.forcar_status_hospede(hospede_id)\n            return {\n                \"codigo_uuid\": hospede.codigo_uuid,\n                \"status\": str(hospede.status),\n                \"reservas\": [\n                    {",
+        "peekOfCode": "class HospedeStatusResource(HospedeBaseResource):\n    def patch(self, hospede_id):\n        hospede_service = HospedeService(db.session)\n        try:\n            hospede = hospede_service.forcar_status_hospede(hospede_id)\n            return {\n                \"codigo_uuid\": hospede.codigo_uuid,\n                \"status\": str(hospede.status),\n                \"reservas\": [\n                    {",
+        "detail": "src.controllers.HospedeController",
+        "documentation": {}
+    },
+    {
+        "label": "HOSPEDE_API_KEY",
+        "kind": 5,
+        "importPath": "src.controllers.HospedeController",
+        "description": "src.controllers.HospedeController",
+        "peekOfCode": "HOSPEDE_API_KEY = os.getenv(\"HOSPEDE_API_KEY\")\nclass HospedeBaseResource(Resource):\n    method_decorators = [require_api_key(HOSPEDE_API_KEY)]\nclass HospedeResource(HospedeBaseResource):\n    def post(self):\n        hospede_service = HospedeService(db.session)\n        try:\n            data = request.get_json()\n            hospede = hospede_service.criar_hospede(data)\n            return {",
         "detail": "src.controllers.HospedeController",
         "documentation": {}
     },

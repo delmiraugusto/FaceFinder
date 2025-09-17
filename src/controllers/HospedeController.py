@@ -1,9 +1,16 @@
 from flask import request
 from flask_restful import Resource
+import os
 from src.models.Base import db
 from src.service.hospede_service import HospedeService
+from src.config.auth import require_api_key
 
-class HospedeResource(Resource):
+HOSPEDE_API_KEY = os.getenv("HOSPEDE_API_KEY")
+
+class HospedeBaseResource(Resource):
+    method_decorators = [require_api_key(HOSPEDE_API_KEY)]
+
+class HospedeResource(HospedeBaseResource):
 
     def post(self):
         hospede_service = HospedeService(db.session)
@@ -17,7 +24,7 @@ class HospedeResource(Resource):
         except Exception as e:
             return {"error": str(e)}, 400
         
-class HospedeListResource(Resource):
+class HospedeListResource(HospedeBaseResource):
         
     def get(self, hospede_id):
         hospede_service = HospedeService(db.session)
@@ -87,7 +94,7 @@ class HospedeListResource(Resource):
         except Exception as e:
             return {"error": str(e)}, 400
         
-class HospedeStatusResource(Resource):
+class HospedeStatusResource(HospedeBaseResource):
 
     def patch(self, hospede_id):
         hospede_service = HospedeService(db.session)
