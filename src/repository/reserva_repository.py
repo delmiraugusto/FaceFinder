@@ -52,3 +52,9 @@ class ReservaRepository:
 
         return reserva
     
+    def deletar_hospede_da_reserva(self, reserva, hospede):
+        if hospede in reserva.hospedes:
+            reserva.hospedes.remove(hospede)
+            self.session.commit()
+        return True
+    

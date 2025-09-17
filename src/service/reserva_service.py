@@ -69,7 +69,24 @@ class ReservaService:
 
     def adicionar_hospede_a_reserva(self, reserva_id, hospede_id):
 
+        reserva = self.listar_reserva(reserva_id)
+
         if reserva_id is None or hospede_id is None:
             raise ValueError("Codigo da reserva e do hospede sao obrigatorios")
         
+        ja_existe = any(h.codigo_uuid == hospede_id for h in reserva.hospedes)
+        if ja_existe:
+            raise ValueError("Hospede já está cadastrado nesta reserva")
+        
         return self.repo.add_hospede(reserva_id, hospede_id)
+    
+    def remover_hospede_da_reserva(self, reserva_id, hospede_id):
+
+        reserva = self.listar_reserva(reserva_id)
+        
+        hospede = next((h for h in reserva.hospedes if h.codigo_uuid == hospede_id), None)
+
+        if hospede is None:
+            raise ValueError("Hospede nao encontrado na reserva")
+        
+        return self.repo.deletar_hospede_da_reserva(reserva, hospede)

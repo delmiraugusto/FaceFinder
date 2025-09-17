@@ -138,3 +138,12 @@ class ReservaHospedeResource(Resource):
             }, 201
         except Exception as e:
             return {"error": str(e)}, 400
+        
+    def delete(self, reserva_id, hospede_id):
+        reserva_service = ReservaService(db.session)
+        try:
+            data = reserva_service.remover_hospede_da_reserva(reserva_id, hospede_id)
+            if data is True:
+                return { "message": "Hospede removido da reserva com sucesso"}, 200
+        except Exception as e:
+            return {"error": str(e)}, 400
