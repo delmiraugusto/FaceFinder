@@ -22,24 +22,22 @@ class ReservaService:
         if reserva_id is None:
             raise ValueError("Codigo da reserva é obrigatório")
         
-        return self.repo.listar_reserva(reserva_id)
-    
-    def atualizar_reserva(self, reserva_id, data):
         reserva = self.repo.listar_reserva(reserva_id)
-        if not reserva:
-            raise ValueError("Reserva not found")
 
-        if "numero_reserva" in data:
-            reserva.numero_reserva = data["numero_reserva"]
-        if "status" in data:
-            reserva.status = data["status"]
-
-        self.session.commit()
-        self.session.refresh(reserva)
+        if reserva is None:
+            raise ValueError("Reserva nao encontrada")
+        
         return reserva
     
+    def deletar_reserva(self, reserva_id):
+        reserva = self.listar_reserva(reserva_id)
 
+        return self.repo.deletar_reserva(reserva)
 
 
     def adicionar_hospede_a_reserva(self, reserva_id, hospede_id):
+
+        if reserva_id is None or hospede_id is None:
+            raise ValueError("Codigo da reserva e do hospede sao obrigatorios")
+        
         return self.repo.add_hospede(reserva_id, hospede_id)

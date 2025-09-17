@@ -41,6 +41,16 @@ class ReservaListResource(Resource):
             }, 200
         except Exception as e:
             return {"error": str(e)}, 400
+        
+    def delete(self, reserva_id):
+        reserva_service = ReservaService(db.session)
+        try:
+            reserva_service.deletar_reserva(reserva_id)
+            
+            return '', 204
+            
+        except Exception as e:
+            return {"error": str(e)}, 400
     
 
 class ReservaHospedeResource(Resource):
