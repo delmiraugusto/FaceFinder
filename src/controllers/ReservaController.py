@@ -19,3 +19,25 @@ class ReservaListResource(Resource):
         except Exception as e:
             return {"error": str(e)}, 400
     
+
+class ReservaHospedeResource(Resource):
+
+    def post(self, reserva_id, hospede_id):
+        reserva_service = ReservaService(db.session)
+        try:
+            reserva = reserva_service.adicionar_hospede_a_reserva(reserva_id, hospede_id)
+            return {
+                "codigo_uuid": reserva.codigo_uuid,
+                "numero_reserva": reserva.numero_reserva,
+                "status": str(reserva.status),
+                "data_checkin": reserva.data_checkin.isoformat(),
+                "hospedes": [
+                    {
+                        "codigo_uuid": hospede.codigo_uuid,
+                        "status": bool(hospede.status)
+                    }
+                    for hospede in reserva.hospedes
+                ]
+            }, 201
+        except Exception as e:
+            return {"error": str(e)}, 400

@@ -16,3 +16,6 @@ class ReservaService:
 
         return self.repo.add(reserva)
 
+
+    def adicionar_hospede_a_reserva(self, reserva_id, hospede_id):
+        return self.repo.add_hospede(reserva_id, hospede_id)
