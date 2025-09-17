@@ -24,8 +24,7 @@ class ReservaListResource(Resource):
         reserva_service = ReservaService(db.session)
         try:
             reserva = reserva_service.listar_reserva(reserva_id)
-            if not reserva:
-                return {"error": "Reserva nao encontrada"}, 404
+
             return {
                 "codigo_uuid": reserva.codigo_uuid,
                 "numero_reserva": reserva.numero_reserva,
