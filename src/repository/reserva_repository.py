@@ -12,10 +12,13 @@ class ReservaRepository:
         self.session.refresh(reserva)
         return reserva
     
+    def listar_reserva(self, reserva_id):
+        return self.session.query(Reserva).filter_by(codigo_uuid=reserva_id).first()
+    
     def add_hospede(self, reserva_id, hospede_id):
         reserva = self.session.query(Reserva).get(reserva_id)
         hospede = self.session.query(Hospede).get(hospede_id)
         reserva.hospedes.append(hospede)
         self.session.commit()
-        
+
         return reserva

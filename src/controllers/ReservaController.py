@@ -3,8 +3,7 @@ from flask_restful import Resource
 from src.service.reserva_service import ReservaService
 from src.models.Base import db
 
-class ReservaListResource(Resource):
-
+class ReservaResource(Resource):
     def post(self):
         reserva_service = ReservaService(db.session)
         try:
@@ -16,6 +15,30 @@ class ReservaListResource(Resource):
                 "status": str(reserva.status),
                 "data_checkin": reserva.data_checkin.isoformat()
             }, 201
+        except Exception as e:
+            return {"error": str(e)}, 400
+        
+class ReservaListResource(Resource):
+        
+    def get(self, reserva_id):
+        reserva_service = ReservaService(db.session)
+        try:
+            reserva = reserva_service.listar_reserva(reserva_id)
+            if not reserva:
+                return {"error": "Reserva nao encontrada"}, 404
+            return {
+                "codigo_uuid": reserva.codigo_uuid,
+                "numero_reserva": reserva.numero_reserva,
+                "status": str(reserva.status),
+                "data_checkin": reserva.data_checkin.isoformat(),
+                "hospedes": [
+                    {
+                        "codigo_uuid": hospede.codigo_uuid,
+                        "status": bool(hospede.status)
+                    }
+                    for hospede in reserva.hospedes
+                ]
+            }, 200
         except Exception as e:
             return {"error": str(e)}, 400
     

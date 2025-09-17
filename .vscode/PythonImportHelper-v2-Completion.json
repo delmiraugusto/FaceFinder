@@ -378,6 +378,14 @@
         "documentation": {}
     },
     {
+        "label": "ReservaResource",
+        "importPath": "src.controllers.ReservaController",
+        "description": "src.controllers.ReservaController",
+        "isExtraImport": true,
+        "detail": "src.controllers.ReservaController",
+        "documentation": {}
+    },
+    {
         "label": "HospedeListResource",
         "importPath": "src.controllers.HospedeController",
         "description": "src.controllers.HospedeController",
@@ -391,6 +399,15 @@
         "description": "src.repository.hospede_repository",
         "isExtraImport": true,
         "detail": "src.repository.hospede_repository",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
         "documentation": {}
     },
     {
@@ -446,15 +463,6 @@
         "documentation": {}
     },
     {
-        "label": "re",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "re",
-        "description": "re",
-        "detail": "re",
-        "documentation": {}
-    },
-    {
         "label": "create_app",
         "importPath": "src",
         "description": "src",
@@ -481,11 +489,20 @@
         "documentation": {}
     },
     {
+        "label": "ReservaResource",
+        "kind": 6,
+        "importPath": "src.controllers.ReservaController",
+        "description": "src.controllers.ReservaController",
+        "peekOfCode": "class ReservaResource(Resource):\n    def post(self):\n        reserva_service = ReservaService(db.session)\n        try:\n            data = request.get_json()\n            reserva = reserva_service.criar_reserva(data)\n            return {\n                \"codigo_uuid\": reserva.codigo_uuid,\n                \"numero_reserva\": reserva.numero_reserva,\n                \"status\": str(reserva.status),",
+        "detail": "src.controllers.ReservaController",
+        "documentation": {}
+    },
+    {
         "label": "ReservaListResource",
         "kind": 6,
         "importPath": "src.controllers.ReservaController",
         "description": "src.controllers.ReservaController",
-        "peekOfCode": "class ReservaListResource(Resource):\n    def post(self):\n        reserva_service = ReservaService(db.session)\n        try:\n            data = request.get_json()\n            reserva = reserva_service.criar_reserva(data)\n            return {\n                \"codigo_uuid\": reserva.codigo_uuid,\n                \"numero_reserva\": reserva.numero_reserva,\n                \"status\": str(reserva.status),",
+        "peekOfCode": "class ReservaListResource(Resource):\n    def get(self, reserva_id):\n        reserva_service = ReservaService(db.session)\n        try:\n            reserva = reserva_service.listar_reserva(reserva_id)\n            if not reserva:\n                return {\"error\": \"Reserva nao encontrada\"}, 404\n            return {\n                \"codigo_uuid\": reserva.codigo_uuid,\n                \"numero_reserva\": reserva.numero_reserva,",
         "detail": "src.controllers.ReservaController",
         "documentation": {}
     },
@@ -575,7 +592,7 @@
         "kind": 6,
         "importPath": "src.repository.reserva_repository",
         "description": "src.repository.reserva_repository",
-        "peekOfCode": "class ReservaRepository:\n    def __init__(self, session: Session):\n        self.session = session\n    def add(self, reserva):\n        self.session.add(reserva)\n        self.session.commit()\n        self.session.refresh(reserva)\n        return reserva\n    def add_hospede(self, reserva_id, hospede_id):\n        reserva = self.session.query(Reserva).get(reserva_id)",
+        "peekOfCode": "class ReservaRepository:\n    def __init__(self, session: Session):\n        self.session = session\n    def add(self, reserva):\n        self.session.add(reserva)\n        self.session.commit()\n        self.session.refresh(reserva)\n        return reserva\n    def listar_reserva(self, reserva_id):\n        return self.session.query(Reserva).filter_by(codigo_uuid=reserva_id).first()",
         "detail": "src.repository.reserva_repository",
         "documentation": {}
     },
@@ -584,7 +601,7 @@
         "kind": 2,
         "importPath": "src.routes.endpoints",
         "description": "src.routes.endpoints",
-        "peekOfCode": "def initialize_endpoints(api):\n    api.add_resource(Hello, \"/hello\")\n    api.add_resource(VerificacaoController, \"/verify_faces\")\n    api.add_resource(ReservaListResource, \"/reserva\")\n    api.add_resource(HospedeListResource, \"/hospede\")\n    api.add_resource(ReservaHospedeResource, \"/reserva/<string:reserva_id>/hospede/<string:hospede_id>\")",
+        "peekOfCode": "def initialize_endpoints(api):\n    api.add_resource(Hello, \"/hello\")\n    api.add_resource(VerificacaoController, \"/verify_faces\")\n    #Reserva Endpoints\n    api.add_resource(ReservaResource, \"/reserva\")\n    api.add_resource(ReservaHospedeResource, \"/reserva/<string:reserva_id>/hospede/<string:hospede_id>\")\n    api.add_resource(ReservaListResource, \"/reserva/<string:reserva_id>\")\n    api.add_resource(HospedeListResource, \"/hospede\")",
         "detail": "src.routes.endpoints",
         "documentation": {}
     },
