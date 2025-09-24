@@ -18,6 +18,6 @@ class Reserva(Base):
         back_populates="reservas"
     )
 
-    def __init__(self, numero_reserva=None, status=None):
+    def __init__(self, numero_reserva, status):
         self.numero_reserva = numero_reserva
         self.status = status

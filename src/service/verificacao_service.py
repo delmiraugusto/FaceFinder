@@ -34,7 +34,9 @@ def verify_Presente_face(imgDocument, imgSelfie):
     try:
         result = DeepFace.verify(
             img1_path=imgDocument,
-            img2_path=imgSelfie)
+            img2_path=imgSelfie, 
+            model_name="ArcFace", 
+            distance_metric="euclidean_l2")
     except ValueError:
         raise ValueError("Nenhum rosto detectado em uma ou em ambas as imagens.") 
 
@@ -93,18 +95,20 @@ def verify_faces(document_base64, selfie_base64):
     validate_image_quality(imgDocument, name="Documento")
     validate_image_quality(imgSelfie, name="Selfie")
 
-    result = verify_Presente_face(imgDocument, imgSelfie)
-
     document_data = extract_document_data(imgDocument)
+    
+    result = verify_Presente_face(imgDocument, imgSelfie)
 
     face_document_img = crop_face(imgDocument, result['facial_areas']['img1'])
     face_selfie_img = crop_face(imgSelfie, result['facial_areas']['img2'])
+
+    result2 = verify_Presente_face(face_document_img, face_selfie_img)
 
     face_document_base64 = cv2_to_base64(face_document_img)
     face_selfie_base64 = cv2_to_base64(face_selfie_img)
 
     return {
-        "verification": result,
+        "verification": result2,
         "document_data": document_data,
         "faces": {
             "document_face": face_document_base64,

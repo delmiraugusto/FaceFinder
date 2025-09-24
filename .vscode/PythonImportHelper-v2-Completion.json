@@ -121,6 +121,22 @@
         "documentation": {}
     },
     {
+        "label": "Base",
+        "importPath": "src.models.Base",
+        "description": "src.models.Base",
+        "isExtraImport": true,
+        "detail": "src.models.Base",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "importPath": "src.models.Base",
+        "description": "src.models.Base",
+        "isExtraImport": true,
+        "detail": "src.models.Base",
+        "documentation": {}
+    },
+    {
         "label": "HospedeService",
         "importPath": "src.service.hospede_service",
         "description": "src.service.hospede_service",
@@ -166,6 +182,150 @@
         "description": "pydantic",
         "isExtraImport": true,
         "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "String",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Boolean",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "DateTime",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "String",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Boolean",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Table",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "ForeignKey",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Table",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "ForeignKey",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "String",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Boolean",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "DateTime",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "relationship",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
         "documentation": {}
     },
     {
@@ -233,107 +393,19 @@
         "documentation": {}
     },
     {
-        "label": "SQLAlchemy",
-        "importPath": "flask_sqlalchemy",
-        "description": "flask_sqlalchemy",
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
         "isExtraImport": true,
-        "detail": "flask_sqlalchemy",
+        "detail": "sqlalchemy.orm",
         "documentation": {}
     },
     {
-        "label": "Column",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
+        "label": "hospede_attempt",
+        "importPath": "src.models.Hospede_Attempt",
+        "description": "src.models.Hospede_Attempt",
         "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
-        "label": "String",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
-        "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
-        "label": "Boolean",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
-        "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
-        "label": "Table",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
-        "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
-        "label": "Column",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
-        "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
-        "label": "ForeignKey",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
-        "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
-        "label": "Column",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
-        "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
-        "label": "String",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
-        "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
-        "label": "Boolean",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
-        "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
-        "label": "DateTime",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
-        "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
-        "label": "hospede_reserva",
-        "importPath": "src.models.Hospede_Reserva",
-        "description": "src.models.Hospede_Reserva",
-        "isExtraImport": true,
-        "detail": "src.models.Hospede_Reserva",
-        "documentation": {}
-    },
-    {
-        "label": "hospede_reserva",
-        "importPath": "src.models.Hospede_Reserva",
-        "description": "src.models.Hospede_Reserva",
-        "isExtraImport": true,
-        "detail": "src.models.Hospede_Reserva",
+        "detail": "src.models.Hospede_Attempt",
         "documentation": {}
     },
     {
@@ -346,12 +418,52 @@
         "documentation": {}
     },
     {
+        "label": "SQLAlchemy",
+        "importPath": "flask_sqlalchemy",
+        "description": "flask_sqlalchemy",
+        "isExtraImport": true,
+        "detail": "flask_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "hospede_reserva",
+        "importPath": "src.models.Hospede_Reserva",
+        "description": "src.models.Hospede_Reserva",
+        "isExtraImport": true,
+        "detail": "src.models.Hospede_Reserva",
+        "documentation": {}
+    },
+    {
+        "label": "hospede_reserva",
+        "importPath": "src.models.Hospede_Reserva",
+        "description": "src.models.Hospede_Reserva",
+        "isExtraImport": true,
+        "detail": "src.models.Hospede_Reserva",
+        "documentation": {}
+    },
+    {
         "label": "datetime,",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "datetime.",
         "description": "datetime.",
         "detail": "datetime.",
+        "documentation": {}
+    },
+    {
+        "label": "Attempt",
+        "importPath": "src.models.Attempt",
+        "description": "src.models.Attempt",
+        "isExtraImport": true,
+        "detail": "src.models.Attempt",
+        "documentation": {}
+    },
+    {
+        "label": "Hospede",
+        "importPath": "src.models.Hospede",
+        "description": "src.models.Hospede",
+        "isExtraImport": true,
+        "detail": "src.models.Hospede",
         "documentation": {}
     },
     {
@@ -679,6 +791,15 @@
         "documentation": {}
     },
     {
+        "label": "Attempt",
+        "kind": 6,
+        "importPath": "src.models.Attempt",
+        "description": "src.models.Attempt",
+        "peekOfCode": "class Attempt(Base):\n    __tablename__ = 'attempt'\n    codigo_uuid = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))\n    status = Column(Boolean)\n    hospedes = relationship(\n        \"Hospede\",\n        secondary=hospede_attempt,\n        back_populates=\"attempts\"\n    )\n    def __init__(self, status):",
+        "detail": "src.models.Attempt",
+        "documentation": {}
+    },
+    {
         "label": "Base",
         "kind": 5,
         "importPath": "src.models.Base",
@@ -708,6 +829,15 @@
     {
         "label": "hospede_reserva",
         "kind": 5,
+        "importPath": "src.models.Hospede_Attempt",
+        "description": "src.models.Hospede_Attempt",
+        "peekOfCode": "hospede_reserva = Table(\n    'hospede_attempt',\n    Base.metadata,\n    Column('hospede_uuid', ForeignKey('hospede.codigo_uuid'), primary_key=True),\n    Column('attempt_uuid', ForeignKey('attempt.codigo_uuid'), primary_key=True)\n)",
+        "detail": "src.models.Hospede_Attempt",
+        "documentation": {}
+    },
+    {
+        "label": "hospede_reserva",
+        "kind": 5,
         "importPath": "src.models.Hospede_Reserva",
         "description": "src.models.Hospede_Reserva",
         "peekOfCode": "hospede_reserva = Table(\n    'hospede_reserva',\n    Base.metadata,\n    Column('hospede_uuid', ForeignKey('hospede.codigo_uuid'), primary_key=True),\n    Column('reserva_uuid', ForeignKey('reserva.codigo_uuid'), primary_key=True)\n)",
@@ -721,6 +851,15 @@
         "description": "src.models.Reserva",
         "peekOfCode": "class Reserva(Base):\n    __tablename__ = 'reserva'\n    codigo_uuid = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))\n    numero_reserva = Column(String(50), nullable=False)\n    status = Column(Boolean)\n    data_checkin = Column(DateTime, default=datetime.datetime.now)\n    hospedes = relationship(\n        \"Hospede\",\n        secondary=hospede_reserva,\n        back_populates=\"reservas\"",
         "detail": "src.models.Reserva",
+        "documentation": {}
+    },
+    {
+        "label": "AttemptRepository",
+        "kind": 6,
+        "importPath": "src.repository.attempt_repository",
+        "description": "src.repository.attempt_repository",
+        "peekOfCode": "class AttemptRepository:\n    def __init__(self, session: Session):\n        self.session = session\n    def add(self, attempt, hospede_id):\n        self.session.add(attempt)\n        self.session.commit()\n        self.session.refresh(attempt)\n        attempt_id = attempt.codigo_uuid\n        attempt = self.session.query(Attempt).get(attempt_id)\n        hospede = self.session.query(Hospede).get(hospede_id)",
+        "detail": "src.repository.attempt_repository",
         "documentation": {}
     },
     {
@@ -791,7 +930,7 @@
         "kind": 2,
         "importPath": "src.service.verificacao_service",
         "description": "src.service.verificacao_service",
-        "peekOfCode": "def verify_Presente_face(imgDocument, imgSelfie):\n    try:\n        result = DeepFace.verify(\n            img1_path=imgDocument,\n            img2_path=imgSelfie)\n    except ValueError:\n        raise ValueError(\"Nenhum rosto detectado em uma ou em ambas as imagens.\") \n    return result\ndef extract_document_data(img):\n    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)",
+        "peekOfCode": "def verify_Presente_face(imgDocument, imgSelfie):\n    try:\n        result = DeepFace.verify(\n            img1_path=imgDocument,\n            img2_path=imgSelfie, \n            model_name=\"ArcFace\", \n            distance_metric=\"euclidean_l2\")\n    except ValueError:\n        raise ValueError(\"Nenhum rosto detectado em uma ou em ambas as imagens.\") \n    return result",
         "detail": "src.service.verificacao_service",
         "documentation": {}
     },
@@ -818,7 +957,7 @@
         "kind": 2,
         "importPath": "src.service.verificacao_service",
         "description": "src.service.verificacao_service",
-        "peekOfCode": "def cv2_to_base64(img):\n    _, buffer = cv2.imencode('.jpg', img)\n    return base64.b64encode(buffer).decode('utf-8')\ndef verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")\n    result = verify_Presente_face(imgDocument, imgSelfie)\n    document_data = extract_document_data(imgDocument)",
+        "peekOfCode": "def cv2_to_base64(img):\n    _, buffer = cv2.imencode('.jpg', img)\n    return base64.b64encode(buffer).decode('utf-8')\ndef verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")\n    document_data = extract_document_data(imgDocument)\n    result = verify_Presente_face(imgDocument, imgSelfie)",
         "detail": "src.service.verificacao_service",
         "documentation": {}
     },
@@ -827,7 +966,7 @@
         "kind": 2,
         "importPath": "src.service.verificacao_service",
         "description": "src.service.verificacao_service",
-        "peekOfCode": "def verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")\n    result = verify_Presente_face(imgDocument, imgSelfie)\n    document_data = extract_document_data(imgDocument)\n    face_document_img = crop_face(imgDocument, result['facial_areas']['img1'])\n    face_selfie_img = crop_face(imgSelfie, result['facial_areas']['img2'])\n    face_document_base64 = cv2_to_base64(face_document_img)",
+        "peekOfCode": "def verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")\n    document_data = extract_document_data(imgDocument)\n    result = verify_Presente_face(imgDocument, imgSelfie)\n    face_document_img = crop_face(imgDocument, result['facial_areas']['img1'])\n    face_selfie_img = crop_face(imgSelfie, result['facial_areas']['img2'])\n    result2 = verify_Presente_face(face_document_img, face_selfie_img)",
         "detail": "src.service.verificacao_service",
         "documentation": {}
     },
