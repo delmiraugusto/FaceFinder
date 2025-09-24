@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Boolean, DateTime
+from sqlalchemy import Column, String, Boolean
 from sqlalchemy.orm import relationship
 from src.models.Base import Base
 from src.models.Hospede_Attempt import hospede_attempt

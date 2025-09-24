@@ -1,6 +1,7 @@
 from sqlalchemy import Column, String, Boolean
 from sqlalchemy.orm import relationship
 from src.models.Base import Base
+from src.models.Hospede_Attempt import hospede_attempt
 from src.models.Hospede_Reserva import hospede_reserva
 import uuid
 
@@ -13,6 +14,12 @@ class Hospede(Base):
     reservas = relationship(
         "Reserva",
         secondary=hospede_reserva,
+        back_populates="hospedes"
+    )
+
+    attempts = relationship(
+        "Attempt",
+        secondary=hospede_attempt,
         back_populates="hospedes"
     )
 

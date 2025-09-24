@@ -40,6 +40,22 @@
         "documentation": {}
     },
     {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Resource",
+        "importPath": "flask_restful",
+        "description": "flask_restful",
+        "isExtraImport": true,
+        "detail": "flask_restful",
+        "documentation": {}
+    },
+    {
         "label": "Resource",
         "importPath": "flask_restful",
         "description": "flask_restful",
@@ -81,6 +97,22 @@
         "documentation": {}
     },
     {
+        "label": "AttemptService",
+        "importPath": "src.service.attempt_service",
+        "description": "src.service.attempt_service",
+        "isExtraImport": true,
+        "detail": "src.service.attempt_service",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "src.models.Base",
+        "description": "src.models.Base",
+        "isExtraImport": true,
+        "detail": "src.models.Base",
+        "documentation": {}
+    },
+    {
         "label": "db",
         "importPath": "src.models.Base",
         "description": "src.models.Base",
@@ -134,6 +166,30 @@
         "description": "src.models.Base",
         "isExtraImport": true,
         "detail": "src.models.Base",
+        "documentation": {}
+    },
+    {
+        "label": "require_api_key",
+        "importPath": "src.config.auth",
+        "description": "src.config.auth",
+        "isExtraImport": true,
+        "detail": "src.config.auth",
+        "documentation": {}
+    },
+    {
+        "label": "require_api_key",
+        "importPath": "src.config.auth",
+        "description": "src.config.auth",
+        "isExtraImport": true,
+        "detail": "src.config.auth",
+        "documentation": {}
+    },
+    {
+        "label": "require_api_key",
+        "importPath": "src.config.auth",
+        "description": "src.config.auth",
+        "isExtraImport": true,
+        "detail": "src.config.auth",
         "documentation": {}
     },
     {
@@ -145,19 +201,11 @@
         "documentation": {}
     },
     {
-        "label": "require_api_key",
-        "importPath": "src.config.auth",
-        "description": "src.config.auth",
+        "label": "HospedeService",
+        "importPath": "src.service.hospede_service",
+        "description": "src.service.hospede_service",
         "isExtraImport": true,
-        "detail": "src.config.auth",
-        "documentation": {}
-    },
-    {
-        "label": "require_api_key",
-        "importPath": "src.config.auth",
-        "description": "src.config.auth",
-        "isExtraImport": true,
-        "detail": "src.config.auth",
+        "detail": "src.service.hospede_service",
         "documentation": {}
     },
     {
@@ -202,14 +250,6 @@
     },
     {
         "label": "Boolean",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
-        "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
-        "label": "DateTime",
         "importPath": "sqlalchemy",
         "description": "sqlalchemy",
         "isExtraImport": true,
@@ -401,6 +441,22 @@
         "documentation": {}
     },
     {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "hospede_attempt",
+        "importPath": "src.models.Hospede_Attempt",
+        "description": "src.models.Hospede_Attempt",
+        "isExtraImport": true,
+        "detail": "src.models.Hospede_Attempt",
+        "documentation": {}
+    },
+    {
         "label": "hospede_attempt",
         "importPath": "src.models.Hospede_Attempt",
         "description": "src.models.Hospede_Attempt",
@@ -448,6 +504,14 @@
         "importPath": "datetime.",
         "description": "datetime.",
         "detail": "datetime.",
+        "documentation": {}
+    },
+    {
+        "label": "Attempt",
+        "importPath": "src.models.Attempt",
+        "description": "src.models.Attempt",
+        "isExtraImport": true,
+        "detail": "src.models.Attempt",
         "documentation": {}
     },
     {
@@ -579,11 +643,11 @@
         "documentation": {}
     },
     {
-        "label": "HospedeRepository",
-        "importPath": "src.repository.hospede_repository",
-        "description": "src.repository.hospede_repository",
+        "label": "AttemptResource",
+        "importPath": "src.controllers.AttemptController",
+        "description": "src.controllers.AttemptController",
         "isExtraImport": true,
-        "detail": "src.repository.hospede_repository",
+        "detail": "src.controllers.AttemptController",
         "documentation": {}
     },
     {
@@ -593,6 +657,22 @@
         "importPath": "re",
         "description": "re",
         "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "AttemptRepository",
+        "importPath": "src.repository.attempt_repository",
+        "description": "src.repository.attempt_repository",
+        "isExtraImport": true,
+        "detail": "src.repository.attempt_repository",
+        "documentation": {}
+    },
+    {
+        "label": "HospedeRepository",
+        "importPath": "src.repository.hospede_repository",
+        "description": "src.repository.hospede_repository",
+        "isExtraImport": true,
+        "detail": "src.repository.hospede_repository",
         "documentation": {}
     },
     {
@@ -662,6 +742,33 @@
         "description": "src.config.auth",
         "peekOfCode": "def require_api_key(expected_key):\n    def decorator(func):\n        @wraps(func)\n        def wrapper(*args, **kwargs):\n            key = request.headers.get(\"api-key\")\n            if key != expected_key:\n                return {\"error\": \"Nao Autorizado\"}, 401\n            return func(*args, **kwargs)\n        return wrapper\n    return decorator",
         "detail": "src.config.auth",
+        "documentation": {}
+    },
+    {
+        "label": "AttemptBaseResource",
+        "kind": 6,
+        "importPath": "src.controllers.AttemptController",
+        "description": "src.controllers.AttemptController",
+        "peekOfCode": "class AttemptBaseResource(Resource):\n    method_decorators = [require_api_key(ATTEMPT_API_KEY)]\nclass AttemptResource(AttemptBaseResource):\n    def post(self, hospede_id):\n        attempt_service = AttemptService(db.session)\n        try:\n            data = request.get_json()\n            attempt = attempt_service.criar_attempt(data, hospede_id)\n            return {\n                \"codigo_uuid\": attempt.codigo_uuid,",
+        "detail": "src.controllers.AttemptController",
+        "documentation": {}
+    },
+    {
+        "label": "AttemptResource",
+        "kind": 6,
+        "importPath": "src.controllers.AttemptController",
+        "description": "src.controllers.AttemptController",
+        "peekOfCode": "class AttemptResource(AttemptBaseResource):\n    def post(self, hospede_id):\n        attempt_service = AttemptService(db.session)\n        try:\n            data = request.get_json()\n            attempt = attempt_service.criar_attempt(data, hospede_id)\n            return {\n                \"codigo_uuid\": attempt.codigo_uuid,\n                \"status\": str(attempt.status),\n                \"hospede\": [",
+        "detail": "src.controllers.AttemptController",
+        "documentation": {}
+    },
+    {
+        "label": "ATTEMPT_API_KEY",
+        "kind": 5,
+        "importPath": "src.controllers.AttemptController",
+        "description": "src.controllers.AttemptController",
+        "peekOfCode": "ATTEMPT_API_KEY = os.getenv(\"ATTEMPT_API_KEY\")\nclass AttemptBaseResource(Resource):\n    method_decorators = [require_api_key(ATTEMPT_API_KEY)]\nclass AttemptResource(AttemptBaseResource):\n    def post(self, hospede_id):\n        attempt_service = AttemptService(db.session)\n        try:\n            data = request.get_json()\n            attempt = attempt_service.criar_attempt(data, hospede_id)\n            return {",
+        "detail": "src.controllers.AttemptController",
         "documentation": {}
     },
     {
@@ -822,16 +929,16 @@
         "kind": 6,
         "importPath": "src.models.Hospede",
         "description": "src.models.Hospede",
-        "peekOfCode": "class Hospede(Base):\n    __tablename__ = 'hospede'\n    codigo_uuid = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))\n    status = Column(Boolean)\n    reservas = relationship(\n        \"Reserva\",\n        secondary=hospede_reserva,\n        back_populates=\"hospedes\"\n    )\n    def __init__(self, status=None):",
+        "peekOfCode": "class Hospede(Base):\n    __tablename__ = 'hospede'\n    codigo_uuid = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))\n    status = Column(Boolean)\n    reservas = relationship(\n        \"Reserva\",\n        secondary=hospede_reserva,\n        back_populates=\"hospedes\"\n    )\n    attempts = relationship(",
         "detail": "src.models.Hospede",
         "documentation": {}
     },
     {
-        "label": "hospede_reserva",
+        "label": "hospede_attempt",
         "kind": 5,
         "importPath": "src.models.Hospede_Attempt",
         "description": "src.models.Hospede_Attempt",
-        "peekOfCode": "hospede_reserva = Table(\n    'hospede_attempt',\n    Base.metadata,\n    Column('hospede_uuid', ForeignKey('hospede.codigo_uuid'), primary_key=True),\n    Column('attempt_uuid', ForeignKey('attempt.codigo_uuid'), primary_key=True)\n)",
+        "peekOfCode": "hospede_attempt = Table(\n    'hospede_attempt',\n    Base.metadata,\n    Column('hospede_uuid', ForeignKey('hospede.codigo_uuid'), primary_key=True),\n    Column('attempt_uuid', ForeignKey('attempt.codigo_uuid'), primary_key=True)\n)",
         "detail": "src.models.Hospede_Attempt",
         "documentation": {}
     },
@@ -887,6 +994,15 @@
         "description": "src.routes.endpoints",
         "peekOfCode": "def initialize_endpoints(api):\n    api.add_resource(Hello, \"/hello\")\n    api.add_resource(VerificacaoController, \"/verify_faces\")\n    #Reserva Endpoints\n    api.add_resource(ReservaResource, \"/reserva\")\n    api.add_resource(ReservaHospedeResource, \"/reserva/<string:reserva_id>/hospede/<string:hospede_id>\")\n    api.add_resource(ReservaListResource, \"/reserva/<string:reserva_id>\")\n    api.add_resource(ReservaStatusResource, \"/reserva/status/<string:reserva_id>\")\n    #Hospede Endpoints\n    api.add_resource(HospedeResource, \"/hospede\")",
         "detail": "src.routes.endpoints",
+        "documentation": {}
+    },
+    {
+        "label": "AttemptService",
+        "kind": 6,
+        "importPath": "src.service.attempt_service",
+        "description": "src.service.attempt_service",
+        "peekOfCode": "class AttemptService:\n    def __init__(self, session: Session):\n        self.repo = AttemptRepository(session)\n        self.hosp = HospedeService(session)\n        self.session = session\n    def criar_attempt(self, data, hospede_id):\n        attempt = Attempt(\n            status=data.get(\"status\")\n        )\n        self.hosp.listar_hospede(hospede_id)",
+        "detail": "src.service.attempt_service",
         "documentation": {}
     },
     {
