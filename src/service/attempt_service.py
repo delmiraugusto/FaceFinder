@@ -51,13 +51,13 @@ class AttemptService:
         if not data:
             raise ValueError("Nenhum dado fornecido para atualizar")
         
-        required_fields = ["numero_attempt", "status"]
+        required_fields = ["status"]
 
         for field in required_fields:
             if field not in data:
                 raise ValueError(f"O campo {field} é obrigatório para atualização")
 
-        return self.repo.update_put_attempt(attempt, data)
+        return self.repo.update_put_attempt(attempt, data) 
     
     def forcar_status_attempt(self, attempt_id):
         attempt = self.listar_attempt(attempt_id)
@@ -68,20 +68,6 @@ class AttemptService:
             attempt.status = True
         
         return self.repo.forcar_status_attempt(attempt)
-
-
-    def adicionar_hospede_a_attempt(self, attempt_id, hospede_id):
-
-        attempt = self.listar_attempt(attempt_id)
-
-        if attempt_id is None or hospede_id is None:
-            raise ValueError("Codigo da attempt e do hospede sao obrigatorios")
-        
-        ja_existe = any(h.codigo_uuid == hospede_id for h in attempt.hospedes)
-        if ja_existe:
-            raise ValueError("Hospede já está cadastrado nesta attempt")
-        
-        return self.repo.add_hospede(attempt_id, hospede_id)
     
     def remover_hospede_da_attempt(self, attempt_id, hospede_id):
 

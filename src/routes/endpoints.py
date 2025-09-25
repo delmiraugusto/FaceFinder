@@ -2,7 +2,7 @@ from src.controllers.HelloWorld import Hello
 from src.controllers.Verificacao import VerificacaoController
 from src.controllers.ReservaController import (ReservaHospedeResource, ReservaListResource, ReservaResource, ReservaStatusResource)
 from src.controllers.HospedeController import (HospedeListResource, HospedeResource, HospedeStatusResource)
-from src.controllers.AttemptController import AttemptResource
+from src.controllers.AttemptController import AttemptListResource, AttemptResource
 
 def initialize_endpoints(api):
     api.add_resource(Hello, "/hello")
@@ -21,4 +21,5 @@ def initialize_endpoints(api):
     api.add_resource(HospedeStatusResource, "/hospede/status/<string:hospede_id>")
 
     #Attempt Endpoints
-    api.add_resource(AttemptResource, "/attempt/<string:hospede_id>")
+    api.add_resource(AttemptResource, "/attempt/hospede/<string:hospede_id>")
+    api.add_resource(AttemptListResource, "/attempt/<string:attempt_id>")

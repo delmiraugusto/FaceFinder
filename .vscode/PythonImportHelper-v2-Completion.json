@@ -193,6 +193,30 @@
         "documentation": {}
     },
     {
+        "label": "Attempt",
+        "importPath": "src.models.Attempt",
+        "description": "src.models.Attempt",
+        "isExtraImport": true,
+        "detail": "src.models.Attempt",
+        "documentation": {}
+    },
+    {
+        "label": "Attempt",
+        "importPath": "src.models.Attempt",
+        "description": "src.models.Attempt",
+        "isExtraImport": true,
+        "detail": "src.models.Attempt",
+        "documentation": {}
+    },
+    {
+        "label": "Attempt",
+        "importPath": "src.models.Attempt",
+        "description": "src.models.Attempt",
+        "isExtraImport": true,
+        "detail": "src.models.Attempt",
+        "documentation": {}
+    },
+    {
         "label": "HospedeService",
         "importPath": "src.service.hospede_service",
         "description": "src.service.hospede_service",
@@ -222,14 +246,6 @@
         "description": "src.service.verificacao_service",
         "isExtraImport": true,
         "detail": "src.service.verificacao_service",
-        "documentation": {}
-    },
-    {
-        "label": "BaseModel",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
         "documentation": {}
     },
     {
@@ -507,22 +523,6 @@
         "documentation": {}
     },
     {
-        "label": "Attempt",
-        "importPath": "src.models.Attempt",
-        "description": "src.models.Attempt",
-        "isExtraImport": true,
-        "detail": "src.models.Attempt",
-        "documentation": {}
-    },
-    {
-        "label": "Attempt",
-        "importPath": "src.models.Attempt",
-        "description": "src.models.Attempt",
-        "isExtraImport": true,
-        "detail": "src.models.Attempt",
-        "documentation": {}
-    },
-    {
         "label": "Hospede",
         "importPath": "src.models.Hospede",
         "description": "src.models.Hospede",
@@ -643,6 +643,14 @@
         "documentation": {}
     },
     {
+        "label": "AttemptListResource",
+        "importPath": "src.controllers.AttemptController",
+        "description": "src.controllers.AttemptController",
+        "isExtraImport": true,
+        "detail": "src.controllers.AttemptController",
+        "documentation": {}
+    },
+    {
         "label": "AttemptResource",
         "importPath": "src.controllers.AttemptController",
         "description": "src.controllers.AttemptController",
@@ -759,6 +767,24 @@
         "importPath": "src.controllers.AttemptController",
         "description": "src.controllers.AttemptController",
         "peekOfCode": "class AttemptResource(AttemptBaseResource):\n    def post(self, hospede_id):\n        attempt_service = AttemptService(db.session)\n        try:\n            data = request.get_json()\n            attempt = attempt_service.criar_attempt(data, hospede_id)\n            return {\n                \"codigo_uuid\": attempt.codigo_uuid,\n                \"status\": str(attempt.status),\n                \"hospede\": [",
+        "detail": "src.controllers.AttemptController",
+        "documentation": {}
+    },
+    {
+        "label": "AttemptListResource",
+        "kind": 6,
+        "importPath": "src.controllers.AttemptController",
+        "description": "src.controllers.AttemptController",
+        "peekOfCode": "class AttemptListResource(AttemptBaseResource):\n    def get(self, attempt_id):\n        attempt_service = AttemptService(db.session)\n        try:\n            attempt = attempt_service.listar_attempt(attempt_id)\n            return {\n                \"codigo_uuid\": attempt.codigo_uuid,\n                \"status\": str(attempt.status),\n                \"hospede\": [\n                    {",
+        "detail": "src.controllers.AttemptController",
+        "documentation": {}
+    },
+    {
+        "label": "AttemptStatusResource",
+        "kind": 6,
+        "importPath": "src.controllers.AttemptController",
+        "description": "src.controllers.AttemptController",
+        "peekOfCode": "class AttemptStatusResource(AttemptBaseResource):\n    def patch(self, attempt_id, status):\n        attempt_service = AttemptService(db.session)\n        try:\n            attempt = attempt_service.atualizar_status_attempt(attempt_id, status)\n            return {\n                \"codigo_uuid\": attempt.codigo_uuid,\n                \"status\": str(attempt.status),\n                \"hospede\": [\n                    {",
         "detail": "src.controllers.AttemptController",
         "documentation": {}
     },
@@ -886,15 +912,6 @@
         "description": "src.controllers.Verificacao",
         "peekOfCode": "class VerificacaoController(Resource):\n    def post(self):\n        try:\n            data = request.get_json()\n            if 'document' not in data or 'selfie' not in data:\n                return {\"error\": \"Campos 'document' e 'selfie' são obrigatórios.\"}, 400\n            result = verify_faces(data['document'], data['selfie'])\n            return result, 200\n        except ValueError as ve:\n            return {\"error\": str(ve)}, 400",
         "detail": "src.controllers.Verificacao",
-        "documentation": {}
-    },
-    {
-        "label": "VerificacaoDto",
-        "kind": 6,
-        "importPath": "src.dto.VerificacaoDto",
-        "description": "src.dto.VerificacaoDto",
-        "peekOfCode": "class VerificacaoDto(BaseModel):\n    document: str\n    selfie: str",
-        "detail": "src.dto.VerificacaoDto",
         "documentation": {}
     },
     {
