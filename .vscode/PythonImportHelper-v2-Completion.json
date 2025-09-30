@@ -744,6 +744,31 @@
         "documentation": {}
     },
     {
+        "label": "OpenAI",
+        "importPath": "openai",
+        "description": "openai",
+        "isExtraImport": true,
+        "detail": "openai",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "genai",
+        "importPath": "google",
+        "description": "google",
+        "isExtraImport": true,
+        "detail": "google",
+        "documentation": {}
+    },
+    {
         "label": "create_app",
         "importPath": "src",
         "description": "src",
@@ -1076,11 +1101,20 @@
         "documentation": {}
     },
     {
-        "label": "extract_document_data",
+        "label": "ocr_image",
         "kind": 2,
         "importPath": "src.service.verificacao_service",
         "description": "src.service.verificacao_service",
-        "peekOfCode": "def extract_document_data(img):\n    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)\n    gray = cv2.GaussianBlur(gray, (3,3), 0)\n    gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]\n    text = pytesseract.image_to_string(gray, lang=\"por\")\n    dob_pattern = r\"(\\d{2}[/-]\\d{2}[/-]\\d{4})\"\n    dob_match = re.search(dob_pattern, text)\n    nascimento = dob_match.group(1) if dob_match else None\n    lines = [line.strip() for line in text.split(\"\\n\") if line.strip()]\n    invalid_keywords = [\"FILAÇÃO\", \"NOME DO PAI\", \"NOME DA MÃE\", \"ESTADO\", \"GOVERNO\", \"IDENTIFICAÇÃO\"]",
+        "peekOfCode": "def ocr_image(img, langs=\"por+eng\"):\n    text = pytesseract.image_to_string(img, lang=langs)\n    return text\ndef extract_with_ai(text, wishlist, lang=\"pt\"):\n    prompt = f\"\"\"\n        Você é um assistente de extração de dados.  \n        Extraia os seguintes campos do texto abaixo e retorne em JSON.  \n        Campos (em {lang}): {wishlist}  \n        Texto do documento:\n        {text}",
+        "detail": "src.service.verificacao_service",
+        "documentation": {}
+    },
+    {
+        "label": "extract_with_ai",
+        "kind": 2,
+        "importPath": "src.service.verificacao_service",
+        "description": "src.service.verificacao_service",
+        "peekOfCode": "def extract_with_ai(text, wishlist, lang=\"pt\"):\n    prompt = f\"\"\"\n        Você é um assistente de extração de dados.  \n        Extraia os seguintes campos do texto abaixo e retorne em JSON.  \n        Campos (em {lang}): {wishlist}  \n        Texto do documento:\n        {text}\n        Se algum campo não existir, retorne null para ele.\n        \"\"\"\n    response = client.models.generate_content(",
         "detail": "src.service.verificacao_service",
         "documentation": {}
     },
@@ -1098,7 +1132,7 @@
         "kind": 2,
         "importPath": "src.service.verificacao_service",
         "description": "src.service.verificacao_service",
-        "peekOfCode": "def cv2_to_base64(img):\n    _, buffer = cv2.imencode('.jpg', img)\n    return base64.b64encode(buffer).decode('utf-8')\ndef verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")\n    document_data = extract_document_data(imgDocument)\n    result = verify_Presente_face(imgDocument, imgSelfie)",
+        "peekOfCode": "def cv2_to_base64(img):\n    _, buffer = cv2.imencode('.jpg', img)\n    return base64.b64encode(buffer).decode('utf-8')\ndef verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")\n    wishlist = [\"nome\", \"data_nascimento\", \"naturalidade\"]\n    document_data = ocr_image(imgDocument)",
         "detail": "src.service.verificacao_service",
         "documentation": {}
     },
@@ -1107,7 +1141,7 @@
         "kind": 2,
         "importPath": "src.service.verificacao_service",
         "description": "src.service.verificacao_service",
-        "peekOfCode": "def verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")\n    document_data = extract_document_data(imgDocument)\n    result = verify_Presente_face(imgDocument, imgSelfie)\n    face_document_img = crop_face(imgDocument, result['facial_areas']['img1'])\n    face_selfie_img = crop_face(imgSelfie, result['facial_areas']['img2'])\n    result2 = verify_Presente_face(face_document_img, face_selfie_img)",
+        "peekOfCode": "def verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")\n    wishlist = [\"nome\", \"data_nascimento\", \"naturalidade\"]\n    document_data = ocr_image(imgDocument)\n    document_data = extract_with_ai(document_data, wishlist, lang=\"pt\")\n    result = verify_Presente_face(imgDocument, imgSelfie)\n    face_document_img = crop_face(imgDocument, result['facial_areas']['img1'])",
         "detail": "src.service.verificacao_service",
         "documentation": {}
     },
@@ -1116,7 +1150,16 @@
         "kind": 5,
         "importPath": "src.service.verificacao_service",
         "description": "src.service.verificacao_service",
-        "peekOfCode": "pytesseract.pytesseract.tesseract_cmd = r\"C:\\Program Files\\Tesseract-OCR\\tesseract.exe\"\ndef base64_to_cv2_image(base64_str):\n    img_data = base64.b64decode(base64_str)\n    np_arr = np.frombuffer(img_data, np.uint8)\n    img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)\n    return img\ndef validate_image_quality(img, name, min_size=100, blur_threshold=100.0, min_brightness=30, max_brightness=300):\n    if img.shape[0] < min_size or img.shape[1] < min_size:\n        raise ValueError(f\"A imagem: {name}, é muito pequena para análise.\")\n    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)",
+        "peekOfCode": "pytesseract.pytesseract.tesseract_cmd = r\"C:\\Program Files\\Tesseract-OCR\\tesseract.exe\"\nclient = genai.Client(api_key=os.getenv(\"GEMINI_API_KEY\"))\ndef base64_to_cv2_image(base64_str):\n    img_data = base64.b64decode(base64_str)\n    np_arr = np.frombuffer(img_data, np.uint8)\n    img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)\n    return img\ndef validate_image_quality(img, name, min_size=100, blur_threshold=100.0, min_brightness=30, max_brightness=300):\n    if img.shape[0] < min_size or img.shape[1] < min_size:\n        raise ValueError(f\"A imagem: {name}, é muito pequena para análise.\")",
+        "detail": "src.service.verificacao_service",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "kind": 5,
+        "importPath": "src.service.verificacao_service",
+        "description": "src.service.verificacao_service",
+        "peekOfCode": "client = genai.Client(api_key=os.getenv(\"GEMINI_API_KEY\"))\ndef base64_to_cv2_image(base64_str):\n    img_data = base64.b64decode(base64_str)\n    np_arr = np.frombuffer(img_data, np.uint8)\n    img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)\n    return img\ndef validate_image_quality(img, name, min_size=100, blur_threshold=100.0, min_brightness=30, max_brightness=300):\n    if img.shape[0] < min_size or img.shape[1] < min_size:\n        raise ValueError(f\"A imagem: {name}, é muito pequena para análise.\")\n    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)",
         "detail": "src.service.verificacao_service",
         "documentation": {}
     },

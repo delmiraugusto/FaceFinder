@@ -3,10 +3,15 @@ import cv2
 import numpy as np
 import base64
 import pytesseract
-import re
+from openai import OpenAI
+import os
 from sqlalchemy.orm import Session
+import json
+from google import genai
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+
+client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 def base64_to_cv2_image(base64_str):
     img_data = base64.b64decode(base64_str)
@@ -42,42 +47,34 @@ def verify_Presente_face(imgDocument, imgSelfie):
 
     return result
 
-def extract_document_data(img):
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    gray = cv2.GaussianBlur(gray, (3,3), 0)
-    gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
+def ocr_image(img, langs="por+eng"):
+    text = pytesseract.image_to_string(img, lang=langs)
+    return text
 
-    text = pytesseract.image_to_string(gray, lang="por")
+def extract_with_ai(text, wishlist, lang="pt"):
+    prompt = f"""
+        Você é um assistente de extração de dados.  
+        Extraia os seguintes campos do texto abaixo e retorne em JSON.  
+        Campos (em {lang}): {wishlist}  
 
-    dob_pattern = r"(\d{2}[/-]\d{2}[/-]\d{4})"
-    dob_match = re.search(dob_pattern, text)
-    nascimento = dob_match.group(1) if dob_match else None
+        Texto do documento:
+        {text}
 
-    lines = [line.strip() for line in text.split("\n") if line.strip()]
-    invalid_keywords = ["FILAÇÃO", "NOME DO PAI", "NOME DA MÃE", "ESTADO", "GOVERNO", "IDENTIFICAÇÃO"]
+        Se algum campo não existir, retorne null para ele.
+        """
 
-    name_candidates = []
-    for i, line in enumerate(lines):
-        upper_line = line.upper()
-        if any(keyword in upper_line for keyword in ["NOME", "NAME"]):
-            next_lines = lines[i+1:i+3] if i+1 < len(lines) else []
-            for nl in next_lines:
-                nl_clean = re.sub(r"^[^A-Za-z]+|[^A-Za-z]+$", "", nl).strip()
-                if nl_clean and len(nl_clean.split()) >= 2 and not any(k in nl_clean.upper() for k in invalid_keywords):
-                    name_candidates.append(nl_clean)
+    response = client.models.generate_content(
+        model="gemini-2.5-flash",
+        contents=prompt,
+    )
 
-    if not name_candidates:
-        cleaned_lines = [re.sub(r"^[^A-Za-z]+|[^A-Za-z]+$", "", line) for line in lines]
-        valid_lines = [line for line in cleaned_lines if len(line.split()) >= 2 and not any(k in line.upper() for k in invalid_keywords)]
-        uppercase_names = [line for line in valid_lines if all(word.isupper() for word in line.split())]
-        name_candidates = uppercase_names if uppercase_names else valid_lines
+    output_text = str(response.candidates[0].content)
 
-    name = name_candidates[0] if len(name_candidates) > 0 else None
+    try:
+        return json.loads(output_text)
+    except json.JSONDecodeError:
+        return output_text
 
-    return {
-        "nome": name,
-        "data_nascimento": nascimento
-    }
 
 def crop_face(img, face_coords):
     x, y, w, h = face_coords['x'], face_coords['y'], face_coords['w'], face_coords['h']
@@ -95,8 +92,12 @@ def verify_faces(document_base64, selfie_base64):
     validate_image_quality(imgDocument, name="Documento")
     validate_image_quality(imgSelfie, name="Selfie")
 
-    document_data = extract_document_data(imgDocument)
-    
+    wishlist = ["nome", "data_nascimento", "naturalidade"]
+
+    document_data = ocr_image(imgDocument)
+
+    document_data = extract_with_ai(document_data, wishlist, lang="pt")
+
     result = verify_Presente_face(imgDocument, imgSelfie)
 
     face_document_img = crop_face(imgDocument, result['facial_areas']['img1'])
