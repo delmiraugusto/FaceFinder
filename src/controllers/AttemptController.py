@@ -101,10 +101,11 @@ class AttemptListResource(AttemptBaseResource):
         
 class AttemptStatusResource(AttemptBaseResource):
 
-    def patch(self, attempt_id, status):
+    def patch(self, attempt_id):
         attempt_service = AttemptService(db.session)
+        data = request.get_json()
         try:
-            attempt = attempt_service.atualizar_status_attempt(attempt_id, status)
+            attempt = attempt_service.forcar_status_attempt(attempt_id, data['status'])
             return {
                 "codigo_uuid": attempt.codigo_uuid,
                 "status": str(attempt.status),

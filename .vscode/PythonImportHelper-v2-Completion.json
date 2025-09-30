@@ -659,6 +659,14 @@
         "documentation": {}
     },
     {
+        "label": "AttemptStatusResource",
+        "importPath": "src.controllers.AttemptController",
+        "description": "src.controllers.AttemptController",
+        "isExtraImport": true,
+        "detail": "src.controllers.AttemptController",
+        "documentation": {}
+    },
+    {
         "label": "re",
         "kind": 6,
         "isExtraImport": true,
@@ -784,7 +792,7 @@
         "kind": 6,
         "importPath": "src.controllers.AttemptController",
         "description": "src.controllers.AttemptController",
-        "peekOfCode": "class AttemptStatusResource(AttemptBaseResource):\n    def patch(self, attempt_id, status):\n        attempt_service = AttemptService(db.session)\n        try:\n            attempt = attempt_service.atualizar_status_attempt(attempt_id, status)\n            return {\n                \"codigo_uuid\": attempt.codigo_uuid,\n                \"status\": str(attempt.status),\n                \"hospede\": [\n                    {",
+        "peekOfCode": "class AttemptStatusResource(AttemptBaseResource):\n    def patch(self, attempt_id):\n        attempt_service = AttemptService(db.session)\n        data = request.get_json()\n        try:\n            attempt = attempt_service.forcar_status_attempt(attempt_id, data['status'])\n            return {\n                \"codigo_uuid\": attempt.codigo_uuid,\n                \"status\": str(attempt.status),\n                \"hospede\": [",
         "detail": "src.controllers.AttemptController",
         "documentation": {}
     },

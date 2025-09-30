@@ -59,13 +59,10 @@ class AttemptService:
 
         return self.repo.update_put_attempt(attempt, data) 
     
-    def forcar_status_attempt(self, attempt_id):
+    def forcar_status_attempt(self, attempt_id, status):
         attempt = self.listar_attempt(attempt_id)
 
-        if attempt.status is True:
-            attempt.status = False
-        else:
-            attempt.status = True
+        attempt.status = status
         
         return self.repo.forcar_status_attempt(attempt)
     
