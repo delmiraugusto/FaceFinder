@@ -20,6 +20,7 @@ class AttemptResource(AttemptBaseResource):
             return {
                 "codigo_uuid": attempt.codigo_uuid,
                 "status": str(attempt.status),
+                "create_at": attempt.create_at.isoformat(),
                 "hospede": [
                     {
                         "codigo_uuid": hospede.codigo_uuid,
@@ -40,6 +41,7 @@ class AttemptListResource(AttemptBaseResource):
             return {
                 "codigo_uuid": attempt.codigo_uuid,
                 "status": str(attempt.status),
+                "create_at": attempt.create_at.isoformat(),
                 "hospede": [
                     {
                         "codigo_uuid": hospede.codigo_uuid,
@@ -69,6 +71,7 @@ class AttemptListResource(AttemptBaseResource):
             return {
                 "codigo_uuid": attempt.codigo_uuid,
                 "status": str(attempt.status),
+                "create_at": attempt.create_at.isoformat(),
                 "hospede": [
                     {
                         "codigo_uuid": hospede.codigo_uuid,
@@ -88,6 +91,7 @@ class AttemptListResource(AttemptBaseResource):
             return {
                 "codigo_uuid": attempt.codigo_uuid,
                 "status": str(attempt.status),
+                "create_at": attempt.create_at.isoformat(),
                 "hospede": [
                     {
                         "codigo_uuid": hospede.codigo_uuid,
@@ -109,6 +113,7 @@ class AttemptStatusResource(AttemptBaseResource):
             return {
                 "codigo_uuid": attempt.codigo_uuid,
                 "status": str(attempt.status),
+                "create_at": attempt.create_at.isoformat(),
                 "hospede": [
                     {
                         "codigo_uuid": hospede.codigo_uuid,
