@@ -5,6 +5,7 @@ import base64
 import pytesseract
 from openai import OpenAI
 import os
+import re
 from sqlalchemy.orm import Session
 import json
 from google import genai
@@ -51,16 +52,27 @@ def ocr_image(img, langs="por+eng"):
     text = pytesseract.image_to_string(img, lang=langs)
     return text
 
-def extract_with_ai(text, wishlist, lang="pt"):
+def extract_with_ai(text, wishlist):
     prompt = f"""
         Você é um assistente de extração de dados.  
         Extraia os seguintes campos do texto abaixo e retorne em JSON.  
-        Campos (em {lang}): {wishlist}  
+        Campos: {wishlist}, no campo pais_de_origem_do_documento, tente estivar o país onde foi emitido o documento.
+
+        O retorno deve ser um json, estritamente desta forma:
+
+        {{
+            "campo1": "valor",
+            "campo2": "valor",
+            ...
+        }}
+
+        sem \\n, espaços extras ou qualquer outra coisa.
 
         Texto do documento:
         {text}
 
         Se algum campo não existir, retorne null para ele.
+
         """
 
     response = client.models.generate_content(
@@ -68,7 +80,7 @@ def extract_with_ai(text, wishlist, lang="pt"):
         contents=prompt,
     )
 
-    output_text = str(response.candidates[0].content)
+    output_text = response.candidates[0].content.parts[0].text.strip()
 
     try:
         return json.loads(output_text)
@@ -92,11 +104,11 @@ def verify_faces(document_base64, selfie_base64):
     validate_image_quality(imgDocument, name="Documento")
     validate_image_quality(imgSelfie, name="Selfie")
 
-    wishlist = ["nome", "data_nascimento", "naturalidade"]
+    wishlist = ["nome", "data_nascimento", "naturalidade", "pais_de_origem_do_documento", "lingua_nativa_do_documento"]
 
     document_data = ocr_image(imgDocument)
 
-    document_data = extract_with_ai(document_data, wishlist, lang="pt")
+    document_data = extract_with_ai(document_data, wishlist)
 
     result = verify_Presente_face(imgDocument, imgSelfie)
 

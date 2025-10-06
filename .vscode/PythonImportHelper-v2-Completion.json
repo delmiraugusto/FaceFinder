@@ -1105,7 +1105,7 @@
         "kind": 2,
         "importPath": "src.service.verificacao_service",
         "description": "src.service.verificacao_service",
-        "peekOfCode": "def ocr_image(img, langs=\"por+eng\"):\n    text = pytesseract.image_to_string(img, lang=langs)\n    return text\ndef extract_with_ai(text, wishlist, lang=\"pt\"):\n    prompt = f\"\"\"\n        Você é um assistente de extração de dados.  \n        Extraia os seguintes campos do texto abaixo e retorne em JSON.  \n        Campos (em {lang}): {wishlist}  \n        Texto do documento:\n        {text}",
+        "peekOfCode": "def ocr_image(img, langs=\"por+eng\"):\n    text = pytesseract.image_to_string(img, lang=langs)\n    return text\ndef extract_with_ai(text, wishlist):\n    prompt = f\"\"\"\n        Você é um assistente de extração de dados.  \n        Extraia os seguintes campos do texto abaixo e retorne em JSON.  \n        Campos: {wishlist}, no campo pais_de_origem_do_documento, tente estivar o país onde foi emitido o documento.\n        O retorno deve ser um json, estritamente desta forma:\n        {{",
         "detail": "src.service.verificacao_service",
         "documentation": {}
     },
@@ -1114,7 +1114,7 @@
         "kind": 2,
         "importPath": "src.service.verificacao_service",
         "description": "src.service.verificacao_service",
-        "peekOfCode": "def extract_with_ai(text, wishlist, lang=\"pt\"):\n    prompt = f\"\"\"\n        Você é um assistente de extração de dados.  \n        Extraia os seguintes campos do texto abaixo e retorne em JSON.  \n        Campos (em {lang}): {wishlist}  \n        Texto do documento:\n        {text}\n        Se algum campo não existir, retorne null para ele.\n        \"\"\"\n    response = client.models.generate_content(",
+        "peekOfCode": "def extract_with_ai(text, wishlist):\n    prompt = f\"\"\"\n        Você é um assistente de extração de dados.  \n        Extraia os seguintes campos do texto abaixo e retorne em JSON.  \n        Campos: {wishlist}, no campo pais_de_origem_do_documento, tente estivar o país onde foi emitido o documento.\n        O retorno deve ser um json, estritamente desta forma:\n        {{\n            \"campo1\": \"valor\",\n            \"campo2\": \"valor\",\n            ...",
         "detail": "src.service.verificacao_service",
         "documentation": {}
     },
@@ -1132,7 +1132,7 @@
         "kind": 2,
         "importPath": "src.service.verificacao_service",
         "description": "src.service.verificacao_service",
-        "peekOfCode": "def cv2_to_base64(img):\n    _, buffer = cv2.imencode('.jpg', img)\n    return base64.b64encode(buffer).decode('utf-8')\ndef verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")\n    wishlist = [\"nome\", \"data_nascimento\", \"naturalidade\"]\n    document_data = ocr_image(imgDocument)",
+        "peekOfCode": "def cv2_to_base64(img):\n    _, buffer = cv2.imencode('.jpg', img)\n    return base64.b64encode(buffer).decode('utf-8')\ndef verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")\n    wishlist = [\"nome\", \"data_nascimento\", \"naturalidade\", \"pais_de_origem_do_documento\", \"lingua_nativa_do_documento\"]\n    document_data = ocr_image(imgDocument)",
         "detail": "src.service.verificacao_service",
         "documentation": {}
     },
@@ -1141,7 +1141,7 @@
         "kind": 2,
         "importPath": "src.service.verificacao_service",
         "description": "src.service.verificacao_service",
-        "peekOfCode": "def verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")\n    wishlist = [\"nome\", \"data_nascimento\", \"naturalidade\"]\n    document_data = ocr_image(imgDocument)\n    document_data = extract_with_ai(document_data, wishlist, lang=\"pt\")\n    result = verify_Presente_face(imgDocument, imgSelfie)\n    face_document_img = crop_face(imgDocument, result['facial_areas']['img1'])",
+        "peekOfCode": "def verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")\n    wishlist = [\"nome\", \"data_nascimento\", \"naturalidade\", \"pais_de_origem_do_documento\", \"lingua_nativa_do_documento\"]\n    document_data = ocr_image(imgDocument)\n    document_data = extract_with_ai(document_data, wishlist)\n    result = verify_Presente_face(imgDocument, imgSelfie)\n    face_document_img = crop_face(imgDocument, result['facial_areas']['img1'])",
         "detail": "src.service.verificacao_service",
         "documentation": {}
     },
