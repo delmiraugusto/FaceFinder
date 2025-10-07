@@ -105,6 +105,14 @@
         "documentation": {}
     },
     {
+        "label": "AttemptService",
+        "importPath": "src.service.attempt_service",
+        "description": "src.service.attempt_service",
+        "isExtraImport": true,
+        "detail": "src.service.attempt_service",
+        "documentation": {}
+    },
+    {
         "label": "db",
         "importPath": "src.models.Base",
         "description": "src.models.Base",
@@ -562,6 +570,14 @@
         "documentation": {}
     },
     {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
         "label": "hospede_attempt",
         "importPath": "src.models.Hospede_Attempt",
         "description": "src.models.Hospede_Attempt",
@@ -673,6 +689,14 @@
         "description": "src.models.Hospede",
         "isExtraImport": true,
         "detail": "src.models.Hospede",
+        "documentation": {}
+    },
+    {
+        "label": "DocumentData",
+        "importPath": "src.models.DocumentData",
+        "description": "src.models.DocumentData",
+        "isExtraImport": true,
+        "detail": "src.models.DocumentData",
         "documentation": {}
     },
     {
@@ -810,6 +834,14 @@
         "description": "src.repository.attempt_repository",
         "isExtraImport": true,
         "detail": "src.repository.attempt_repository",
+        "documentation": {}
+    },
+    {
+        "label": "DocumentDataRepository",
+        "importPath": "src.repository.documentData_repository",
+        "description": "src.repository.documentData_repository",
+        "isExtraImport": true,
+        "detail": "src.repository.documentData_repository",
         "documentation": {}
     },
     {
@@ -1201,6 +1233,15 @@
         "description": "src.service.attempt_service",
         "peekOfCode": "class AttemptService:\n    def __init__(self, session: Session):\n        self.repo = AttemptRepository(session)\n        self.hosp = HospedeService(session)\n        self.session = session\n    def criar_attempt(self, data, hospede_id):\n        attempt = Attempt(\n            status=data.get(\"status\")\n        )\n        self.hosp.listar_hospede(hospede_id)",
         "detail": "src.service.attempt_service",
+        "documentation": {}
+    },
+    {
+        "label": "DocumentDataService",
+        "kind": 6,
+        "importPath": "src.service.documentData_service",
+        "description": "src.service.documentData_service",
+        "peekOfCode": "class DocumentDataService:\n    def __init__(self, session: Session):\n        self.repo = DocumentDataRepository(session)\n        self.attemp = AttemptService(session)\n        self.session = session\n    def criar_documentData(self, data, attempt_id):\n        documentData = DocumentData(\n            status=data.get(\"status\")\n        )\n        self.attemp.listar_attempt(attempt_id)",
+        "detail": "src.service.documentData_service",
         "documentation": {}
     },
     {
