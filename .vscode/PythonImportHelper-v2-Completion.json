@@ -233,6 +233,14 @@
         "documentation": {}
     },
     {
+        "label": "Attempt",
+        "importPath": "src.models.Attempt",
+        "description": "src.models.Attempt",
+        "isExtraImport": true,
+        "detail": "src.models.Attempt",
+        "documentation": {}
+    },
+    {
         "label": "HospedeService",
         "importPath": "src.service.hospede_service",
         "description": "src.service.hospede_service",
@@ -546,6 +554,14 @@
         "documentation": {}
     },
     {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
         "label": "hospede_attempt",
         "importPath": "src.models.Hospede_Attempt",
         "description": "src.models.Hospede_Attempt",
@@ -657,6 +673,14 @@
         "description": "src.models.Hospede",
         "isExtraImport": true,
         "detail": "src.models.Hospede",
+        "documentation": {}
+    },
+    {
+        "label": "DocumentData",
+        "importPath": "src.models.DocumentData",
+        "description": "src.models.DocumentData",
+        "isExtraImport": true,
+        "detail": "src.models.DocumentData",
         "documentation": {}
     },
     {
@@ -846,14 +870,6 @@
         "importPath": "pytesseract",
         "description": "pytesseract",
         "detail": "pytesseract",
-        "documentation": {}
-    },
-    {
-        "label": "OpenAI",
-        "importPath": "openai",
-        "description": "openai",
-        "isExtraImport": true,
-        "detail": "openai",
         "documentation": {}
     },
     {
@@ -1143,6 +1159,15 @@
         "documentation": {}
     },
     {
+        "label": "DocumentDataRepository",
+        "kind": 6,
+        "importPath": "src.repository.documenteData_repository",
+        "description": "src.repository.documenteData_repository",
+        "peekOfCode": "class DocumentDataRepository:\n    def __init__(self, session: Session):\n        self.session = session\n    def add(self, documentData, attempt_id):\n        self.session.add(documentData)\n        self.session.commit()\n        self.session.refresh(documentData)\n        documentData_id = documentData.codigo_uuid\n        documentData = self.session.query(DocumentData).get(documentData_id)\n        attempt = self.session.query(Attempt).get(attempt_id)",
+        "detail": "src.repository.documenteData_repository",
+        "documentation": {}
+    },
+    {
         "label": "HospedeRepository",
         "kind": 6,
         "importPath": "src.repository.hospede_repository",
@@ -1228,7 +1253,7 @@
         "kind": 2,
         "importPath": "src.service.verificacao_service",
         "description": "src.service.verificacao_service",
-        "peekOfCode": "def ocr_image(img, langs=\"por+eng\"):\n    text = pytesseract.image_to_string(img, lang=langs)\n    return text\ndef extract_with_ai(text, wishlist):\n    prompt = f\"\"\"\n        Você é um assistente de extração de dados.  \n        Extraia os seguintes campos do texto abaixo e retorne em JSON.  \n        Campos: {wishlist}, no campo pais_de_origem_do_documento, tente estivar o país onde foi emitido o documento.\n        O retorno deve ser um json, estritamente desta forma:\n        {{",
+        "peekOfCode": "def ocr_image(img, langs=\"por+eng\"):\n    text = pytesseract.image_to_string(img, lang=langs)\n    return text\ndef extract_with_ai(text, wishlist):\n    prompt = f\"\"\"\n        Você é um assistente de extração de dados.  \n        Extraia os seguintes campos do texto abaixo e retorne em JSON.  \n        Campos: {wishlist}, no campo pais_de_origem_do_documento, tente estimar o país onde foi emitido o documento,\n        no campo naturalidade \n        O retorno deve ser um json, estritamente desta forma:",
         "detail": "src.service.verificacao_service",
         "documentation": {}
     },
@@ -1237,7 +1262,7 @@
         "kind": 2,
         "importPath": "src.service.verificacao_service",
         "description": "src.service.verificacao_service",
-        "peekOfCode": "def extract_with_ai(text, wishlist):\n    prompt = f\"\"\"\n        Você é um assistente de extração de dados.  \n        Extraia os seguintes campos do texto abaixo e retorne em JSON.  \n        Campos: {wishlist}, no campo pais_de_origem_do_documento, tente estivar o país onde foi emitido o documento.\n        O retorno deve ser um json, estritamente desta forma:\n        {{\n            \"campo1\": \"valor\",\n            \"campo2\": \"valor\",\n            ...",
+        "peekOfCode": "def extract_with_ai(text, wishlist):\n    prompt = f\"\"\"\n        Você é um assistente de extração de dados.  \n        Extraia os seguintes campos do texto abaixo e retorne em JSON.  \n        Campos: {wishlist}, no campo pais_de_origem_do_documento, tente estimar o país onde foi emitido o documento,\n        no campo naturalidade \n        O retorno deve ser um json, estritamente desta forma:\n        {{\n            \"campo1\": \"valor\",\n            \"campo2\": \"valor\",",
         "detail": "src.service.verificacao_service",
         "documentation": {}
     },
@@ -1255,7 +1280,7 @@
         "kind": 2,
         "importPath": "src.service.verificacao_service",
         "description": "src.service.verificacao_service",
-        "peekOfCode": "def cv2_to_base64(img):\n    _, buffer = cv2.imencode('.jpg', img)\n    return base64.b64encode(buffer).decode('utf-8')\ndef verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")\n    wishlist = [\"nome\", \"data_nascimento\", \"naturalidade\", \"pais_de_origem_do_documento\", \"lingua_nativa_do_documento\"]\n    document_data = ocr_image(imgDocument)",
+        "peekOfCode": "def cv2_to_base64(img):\n    _, buffer = cv2.imencode('.jpg', img)\n    return base64.b64encode(buffer).decode('utf-8')\ndef verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")\n    wishlist = [\"nome\", \"data_nascimento\", \"pais_de_origem_do_documento\", \"lingua_nativa_do_documento\"]\n    document_data = ocr_image(imgDocument)",
         "detail": "src.service.verificacao_service",
         "documentation": {}
     },
@@ -1264,7 +1289,7 @@
         "kind": 2,
         "importPath": "src.service.verificacao_service",
         "description": "src.service.verificacao_service",
-        "peekOfCode": "def verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")\n    wishlist = [\"nome\", \"data_nascimento\", \"naturalidade\", \"pais_de_origem_do_documento\", \"lingua_nativa_do_documento\"]\n    document_data = ocr_image(imgDocument)\n    document_data = extract_with_ai(document_data, wishlist)\n    result = verify_Presente_face(imgDocument, imgSelfie)\n    face_document_img = crop_face(imgDocument, result['facial_areas']['img1'])",
+        "peekOfCode": "def verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")\n    wishlist = [\"nome\", \"data_nascimento\", \"pais_de_origem_do_documento\", \"lingua_nativa_do_documento\"]\n    document_data = ocr_image(imgDocument)\n    document_data = extract_with_ai(document_data, wishlist)\n    result = verify_Presente_face(imgDocument, imgSelfie)\n    face_document_img = crop_face(imgDocument, result['facial_areas']['img1'])",
         "detail": "src.service.verificacao_service",
         "documentation": {}
     },

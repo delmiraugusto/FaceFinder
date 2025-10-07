@@ -3,7 +3,6 @@ import cv2
 import numpy as np
 import base64
 import pytesseract
-from openai import OpenAI
 import os
 import re
 from sqlalchemy.orm import Session
@@ -56,7 +55,8 @@ def extract_with_ai(text, wishlist):
     prompt = f"""
         Você é um assistente de extração de dados.  
         Extraia os seguintes campos do texto abaixo e retorne em JSON.  
-        Campos: {wishlist}, no campo pais_de_origem_do_documento, tente estivar o país onde foi emitido o documento.
+        Campos: {wishlist}, no campo pais_de_origem_do_documento, tente estimar o país onde foi emitido o documento,
+        no campo naturalidade 
 
         O retorno deve ser um json, estritamente desta forma:
 
@@ -104,7 +104,7 @@ def verify_faces(document_base64, selfie_base64):
     validate_image_quality(imgDocument, name="Documento")
     validate_image_quality(imgSelfie, name="Selfie")
 
-    wishlist = ["nome", "data_nascimento", "naturalidade", "pais_de_origem_do_documento", "lingua_nativa_do_documento"]
+    wishlist = ["nome", "data_nascimento", "pais_de_origem_do_documento", "lingua_nativa_do_documento"]
 
     document_data = ocr_image(imgDocument)
 

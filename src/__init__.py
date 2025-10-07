@@ -18,7 +18,7 @@ def create_app() -> Flask:
     # .\venv\Scripts\Activate.ps1
 
     # Comando para rodar o programa
-    # flask --app manage run --host=0.0.0.0 --port=8080
+    # flask --app manage run --host=0.0.0.0 --port=5001
     
     api = Api(app, prefix="/faceFinder")
     initialize_endpoints(api)
