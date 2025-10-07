@@ -1161,10 +1161,10 @@
     {
         "label": "DocumentDataRepository",
         "kind": 6,
-        "importPath": "src.repository.documenteData_repository",
-        "description": "src.repository.documenteData_repository",
+        "importPath": "src.repository.documentData_repository",
+        "description": "src.repository.documentData_repository",
         "peekOfCode": "class DocumentDataRepository:\n    def __init__(self, session: Session):\n        self.session = session\n    def add(self, documentData, attempt_id):\n        self.session.add(documentData)\n        self.session.commit()\n        self.session.refresh(documentData)\n        documentData_id = documentData.codigo_uuid\n        documentData = self.session.query(DocumentData).get(documentData_id)\n        attempt = self.session.query(Attempt).get(attempt_id)",
-        "detail": "src.repository.documenteData_repository",
+        "detail": "src.repository.documentData_repository",
         "documentation": {}
     },
     {
