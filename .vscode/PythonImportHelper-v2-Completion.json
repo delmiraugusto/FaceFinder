@@ -121,14 +121,6 @@
         "documentation": {}
     },
     {
-        "label": "AttemptService",
-        "importPath": "src.service.attempt_service",
-        "description": "src.service.attempt_service",
-        "isExtraImport": true,
-        "detail": "src.service.attempt_service",
-        "documentation": {}
-    },
-    {
         "label": "db",
         "importPath": "src.models.Base",
         "description": "src.models.Base",
@@ -1087,7 +1079,7 @@
         "kind": 6,
         "importPath": "src.controllers.AttemptController",
         "description": "src.controllers.AttemptController",
-        "peekOfCode": "class AttemptBaseResource(Resource):\n    method_decorators = [require_api_key(ATTEMPT_API_KEY)]\nclass AttemptResource(AttemptBaseResource):\n    def post(self, hospede_id):\n        attempt_service = AttemptService(db.session)\n        schema = AttemptSchema(exclude=(\"hospedes\",))\n        try:\n            data = request.get_json()\n            attempt = attempt_service.criar_attempt(data, hospede_id)\n            return schema.dump(attempt), 201",
+        "peekOfCode": "class AttemptBaseResource(Resource):\n    method_decorators = [require_api_key(ATTEMPT_API_KEY)]\nclass AttemptResource(AttemptBaseResource):\n    def post(self, hospede_id):\n        attempt_service = AttemptService(db.session)\n        schema = AttemptSchema(exclude=(\"hospedes\",))\n        try:\n            data = request.get_json()\n            resultado = attempt_service.criar_attempt(data, hospede_id)\n            attempt_serialized = schema.dump(resultado[\"attempt\"])",
         "detail": "src.controllers.AttemptController",
         "documentation": {}
     },
@@ -1096,7 +1088,7 @@
         "kind": 6,
         "importPath": "src.controllers.AttemptController",
         "description": "src.controllers.AttemptController",
-        "peekOfCode": "class AttemptResource(AttemptBaseResource):\n    def post(self, hospede_id):\n        attempt_service = AttemptService(db.session)\n        schema = AttemptSchema(exclude=(\"hospedes\",))\n        try:\n            data = request.get_json()\n            attempt = attempt_service.criar_attempt(data, hospede_id)\n            return schema.dump(attempt), 201\n        except Exception as e:\n            return {\"error\": str(e)}, 400",
+        "peekOfCode": "class AttemptResource(AttemptBaseResource):\n    def post(self, hospede_id):\n        attempt_service = AttemptService(db.session)\n        schema = AttemptSchema(exclude=(\"hospedes\",))\n        try:\n            data = request.get_json()\n            resultado = attempt_service.criar_attempt(data, hospede_id)\n            attempt_serialized = schema.dump(resultado[\"attempt\"])\n            return {\n                \"attempt\": attempt_serialized,",
         "detail": "src.controllers.AttemptController",
         "documentation": {}
     },
@@ -1123,7 +1115,7 @@
         "kind": 5,
         "importPath": "src.controllers.AttemptController",
         "description": "src.controllers.AttemptController",
-        "peekOfCode": "ATTEMPT_API_KEY = os.getenv(\"ATTEMPT_API_KEY\")\nclass AttemptBaseResource(Resource):\n    method_decorators = [require_api_key(ATTEMPT_API_KEY)]\nclass AttemptResource(AttemptBaseResource):\n    def post(self, hospede_id):\n        attempt_service = AttemptService(db.session)\n        schema = AttemptSchema(exclude=(\"hospedes\",))\n        try:\n            data = request.get_json()\n            attempt = attempt_service.criar_attempt(data, hospede_id)",
+        "peekOfCode": "ATTEMPT_API_KEY = os.getenv(\"ATTEMPT_API_KEY\")\nclass AttemptBaseResource(Resource):\n    method_decorators = [require_api_key(ATTEMPT_API_KEY)]\nclass AttemptResource(AttemptBaseResource):\n    def post(self, hospede_id):\n        attempt_service = AttemptService(db.session)\n        schema = AttemptSchema(exclude=(\"hospedes\",))\n        try:\n            data = request.get_json()\n            resultado = attempt_service.criar_attempt(data, hospede_id)",
         "detail": "src.controllers.AttemptController",
         "documentation": {}
     },
@@ -1303,7 +1295,7 @@
         "kind": 5,
         "importPath": "src.models.Attempt_DocumentData",
         "description": "src.models.Attempt_DocumentData",
-        "peekOfCode": "attempt_documentData = Table(\n    'attempt_documentData',\n    Base.metadata,\n    Column('documentData_uuid', ForeignKey('documentData.codigo_uuid'), primary_key=True),\n    Column('attempt_uuid', ForeignKey('attempt.codigo_uuid'), primary_key=True)\n)",
+        "peekOfCode": "attempt_documentData = Table(\n    'attempt_documentdata',\n    Base.metadata,\n    Column('documentdata_uuid', ForeignKey('documentdata.codigo_uuid'), primary_key=True),\n    Column('attempt_uuid', ForeignKey('attempt.codigo_uuid'), primary_key=True)\n)",
         "detail": "src.models.Attempt_DocumentData",
         "documentation": {}
     },
@@ -1330,7 +1322,7 @@
         "kind": 6,
         "importPath": "src.models.DocumentData",
         "description": "src.models.DocumentData",
-        "peekOfCode": "class DocumentData(Base):\n    __tablename__ = 'documentData'\n    codigo_uuid = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))\n    dados = Column(JSONB)\n    attempts = relationship(\n        \"Attempt\",\n        secondary=attempt_documentData,\n        back_populates=\"documentDatas\"\n    )\n    def __init__(self, dados):",
+        "peekOfCode": "class DocumentData(Base):\n    __tablename__ = 'documentdata'\n    codigo_uuid = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))\n    dados = Column(JSONB)\n    attempts = relationship(\n        \"Attempt\",\n        secondary=attempt_documentData,\n        back_populates=\"documentDatas\"\n    )\n    def __init__(self, dados):",
         "detail": "src.models.DocumentData",
         "documentation": {}
     },
@@ -1465,7 +1457,7 @@
         "kind": 6,
         "importPath": "src.service.documentData_service",
         "description": "src.service.documentData_service",
-        "peekOfCode": "class DocumentDataService:\n    def __init__(self, session: Session):\n        self.repo = DocumentDataRepository(session)\n        self.attemp = AttemptService(session)\n        self.session = session\n    def criar_documentData(self, data, attempt_id):\n        documentData = DocumentData(\n        )\n        self.attemp.listar_attempt(attempt_id)\n        return self.repo.add(documentData, attempt_id)",
+        "peekOfCode": "class DocumentDataService:\n    def __init__(self, session: Session):\n        self.repo = DocumentDataRepository(session)\n        self.session = session\n    def criar_documentData(self, document_data_json, attempt_id):\n        documentData = DocumentData(\n            dados=document_data_json,\n        )\n        return self.repo.add(documentData, attempt_id)\n    def listar_documentData(self, documentData_id):",
         "detail": "src.service.documentData_service",
         "documentation": {}
     },

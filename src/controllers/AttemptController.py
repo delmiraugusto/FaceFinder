@@ -18,8 +18,17 @@ class AttemptResource(AttemptBaseResource):
         schema = AttemptSchema(exclude=("hospedes",))
         try:
             data = request.get_json()
-            attempt = attempt_service.criar_attempt(data, hospede_id)
-            return schema.dump(attempt), 201
+
+            resultado = attempt_service.criar_attempt(data, hospede_id)
+
+            attempt_serialized = schema.dump(resultado["attempt"])
+            
+            return {
+                "attempt": attempt_serialized,
+                "verification": resultado["verification"],
+                "document_data": resultado["document_data"],
+                "faces": resultado["faces"]
+            }, 201
         except Exception as e:
             return {"error": str(e)}, 400
         

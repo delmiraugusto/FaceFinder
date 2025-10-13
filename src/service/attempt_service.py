@@ -16,7 +16,7 @@ class AttemptService:
     def criar_attempt(self, data, hospede_id):
 
         self.hosp.listar_hospede(hospede_id)
-        
+
         document_base64 = data.get("document")
         selfie_base64 = data.get("selfie")
 
@@ -26,10 +26,19 @@ class AttemptService:
             status=resultadoVerify["verification"]["verified"]
         )
 
+        attempt = self.repo.add(attempt, hospede_id)
 
+        document_data_json = resultadoVerify["document_data"]
 
+        self.doc.criar_documentData(document_data_json, attempt.codigo_uuid)
 
-        return self.repo.add(attempt, hospede_id)
+        return {
+            "verification": resultadoVerify["verification"],
+            "document_data": resultadoVerify["document_data"],
+            "faces": resultadoVerify["faces"],
+            "attempt": attempt
+        }
+
     
     def listar_attempt(self, attempt_id):
 

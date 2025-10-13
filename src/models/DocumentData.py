@@ -6,7 +6,7 @@ from sqlalchemy.dialects.postgresql import JSONB
 import uuid
 
 class DocumentData(Base):
-    __tablename__ = 'documentData'
+    __tablename__ = 'documentdata'
 
     codigo_uuid = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     dados = Column(JSONB)

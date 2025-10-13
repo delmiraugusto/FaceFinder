@@ -1,20 +1,17 @@
 from sqlalchemy.orm import Session
 from src.models.DocumentData import DocumentData
 from src.repository.documentData_repository import DocumentDataRepository
-from src.service.attempt_service import AttemptService
 
 class DocumentDataService:
     def __init__(self, session: Session):
         self.repo = DocumentDataRepository(session)
-        self.attemp = AttemptService(session)
         self.session = session
 
-    def criar_documentData(self, data, attempt_id):
+    def criar_documentData(self, document_data_json, attempt_id):
 
         documentData = DocumentData(
+            dados=document_data_json,
         )
-
-        self.attemp.listar_attempt(attempt_id)
 
         return self.repo.add(documentData, attempt_id)
     
