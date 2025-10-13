@@ -25,5 +25,7 @@ class Hospede(Base):
         back_populates="hospedes"
     )
 
-    def __init__(self, status=None):
+    def __init__(self, nome=None, status=None, ag_uid=None):
+        self.nome = nome
         self.status = status
+        self.ag_uid = ag_uid

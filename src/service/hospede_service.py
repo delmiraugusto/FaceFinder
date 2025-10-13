@@ -8,10 +8,8 @@ class HospedeService:
         self.session = session
 
     def criar_hospede(self, data):
-
-        hospede = Hospede(
-            status=data.get("status")
-        )
+        
+        hospede = Hospede(**data)
 
         return self.repo.add(hospede)
     

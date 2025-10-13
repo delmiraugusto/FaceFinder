@@ -329,6 +329,14 @@
         "documentation": {}
     },
     {
+        "label": "HospedeSchema",
+        "importPath": "src.schemas.HospedeSchema",
+        "description": "src.schemas.HospedeSchema",
+        "isExtraImport": true,
+        "detail": "src.schemas.HospedeSchema",
+        "documentation": {}
+    },
+    {
         "label": "ReservaService",
         "importPath": "src.service.reserva_service",
         "description": "src.service.reserva_service",
@@ -916,30 +924,6 @@
         "documentation": {}
     },
     {
-        "label": "HospedeSchema",
-        "importPath": "src.schemas.HospedeSchema",
-        "description": "src.schemas.HospedeSchema",
-        "isExtraImport": true,
-        "detail": "src.schemas.HospedeSchema",
-        "documentation": {}
-    },
-    {
-        "label": "HospedeSchema",
-        "importPath": "src.schemas.HospedeSchema",
-        "description": "src.schemas.HospedeSchema",
-        "isExtraImport": true,
-        "detail": "src.schemas.HospedeSchema",
-        "documentation": {}
-    },
-    {
-        "label": "ReservaSchema",
-        "importPath": "src.schemas.ReservaSchema",
-        "description": "src.schemas.ReservaSchema",
-        "isExtraImport": true,
-        "detail": "src.schemas.ReservaSchema",
-        "documentation": {}
-    },
-    {
         "label": "re",
         "kind": 6,
         "isExtraImport": true,
@@ -1162,7 +1146,7 @@
         "kind": 6,
         "importPath": "src.controllers.HospedeController",
         "description": "src.controllers.HospedeController",
-        "peekOfCode": "class HospedeBaseResource(Resource):\n    method_decorators = [require_api_key(HOSPEDE_API_KEY)]\nclass HospedeResource(HospedeBaseResource):\n    def post(self):\n        hospede_service = HospedeService(db.session)\n        try:\n            data = request.get_json()\n            hospede = hospede_service.criar_hospede(data)\n            return {\n                \"codigo_uuid\": hospede.codigo_uuid,",
+        "peekOfCode": "class HospedeBaseResource(Resource):\n    method_decorators = [require_api_key(HOSPEDE_API_KEY)]\nclass HospedeResource(HospedeBaseResource):\n    def post(self):\n        hospede_service = HospedeService(db.session)\n        schema = HospedeSchema(exclude=(\"reservas\", \"attempts\"))\n        try:\n            data = request.get_json()\n            hospede = hospede_service.criar_hospede(data)\n            return schema.dump(hospede), 201",
         "detail": "src.controllers.HospedeController",
         "documentation": {}
     },
@@ -1171,7 +1155,7 @@
         "kind": 6,
         "importPath": "src.controllers.HospedeController",
         "description": "src.controllers.HospedeController",
-        "peekOfCode": "class HospedeResource(HospedeBaseResource):\n    def post(self):\n        hospede_service = HospedeService(db.session)\n        try:\n            data = request.get_json()\n            hospede = hospede_service.criar_hospede(data)\n            return {\n                \"codigo_uuid\": hospede.codigo_uuid,\n                \"status\": str(hospede.status),\n            }, 201",
+        "peekOfCode": "class HospedeResource(HospedeBaseResource):\n    def post(self):\n        hospede_service = HospedeService(db.session)\n        schema = HospedeSchema(exclude=(\"reservas\", \"attempts\"))\n        try:\n            data = request.get_json()\n            hospede = hospede_service.criar_hospede(data)\n            return schema.dump(hospede), 201\n        except Exception as e:\n            return {\"error\": str(e)}, 400",
         "detail": "src.controllers.HospedeController",
         "documentation": {}
     },
@@ -1180,7 +1164,7 @@
         "kind": 6,
         "importPath": "src.controllers.HospedeController",
         "description": "src.controllers.HospedeController",
-        "peekOfCode": "class HospedeListResource(HospedeBaseResource):\n    def get(self, hospede_id):\n        hospede_service = HospedeService(db.session)\n        try:\n            hospede = hospede_service.listar_hospede(hospede_id)\n            return {\n                \"codigo_uuid\": hospede.codigo_uuid,\n                \"status\": str(hospede.status),\n                \"reservas\": [\n                    {",
+        "peekOfCode": "class HospedeListResource(HospedeBaseResource):\n    def get(self, hospede_id):\n        hospede_service = HospedeService(db.session)\n        schema = HospedeSchema()\n        try:\n            hospede = hospede_service.listar_hospede(hospede_id)\n            return schema.dump(hospede), 200\n        except Exception as e:\n            return {\"error\": str(e)}, 400\n    def delete(self, hospede_id):",
         "detail": "src.controllers.HospedeController",
         "documentation": {}
     },
@@ -1189,7 +1173,7 @@
         "kind": 6,
         "importPath": "src.controllers.HospedeController",
         "description": "src.controllers.HospedeController",
-        "peekOfCode": "class HospedeStatusResource(HospedeBaseResource):\n    def patch(self, hospede_id):\n        hospede_service = HospedeService(db.session)\n        try:\n            hospede = hospede_service.forcar_status_hospede(hospede_id)\n            return {\n                \"codigo_uuid\": hospede.codigo_uuid,\n                \"status\": str(hospede.status),\n                \"reservas\": [\n                    {",
+        "peekOfCode": "class HospedeStatusResource(HospedeBaseResource):\n    def patch(self, hospede_id):\n        hospede_service = HospedeService(db.session)\n        schema = HospedeSchema()\n        try:\n            hospede = hospede_service.forcar_status_hospede(hospede_id)\n            return schema.dump(hospede), 200\n        except Exception as e:\n            return {\"error\": str(e)}, 400",
         "detail": "src.controllers.HospedeController",
         "documentation": {}
     },
@@ -1198,7 +1182,7 @@
         "kind": 5,
         "importPath": "src.controllers.HospedeController",
         "description": "src.controllers.HospedeController",
-        "peekOfCode": "HOSPEDE_API_KEY = os.getenv(\"HOSPEDE_API_KEY\")\nclass HospedeBaseResource(Resource):\n    method_decorators = [require_api_key(HOSPEDE_API_KEY)]\nclass HospedeResource(HospedeBaseResource):\n    def post(self):\n        hospede_service = HospedeService(db.session)\n        try:\n            data = request.get_json()\n            hospede = hospede_service.criar_hospede(data)\n            return {",
+        "peekOfCode": "HOSPEDE_API_KEY = os.getenv(\"HOSPEDE_API_KEY\")\nclass HospedeBaseResource(Resource):\n    method_decorators = [require_api_key(HOSPEDE_API_KEY)]\nclass HospedeResource(HospedeBaseResource):\n    def post(self):\n        hospede_service = HospedeService(db.session)\n        schema = HospedeSchema(exclude=(\"reservas\", \"attempts\"))\n        try:\n            data = request.get_json()\n            hospede = hospede_service.criar_hospede(data)",
         "detail": "src.controllers.HospedeController",
         "documentation": {}
     },
@@ -1396,7 +1380,7 @@
         "kind": 6,
         "importPath": "src.schemas.AttemptSchema",
         "description": "src.schemas.AttemptSchema",
-        "peekOfCode": "class AttemptSchema(Schema):\n    codigo_uuid = fields.String()\n    status = fields.Boolean()\n    create_at = fields.DateTime()\n    hospedes = fields.List(fields.Nested(HospedeSchema))\n    ## falta add documentData",
+        "peekOfCode": "class AttemptSchema(Schema):\n    codigo_uuid = fields.String()\n    status = fields.Boolean()\n    create_at = fields.DateTime()\n    hospedes = fields.List(fields.Nested(\"HospedeSchema\"))\n    ## falta add documentData",
         "detail": "src.schemas.AttemptSchema",
         "documentation": {}
     },
@@ -1405,7 +1389,7 @@
         "kind": 6,
         "importPath": "src.schemas.HospedeSchema",
         "description": "src.schemas.HospedeSchema",
-        "peekOfCode": "class HospedeSchema(Schema):\n    codigo_uuid = fields.String()\n    status = fields.Boolean()\n    nome = fields.String()\n    ag_uid = fields.String()\n    reservas = fields.List(fields.Nested(ReservaSchema))\n    attempts = fields.List(fields.Nested(AttemptSchema))",
+        "peekOfCode": "class HospedeSchema(Schema):\n    codigo_uuid = fields.String(dump_only=True)\n    status = fields.Boolean()\n    nome = fields.String()\n    ag_uid = fields.String()\n    reservas = fields.List(fields.Nested(\"ReservaSchema\"))\n    attempts = fields.List(fields.Nested(\"AttemptSchema\"))",
         "detail": "src.schemas.HospedeSchema",
         "documentation": {}
     },
@@ -1414,7 +1398,7 @@
         "kind": 6,
         "importPath": "src.schemas.ReservaSchema",
         "description": "src.schemas.ReservaSchema",
-        "peekOfCode": "class ReservaSchema(Schema):\n    codigo_uuid = fields.String()\n    status = fields.Boolean()\n    hospedes = fields.List(fields.Nested(HospedeSchema))",
+        "peekOfCode": "class ReservaSchema(Schema):\n    codigo_uuid = fields.String()\n    status = fields.Boolean()\n    hospedes = fields.List(fields.Nested(\"HospedeSchema\"))",
         "detail": "src.schemas.ReservaSchema",
         "documentation": {}
     },
@@ -1441,7 +1425,7 @@
         "kind": 6,
         "importPath": "src.service.hospede_service",
         "description": "src.service.hospede_service",
-        "peekOfCode": "class HospedeService:\n    def __init__(self, session: Session):\n        self.repo = HospedeRepository(session)\n        self.session = session\n    def criar_hospede(self, data):\n        hospede = Hospede(\n            status=data.get(\"status\")\n        )\n        return self.repo.add(hospede)\n    def listar_hospede(self, hospede_id):",
+        "peekOfCode": "class HospedeService:\n    def __init__(self, session: Session):\n        self.repo = HospedeRepository(session)\n        self.session = session\n    def criar_hospede(self, data):\n        hospede = Hospede(**data)\n        return self.repo.add(hospede)\n    def listar_hospede(self, hospede_id):\n        if hospede_id is None:\n            raise ValueError(\"Codigo do hospede é obrigatório\")",
         "detail": "src.service.hospede_service",
         "documentation": {}
     },
