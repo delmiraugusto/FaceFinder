@@ -1456,7 +1456,7 @@
         "kind": 6,
         "importPath": "src.service.attempt_service",
         "description": "src.service.attempt_service",
-        "peekOfCode": "class AttemptService:\n    def __init__(self, session: Session):\n        self.repo = AttemptRepository(session)\n        self.hosp = HospedeService(session)\n        self.doc = DocumentDataService(session)\n        self.session = session\n    def criar_attempt(self, data, hospede_id):\n        document_base64 = data.get(\"document\")\n        selfie_base64 = data.get(\"selfie\")\n        resultadoVerify = verify_faces(document_base64, selfie_base64)",
+        "peekOfCode": "class AttemptService:\n    def __init__(self, session: Session):\n        self.repo = AttemptRepository(session)\n        self.hosp = HospedeService(session)\n        self.doc = DocumentDataService(session)\n        self.session = session\n    def criar_attempt(self, data, hospede_id):\n        self.hosp.listar_hospede(hospede_id)\n        document_base64 = data.get(\"document\")\n        selfie_base64 = data.get(\"selfie\")",
         "detail": "src.service.attempt_service",
         "documentation": {}
     },
@@ -1465,7 +1465,7 @@
         "kind": 6,
         "importPath": "src.service.documentData_service",
         "description": "src.service.documentData_service",
-        "peekOfCode": "class DocumentDataService:\n    def __init__(self, session: Session):\n        self.repo = DocumentDataRepository(session)\n        self.attemp = AttemptService(session)\n        self.session = session\n    def criar_documentData(self, data, attempt_id):\n        documentData = DocumentData(\n            status=data.get(\"status\")\n        )\n        self.attemp.listar_attempt(attempt_id)",
+        "peekOfCode": "class DocumentDataService:\n    def __init__(self, session: Session):\n        self.repo = DocumentDataRepository(session)\n        self.attemp = AttemptService(session)\n        self.session = session\n    def criar_documentData(self, data, attempt_id):\n        documentData = DocumentData(\n        )\n        self.attemp.listar_attempt(attempt_id)\n        return self.repo.add(documentData, attempt_id)",
         "detail": "src.service.documentData_service",
         "documentation": {}
     },
