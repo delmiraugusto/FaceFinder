@@ -1,5 +1,5 @@
 import datetime
-from sqlalchemy import Column, String, Boolean, DateTime
+from sqlalchemy import Column, String, Boolean, DateTime, Date
 from sqlalchemy.orm import relationship
 from src.models.Base import Base
 from src.models.Hospede_Attempt import hospede_attempt
@@ -12,6 +12,7 @@ class Attempt(Base):
     codigo_uuid = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     status = Column(Boolean)
     create_at = Column(DateTime, default=datetime.datetime.now)
+    dia = Column(Date, default=datetime.date.today)    
 
     hospedes = relationship(
         "Hospede",
@@ -27,3 +28,4 @@ class Attempt(Base):
 
     def __init__(self, status):
         self.status = status
+

@@ -3,20 +3,31 @@ from sqlalchemy.orm import Session
 from src.models.Attempt import Attempt
 from src.repository.attempt_repository import AttemptRepository
 from src.service.hospede_service import HospedeService
+from src.service.verificacao_service import verify_faces
+from src.service.documentData_service import DocumentDataService
 
 class AttemptService:
     def __init__(self, session: Session):
         self.repo = AttemptRepository(session)
         self.hosp = HospedeService(session)
+        self.doc = DocumentDataService(session)
         self.session = session
 
     def criar_attempt(self, data, hospede_id):
 
+        self.hosp.listar_hospede(hospede_id)
+        
+        document_base64 = data.get("document")
+        selfie_base64 = data.get("selfie")
+
+        resultadoVerify = verify_faces(document_base64, selfie_base64)
+
         attempt = Attempt(
-            status=data.get("status")
+            status=resultadoVerify["verification"]["verified"]
         )
 
-        self.hosp.listar_hospede(hospede_id)
+
+
 
         return self.repo.add(attempt, hospede_id)
     

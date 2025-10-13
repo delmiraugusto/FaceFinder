@@ -5,6 +5,7 @@ from src.service.attempt_service import AttemptService
 from src.models.Base import db
 from src.config.auth import require_api_key
 from src.models.Attempt import Attempt
+from src.schemas.AttemptSchema import AttemptSchema
 
 ATTEMPT_API_KEY = os.getenv("ATTEMPT_API_KEY")
 
@@ -14,21 +15,11 @@ class AttemptBaseResource(Resource):
 class AttemptResource(AttemptBaseResource):
     def post(self, hospede_id):
         attempt_service = AttemptService(db.session)
+        schema = AttemptSchema(exclude=("hospedes",))
         try:
             data = request.get_json()
             attempt = attempt_service.criar_attempt(data, hospede_id)
-            return {
-                "codigo_uuid": attempt.codigo_uuid,
-                "status": str(attempt.status),
-                "create_at": attempt.create_at.isoformat(),
-                "hospede": [
-                    {
-                        "codigo_uuid": hospede.codigo_uuid,
-                        "status": bool(hospede.status)
-                    }
-                    for hospede in attempt.hospedes
-                ]
-            }, 201
+            return schema.dump(attempt), 201
         except Exception as e:
             return {"error": str(e)}, 400
         

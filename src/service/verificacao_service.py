@@ -98,6 +98,10 @@ def cv2_to_base64(img):
     return base64.b64encode(buffer).decode('utf-8')
     
 def verify_faces(document_base64, selfie_base64):
+
+    if document_base64 is None or selfie_base64 is None:
+        raise ValueError("As imagens são obrigatórias.")
+
     imgDocument = base64_to_cv2_image(document_base64)
     imgSelfie = base64_to_cv2_image(selfie_base64)
 

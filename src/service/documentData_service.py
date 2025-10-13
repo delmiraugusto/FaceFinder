@@ -12,7 +12,6 @@ class DocumentDataService:
     def criar_documentData(self, data, attempt_id):
 
         documentData = DocumentData(
-            status=data.get("status")
         )
 
         self.attemp.listar_attempt(attempt_id)

@@ -281,6 +281,22 @@
         "documentation": {}
     },
     {
+        "label": "AttemptSchema",
+        "importPath": "src.schemas.AttemptSchema",
+        "description": "src.schemas.AttemptSchema",
+        "isExtraImport": true,
+        "detail": "src.schemas.AttemptSchema",
+        "documentation": {}
+    },
+    {
+        "label": "DocumentDataService",
+        "importPath": "src.service.documentData_service",
+        "description": "src.service.documentData_service",
+        "isExtraImport": true,
+        "detail": "src.service.documentData_service",
+        "documentation": {}
+    },
+    {
         "label": "DocumentDataService",
         "importPath": "src.service.documentData_service",
         "description": "src.service.documentData_service",
@@ -361,6 +377,14 @@
         "documentation": {}
     },
     {
+        "label": "verify_faces",
+        "importPath": "src.service.verificacao_service",
+        "description": "src.service.verificacao_service",
+        "isExtraImport": true,
+        "detail": "src.service.verificacao_service",
+        "documentation": {}
+    },
+    {
         "label": "datetime",
         "kind": 6,
         "isExtraImport": true,
@@ -395,6 +419,14 @@
     },
     {
         "label": "DateTime",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Date",
         "importPath": "sqlalchemy",
         "description": "sqlalchemy",
         "isExtraImport": true,
@@ -1055,7 +1087,7 @@
         "kind": 6,
         "importPath": "src.controllers.AttemptController",
         "description": "src.controllers.AttemptController",
-        "peekOfCode": "class AttemptBaseResource(Resource):\n    method_decorators = [require_api_key(ATTEMPT_API_KEY)]\nclass AttemptResource(AttemptBaseResource):\n    def post(self, hospede_id):\n        attempt_service = AttemptService(db.session)\n        try:\n            data = request.get_json()\n            attempt = attempt_service.criar_attempt(data, hospede_id)\n            return {\n                \"codigo_uuid\": attempt.codigo_uuid,",
+        "peekOfCode": "class AttemptBaseResource(Resource):\n    method_decorators = [require_api_key(ATTEMPT_API_KEY)]\nclass AttemptResource(AttemptBaseResource):\n    def post(self, hospede_id):\n        attempt_service = AttemptService(db.session)\n        schema = AttemptSchema(exclude=(\"hospedes\",))\n        try:\n            data = request.get_json()\n            attempt = attempt_service.criar_attempt(data, hospede_id)\n            return schema.dump(attempt), 201",
         "detail": "src.controllers.AttemptController",
         "documentation": {}
     },
@@ -1064,7 +1096,7 @@
         "kind": 6,
         "importPath": "src.controllers.AttemptController",
         "description": "src.controllers.AttemptController",
-        "peekOfCode": "class AttemptResource(AttemptBaseResource):\n    def post(self, hospede_id):\n        attempt_service = AttemptService(db.session)\n        try:\n            data = request.get_json()\n            attempt = attempt_service.criar_attempt(data, hospede_id)\n            return {\n                \"codigo_uuid\": attempt.codigo_uuid,\n                \"status\": str(attempt.status),\n                \"create_at\": attempt.create_at.isoformat(),",
+        "peekOfCode": "class AttemptResource(AttemptBaseResource):\n    def post(self, hospede_id):\n        attempt_service = AttemptService(db.session)\n        schema = AttemptSchema(exclude=(\"hospedes\",))\n        try:\n            data = request.get_json()\n            attempt = attempt_service.criar_attempt(data, hospede_id)\n            return schema.dump(attempt), 201\n        except Exception as e:\n            return {\"error\": str(e)}, 400",
         "detail": "src.controllers.AttemptController",
         "documentation": {}
     },
@@ -1091,7 +1123,7 @@
         "kind": 5,
         "importPath": "src.controllers.AttemptController",
         "description": "src.controllers.AttemptController",
-        "peekOfCode": "ATTEMPT_API_KEY = os.getenv(\"ATTEMPT_API_KEY\")\nclass AttemptBaseResource(Resource):\n    method_decorators = [require_api_key(ATTEMPT_API_KEY)]\nclass AttemptResource(AttemptBaseResource):\n    def post(self, hospede_id):\n        attempt_service = AttemptService(db.session)\n        try:\n            data = request.get_json()\n            attempt = attempt_service.criar_attempt(data, hospede_id)\n            return {",
+        "peekOfCode": "ATTEMPT_API_KEY = os.getenv(\"ATTEMPT_API_KEY\")\nclass AttemptBaseResource(Resource):\n    method_decorators = [require_api_key(ATTEMPT_API_KEY)]\nclass AttemptResource(AttemptBaseResource):\n    def post(self, hospede_id):\n        attempt_service = AttemptService(db.session)\n        schema = AttemptSchema(exclude=(\"hospedes\",))\n        try:\n            data = request.get_json()\n            attempt = attempt_service.criar_attempt(data, hospede_id)",
         "detail": "src.controllers.AttemptController",
         "documentation": {}
     },
@@ -1262,7 +1294,7 @@
         "kind": 6,
         "importPath": "src.models.Attempt",
         "description": "src.models.Attempt",
-        "peekOfCode": "class Attempt(Base):\n    __tablename__ = 'attempt'\n    codigo_uuid = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))\n    status = Column(Boolean)\n    create_at = Column(DateTime, default=datetime.datetime.now)\n    hospedes = relationship(\n        \"Hospede\",\n        secondary=hospede_attempt,\n        back_populates=\"attempts\"\n    )",
+        "peekOfCode": "class Attempt(Base):\n    __tablename__ = 'attempt'\n    codigo_uuid = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))\n    status = Column(Boolean)\n    create_at = Column(DateTime, default=datetime.datetime.now)\n    dia = Column(Date, default=datetime.date.today)    \n    hospedes = relationship(\n        \"Hospede\",\n        secondary=hospede_attempt,\n        back_populates=\"attempts\"",
         "detail": "src.models.Attempt",
         "documentation": {}
     },
@@ -1388,7 +1420,7 @@
         "kind": 6,
         "importPath": "src.schemas.AttemptSchema",
         "description": "src.schemas.AttemptSchema",
-        "peekOfCode": "class AttemptSchema(Schema):\n    codigo_uuid = fields.String()\n    status = fields.Boolean()\n    create_at = fields.DateTime()\n    hospedes = fields.List(fields.Nested(\"HospedeSchema\"))\n    ## falta add documentData",
+        "peekOfCode": "class AttemptSchema(Schema):\n    codigo_uuid = fields.String()\n    status = fields.Boolean()\n    create_at = fields.DateTime()\n    dia = fields.Date()\n    hospedes = fields.List(fields.Nested(\"HospedeSchema\"))\n    ## falta add documentData",
         "detail": "src.schemas.AttemptSchema",
         "documentation": {}
     },
@@ -1424,7 +1456,7 @@
         "kind": 6,
         "importPath": "src.service.attempt_service",
         "description": "src.service.attempt_service",
-        "peekOfCode": "class AttemptService:\n    def __init__(self, session: Session):\n        self.repo = AttemptRepository(session)\n        self.hosp = HospedeService(session)\n        self.session = session\n    def criar_attempt(self, data, hospede_id):\n        attempt = Attempt(\n            status=data.get(\"status\")\n        )\n        self.hosp.listar_hospede(hospede_id)",
+        "peekOfCode": "class AttemptService:\n    def __init__(self, session: Session):\n        self.repo = AttemptRepository(session)\n        self.hosp = HospedeService(session)\n        self.doc = DocumentDataService(session)\n        self.session = session\n    def criar_attempt(self, data, hospede_id):\n        document_base64 = data.get(\"document\")\n        selfie_base64 = data.get(\"selfie\")\n        resultadoVerify = verify_faces(document_base64, selfie_base64)",
         "detail": "src.service.attempt_service",
         "documentation": {}
     },
@@ -1505,7 +1537,7 @@
         "kind": 2,
         "importPath": "src.service.verificacao_service",
         "description": "src.service.verificacao_service",
-        "peekOfCode": "def crop_face(img, face_coords):\n    x, y, w, h = face_coords['x'], face_coords['y'], face_coords['w'], face_coords['h']\n    face_img = img[y:y+h, x:x+w]\n    return face_img\ndef cv2_to_base64(img):\n    _, buffer = cv2.imencode('.jpg', img)\n    return base64.b64encode(buffer).decode('utf-8')\ndef verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)",
+        "peekOfCode": "def crop_face(img, face_coords):\n    x, y, w, h = face_coords['x'], face_coords['y'], face_coords['w'], face_coords['h']\n    face_img = img[y:y+h, x:x+w]\n    return face_img\ndef cv2_to_base64(img):\n    _, buffer = cv2.imencode('.jpg', img)\n    return base64.b64encode(buffer).decode('utf-8')\ndef verify_faces(document_base64, selfie_base64):\n    if document_base64 is None or selfie_base64 is None:\n        raise ValueError(\"As imagens são obrigatórias.\")",
         "detail": "src.service.verificacao_service",
         "documentation": {}
     },
@@ -1514,7 +1546,7 @@
         "kind": 2,
         "importPath": "src.service.verificacao_service",
         "description": "src.service.verificacao_service",
-        "peekOfCode": "def cv2_to_base64(img):\n    _, buffer = cv2.imencode('.jpg', img)\n    return base64.b64encode(buffer).decode('utf-8')\ndef verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")\n    wishlist = [\"nome\", \"data_nascimento\", \"pais_de_origem_do_documento\", \"lingua_nativa_do_documento\"]\n    document_data = ocr_image(imgDocument)",
+        "peekOfCode": "def cv2_to_base64(img):\n    _, buffer = cv2.imencode('.jpg', img)\n    return base64.b64encode(buffer).decode('utf-8')\ndef verify_faces(document_base64, selfie_base64):\n    if document_base64 is None or selfie_base64 is None:\n        raise ValueError(\"As imagens são obrigatórias.\")\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")",
         "detail": "src.service.verificacao_service",
         "documentation": {}
     },
@@ -1523,7 +1555,7 @@
         "kind": 2,
         "importPath": "src.service.verificacao_service",
         "description": "src.service.verificacao_service",
-        "peekOfCode": "def verify_faces(document_base64, selfie_base64):\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")\n    wishlist = [\"nome\", \"data_nascimento\", \"pais_de_origem_do_documento\", \"lingua_nativa_do_documento\"]\n    document_data = ocr_image(imgDocument)\n    document_data = extract_with_ai(document_data, wishlist)\n    result = verify_Presente_face(imgDocument, imgSelfie)\n    face_document_img = crop_face(imgDocument, result['facial_areas']['img1'])",
+        "peekOfCode": "def verify_faces(document_base64, selfie_base64):\n    if document_base64 is None or selfie_base64 is None:\n        raise ValueError(\"As imagens são obrigatórias.\")\n    imgDocument = base64_to_cv2_image(document_base64)\n    imgSelfie = base64_to_cv2_image(selfie_base64)\n    validate_image_quality(imgDocument, name=\"Documento\")\n    validate_image_quality(imgSelfie, name=\"Selfie\")\n    wishlist = [\"nome\", \"data_nascimento\", \"pais_de_origem_do_documento\", \"lingua_nativa_do_documento\"]\n    document_data = ocr_image(imgDocument)\n    document_data = extract_with_ai(document_data, wishlist)",
         "detail": "src.service.verificacao_service",
         "documentation": {}
     },
