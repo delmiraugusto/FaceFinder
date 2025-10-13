@@ -48,6 +48,22 @@
         "documentation": {}
     },
     {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Resource",
+        "importPath": "flask_restful",
+        "description": "flask_restful",
+        "isExtraImport": true,
+        "detail": "flask_restful",
+        "documentation": {}
+    },
+    {
         "label": "Resource",
         "importPath": "flask_restful",
         "description": "flask_restful",
@@ -137,6 +153,14 @@
         "documentation": {}
     },
     {
+        "label": "db",
+        "importPath": "src.models.Base",
+        "description": "src.models.Base",
+        "isExtraImport": true,
+        "detail": "src.models.Base",
+        "documentation": {}
+    },
+    {
         "label": "Base",
         "importPath": "src.models.Base",
         "description": "src.models.Base",
@@ -217,11 +241,11 @@
         "documentation": {}
     },
     {
-        "label": "Attempt",
-        "importPath": "src.models.Attempt",
-        "description": "src.models.Attempt",
+        "label": "require_api_key",
+        "importPath": "src.config.auth",
+        "description": "src.config.auth",
         "isExtraImport": true,
-        "detail": "src.models.Attempt",
+        "detail": "src.config.auth",
         "documentation": {}
     },
     {
@@ -246,6 +270,46 @@
         "description": "src.models.Attempt",
         "isExtraImport": true,
         "detail": "src.models.Attempt",
+        "documentation": {}
+    },
+    {
+        "label": "Attempt",
+        "importPath": "src.models.Attempt",
+        "description": "src.models.Attempt",
+        "isExtraImport": true,
+        "detail": "src.models.Attempt",
+        "documentation": {}
+    },
+    {
+        "label": "DocumentDataService",
+        "importPath": "src.service.documentData_service",
+        "description": "src.service.documentData_service",
+        "isExtraImport": true,
+        "detail": "src.service.documentData_service",
+        "documentation": {}
+    },
+    {
+        "label": "DocumentData",
+        "importPath": "src.models.DocumentData",
+        "description": "src.models.DocumentData",
+        "isExtraImport": true,
+        "detail": "src.models.DocumentData",
+        "documentation": {}
+    },
+    {
+        "label": "DocumentData",
+        "importPath": "src.models.DocumentData",
+        "description": "src.models.DocumentData",
+        "isExtraImport": true,
+        "detail": "src.models.DocumentData",
+        "documentation": {}
+    },
+    {
+        "label": "DocumentData",
+        "importPath": "src.models.DocumentData",
+        "description": "src.models.DocumentData",
+        "isExtraImport": true,
+        "detail": "src.models.DocumentData",
         "documentation": {}
     },
     {
@@ -692,22 +756,6 @@
         "documentation": {}
     },
     {
-        "label": "DocumentData",
-        "importPath": "src.models.DocumentData",
-        "description": "src.models.DocumentData",
-        "isExtraImport": true,
-        "detail": "src.models.DocumentData",
-        "documentation": {}
-    },
-    {
-        "label": "DocumentData",
-        "importPath": "src.models.DocumentData",
-        "description": "src.models.DocumentData",
-        "isExtraImport": true,
-        "detail": "src.models.DocumentData",
-        "documentation": {}
-    },
-    {
         "label": "Reserva",
         "importPath": "src.models.Reserva",
         "description": "src.models.Reserva",
@@ -817,6 +865,78 @@
         "description": "src.controllers.AttemptController",
         "isExtraImport": true,
         "detail": "src.controllers.AttemptController",
+        "documentation": {}
+    },
+    {
+        "label": "Schema",
+        "importPath": "marshmallow",
+        "description": "marshmallow",
+        "isExtraImport": true,
+        "detail": "marshmallow",
+        "documentation": {}
+    },
+    {
+        "label": "fields",
+        "importPath": "marshmallow",
+        "description": "marshmallow",
+        "isExtraImport": true,
+        "detail": "marshmallow",
+        "documentation": {}
+    },
+    {
+        "label": "Schema",
+        "importPath": "marshmallow",
+        "description": "marshmallow",
+        "isExtraImport": true,
+        "detail": "marshmallow",
+        "documentation": {}
+    },
+    {
+        "label": "fields",
+        "importPath": "marshmallow",
+        "description": "marshmallow",
+        "isExtraImport": true,
+        "detail": "marshmallow",
+        "documentation": {}
+    },
+    {
+        "label": "Schema",
+        "importPath": "marshmallow",
+        "description": "marshmallow",
+        "isExtraImport": true,
+        "detail": "marshmallow",
+        "documentation": {}
+    },
+    {
+        "label": "fields",
+        "importPath": "marshmallow",
+        "description": "marshmallow",
+        "isExtraImport": true,
+        "detail": "marshmallow",
+        "documentation": {}
+    },
+    {
+        "label": "HospedeSchema",
+        "importPath": "src.schemas.HospedeSchema",
+        "description": "src.schemas.HospedeSchema",
+        "isExtraImport": true,
+        "detail": "src.schemas.HospedeSchema",
+        "documentation": {}
+    },
+    {
+        "label": "HospedeSchema",
+        "importPath": "src.schemas.HospedeSchema",
+        "description": "src.schemas.HospedeSchema",
+        "isExtraImport": true,
+        "detail": "src.schemas.HospedeSchema",
+        "documentation": {}
+    },
+    {
+        "label": "ReservaSchema",
+        "importPath": "src.schemas.ReservaSchema",
+        "description": "src.schemas.ReservaSchema",
+        "isExtraImport": true,
+        "detail": "src.schemas.ReservaSchema",
         "documentation": {}
     },
     {
@@ -981,6 +1101,51 @@
         "description": "src.controllers.AttemptController",
         "peekOfCode": "ATTEMPT_API_KEY = os.getenv(\"ATTEMPT_API_KEY\")\nclass AttemptBaseResource(Resource):\n    method_decorators = [require_api_key(ATTEMPT_API_KEY)]\nclass AttemptResource(AttemptBaseResource):\n    def post(self, hospede_id):\n        attempt_service = AttemptService(db.session)\n        try:\n            data = request.get_json()\n            attempt = attempt_service.criar_attempt(data, hospede_id)\n            return {",
         "detail": "src.controllers.AttemptController",
+        "documentation": {}
+    },
+    {
+        "label": "DocumentDataBaseResource",
+        "kind": 6,
+        "importPath": "src.controllers.DocumentDataController",
+        "description": "src.controllers.DocumentDataController",
+        "peekOfCode": "class DocumentDataBaseResource(Resource):\n    method_decorators = [require_api_key(DOCUMENTDATA_API_KEY)]\nclass DocumentDataResource(DocumentDataBaseResource):\n    def post(self, hospede_id):\n        documentData_service = DocumentDataService(db.session)\n        try:\n            data = request.get_json()\n            documentData = documentData_service.criar_documentData(data, hospede_id)\n            return {\n                \"codigo_uuid\": documentData.codigo_uuid,",
+        "detail": "src.controllers.DocumentDataController",
+        "documentation": {}
+    },
+    {
+        "label": "DocumentDataResource",
+        "kind": 6,
+        "importPath": "src.controllers.DocumentDataController",
+        "description": "src.controllers.DocumentDataController",
+        "peekOfCode": "class DocumentDataResource(DocumentDataBaseResource):\n    def post(self, hospede_id):\n        documentData_service = DocumentDataService(db.session)\n        try:\n            data = request.get_json()\n            documentData = documentData_service.criar_documentData(data, hospede_id)\n            return {\n                \"codigo_uuid\": documentData.codigo_uuid,\n                \"status\": str(documentData.status),\n                \"create_at\": documentData.create_at.isoformat(),",
+        "detail": "src.controllers.DocumentDataController",
+        "documentation": {}
+    },
+    {
+        "label": "DocumentDataListResource",
+        "kind": 6,
+        "importPath": "src.controllers.DocumentDataController",
+        "description": "src.controllers.DocumentDataController",
+        "peekOfCode": "class DocumentDataListResource(DocumentDataBaseResource):\n    def get(self, documentData_id):\n        documentData_service = DocumentDataService(db.session)\n        try:\n            documentData = documentData_service.listar_documentData(documentData_id)\n            return {\n                \"codigo_uuid\": documentData.codigo_uuid,\n                \"status\": str(documentData.status),\n                \"create_at\": documentData.create_at.isoformat(),\n                \"hospede\": [",
+        "detail": "src.controllers.DocumentDataController",
+        "documentation": {}
+    },
+    {
+        "label": "DocumentDataStatusResource",
+        "kind": 6,
+        "importPath": "src.controllers.DocumentDataController",
+        "description": "src.controllers.DocumentDataController",
+        "peekOfCode": "class DocumentDataStatusResource(DocumentDataBaseResource):\n    def patch(self, documentData_id):\n        documentData_service = DocumentDataService(db.session)\n        data = request.get_json()\n        try:\n            documentData = documentData_service.forcar_status_documentData(documentData_id, data['status'])\n            return {\n                \"codigo_uuid\": documentData.codigo_uuid,\n                \"status\": str(documentData.status),\n                \"create_at\": documentData.create_at.isoformat(),",
+        "detail": "src.controllers.DocumentDataController",
+        "documentation": {}
+    },
+    {
+        "label": "DOCUMENTDATA_API_KEY",
+        "kind": 5,
+        "importPath": "src.controllers.DocumentDataController",
+        "description": "src.controllers.DocumentDataController",
+        "peekOfCode": "DOCUMENTDATA_API_KEY = os.getenv(\"DOCUMENTDATA_API_KEY\")\nclass DocumentDataBaseResource(Resource):\n    method_decorators = [require_api_key(DOCUMENTDATA_API_KEY)]\nclass DocumentDataResource(DocumentDataBaseResource):\n    def post(self, hospede_id):\n        documentData_service = DocumentDataService(db.session)\n        try:\n            data = request.get_json()\n            documentData = documentData_service.criar_documentData(data, hospede_id)\n            return {",
+        "detail": "src.controllers.DocumentDataController",
         "documentation": {}
     },
     {
@@ -1150,7 +1315,7 @@
         "kind": 6,
         "importPath": "src.models.Hospede",
         "description": "src.models.Hospede",
-        "peekOfCode": "class Hospede(Base):\n    __tablename__ = 'hospede'\n    codigo_uuid = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))\n    status = Column(Boolean)\n    reservas = relationship(\n        \"Reserva\",\n        secondary=hospede_reserva,\n        back_populates=\"hospedes\"\n    )\n    attempts = relationship(",
+        "peekOfCode": "class Hospede(Base):\n    __tablename__ = 'hospede'\n    codigo_uuid = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))\n    status = Column(Boolean)\n    nome = Column(String(100))\n    ag_uid = Column(String(36))\n    reservas = relationship(\n        \"Reserva\",\n        secondary=hospede_reserva,\n        back_populates=\"hospedes\"",
         "detail": "src.models.Hospede",
         "documentation": {}
     },
@@ -1224,6 +1389,33 @@
         "description": "src.routes.endpoints",
         "peekOfCode": "def initialize_endpoints(api):\n    api.add_resource(Hello, \"/hello\")\n    api.add_resource(VerificacaoController, \"/verify_faces\")\n    #Reserva Endpoints\n    api.add_resource(ReservaResource, \"/reserva\")\n    api.add_resource(ReservaHospedeResource, \"/reserva/<string:reserva_id>/hospede/<string:hospede_id>\")\n    api.add_resource(ReservaListResource, \"/reserva/<string:reserva_id>\")\n    api.add_resource(ReservaStatusResource, \"/reserva/status/<string:reserva_id>\")\n    #Hospede Endpoints\n    api.add_resource(HospedeResource, \"/hospede\")",
         "detail": "src.routes.endpoints",
+        "documentation": {}
+    },
+    {
+        "label": "AttemptSchema",
+        "kind": 6,
+        "importPath": "src.schemas.AttemptSchema",
+        "description": "src.schemas.AttemptSchema",
+        "peekOfCode": "class AttemptSchema(Schema):\n    codigo_uuid = fields.String()\n    status = fields.Boolean()\n    create_at = fields.DateTime()\n    hospedes = fields.List(fields.Nested(HospedeSchema))\n    ## falta add documentData",
+        "detail": "src.schemas.AttemptSchema",
+        "documentation": {}
+    },
+    {
+        "label": "HospedeSchema",
+        "kind": 6,
+        "importPath": "src.schemas.HospedeSchema",
+        "description": "src.schemas.HospedeSchema",
+        "peekOfCode": "class HospedeSchema(Schema):\n    codigo_uuid = fields.String()\n    status = fields.Boolean()\n    nome = fields.String()\n    ag_uid = fields.String()\n    reservas = fields.List(fields.Nested(ReservaSchema))\n    attempts = fields.List(fields.Nested(AttemptSchema))",
+        "detail": "src.schemas.HospedeSchema",
+        "documentation": {}
+    },
+    {
+        "label": "ReservaSchema",
+        "kind": 6,
+        "importPath": "src.schemas.ReservaSchema",
+        "description": "src.schemas.ReservaSchema",
+        "peekOfCode": "class ReservaSchema(Schema):\n    codigo_uuid = fields.String()\n    status = fields.Boolean()\n    hospedes = fields.List(fields.Nested(HospedeSchema))",
+        "detail": "src.schemas.ReservaSchema",
         "documentation": {}
     },
     {

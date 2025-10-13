@@ -10,6 +10,8 @@ class Hospede(Base):
 
     codigo_uuid = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     status = Column(Boolean)
+    nome = Column(String(100))
+    ag_uid = Column(String(36))
 
     reservas = relationship(
         "Reserva",
