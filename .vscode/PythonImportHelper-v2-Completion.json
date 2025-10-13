@@ -337,6 +337,14 @@
         "documentation": {}
     },
     {
+        "label": "HospedeUpdateSchema",
+        "importPath": "src.schemas.HospedeSchema",
+        "description": "src.schemas.HospedeSchema",
+        "isExtraImport": true,
+        "detail": "src.schemas.HospedeSchema",
+        "documentation": {}
+    },
+    {
         "label": "ReservaService",
         "importPath": "src.service.reserva_service",
         "description": "src.service.reserva_service",
@@ -1173,7 +1181,7 @@
         "kind": 6,
         "importPath": "src.controllers.HospedeController",
         "description": "src.controllers.HospedeController",
-        "peekOfCode": "class HospedeStatusResource(HospedeBaseResource):\n    def patch(self, hospede_id):\n        hospede_service = HospedeService(db.session)\n        schema = HospedeSchema()\n        try:\n            hospede = hospede_service.forcar_status_hospede(hospede_id)\n            return schema.dump(hospede), 200\n        except Exception as e:\n            return {\"error\": str(e)}, 400",
+        "peekOfCode": "class HospedeStatusResource(HospedeBaseResource):\n    def patch(self, hospede_id):\n        hospede_service = HospedeService(db.session)\n        schema = HospedeSchema(exclude=(\"reservas\", \"attempts\"))\n        try:\n            hospede = hospede_service.forcar_status_hospede(hospede_id)\n            return schema.dump(hospede), 200\n        except Exception as e:\n            return {\"error\": str(e)}, 400",
         "detail": "src.controllers.HospedeController",
         "documentation": {}
     },
@@ -1389,7 +1397,16 @@
         "kind": 6,
         "importPath": "src.schemas.HospedeSchema",
         "description": "src.schemas.HospedeSchema",
-        "peekOfCode": "class HospedeSchema(Schema):\n    codigo_uuid = fields.String(dump_only=True)\n    status = fields.Boolean()\n    nome = fields.String()\n    ag_uid = fields.String()\n    reservas = fields.List(fields.Nested(\"ReservaSchema\"))\n    attempts = fields.List(fields.Nested(\"AttemptSchema\"))",
+        "peekOfCode": "class HospedeSchema(Schema):\n    codigo_uuid = fields.String(dump_only=True)\n    status = fields.Boolean()\n    nome = fields.String()\n    ag_uid = fields.String()\n    reservas = fields.List(fields.Nested(\"ReservaSchema\"))\n    attempts = fields.List(fields.Nested(\"AttemptSchema\"))\nclass HospedeUpdateSchema(Schema):\n    status = fields.Boolean(required=True)\n    nome = fields.String(required=True)",
+        "detail": "src.schemas.HospedeSchema",
+        "documentation": {}
+    },
+    {
+        "label": "HospedeUpdateSchema",
+        "kind": 6,
+        "importPath": "src.schemas.HospedeSchema",
+        "description": "src.schemas.HospedeSchema",
+        "peekOfCode": "class HospedeUpdateSchema(Schema):\n    status = fields.Boolean(required=True)\n    nome = fields.String(required=True)\n    ag_uid = fields.String(required=True)",
         "detail": "src.schemas.HospedeSchema",
         "documentation": {}
     },

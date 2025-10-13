@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from src.repository.hospede_repository import HospedeRepository
 from src.models.Hospede import Hospede
+from src.schemas.HospedeSchema import HospedeUpdateSchema
 
 class HospedeService:
     def __init__(self, session: Session):
@@ -44,11 +45,11 @@ class HospedeService:
         if not data:
             raise ValueError("Nenhum dado fornecido para atualizar")
         
-        required_fields = ["status"]
-
-        for field in required_fields:
-            if field not in data:
-                raise ValueError(f"O campo {field} é obrigatório para atualização")
+        schema = HospedeUpdateSchema()
+        
+        errors = schema.validate(data)
+        if errors:
+            raise ValueError(f"Erros de validação: {errors}")
 
         return self.repo.update_put_hospede(hospede, data)
     

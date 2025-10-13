@@ -45,7 +45,7 @@ class HospedeListResource(HospedeBaseResource):
         
     def patch(self, hospede_id):
         hospede_service = HospedeService(db.session)
-        schema = HospedeSchema()
+        schema = HospedeSchema(exclude=("reservas", "attempts"))
         try:
             data = request.get_json()
             hospede = hospede_service.atualizar_hospede_parcial(hospede_id, data)
@@ -56,7 +56,8 @@ class HospedeListResource(HospedeBaseResource):
 
     def put(self, hospede_id):
         hospede_service = HospedeService(db.session)
-        schema = HospedeSchema()
+        schema = HospedeSchema(exclude=("reservas", "attempts"))
+
         try:
             data = request.get_json()
             hospede = hospede_service.atualizar_hospede_total(hospede_id, data)
@@ -68,7 +69,7 @@ class HospedeStatusResource(HospedeBaseResource):
 
     def patch(self, hospede_id):
         hospede_service = HospedeService(db.session)
-        schema = HospedeSchema()
+        schema = HospedeSchema(exclude=("reservas", "attempts"))
         try:
             hospede = hospede_service.forcar_status_hospede(hospede_id)
             return schema.dump(hospede), 200

@@ -7,3 +7,8 @@ class HospedeSchema(Schema):
     ag_uid = fields.String()
     reservas = fields.List(fields.Nested("ReservaSchema"))
     attempts = fields.List(fields.Nested("AttemptSchema"))
+
+class HospedeUpdateSchema(Schema):
+    status = fields.Boolean(required=True)
+    nome = fields.String(required=True)
+    ag_uid = fields.String(required=True)
