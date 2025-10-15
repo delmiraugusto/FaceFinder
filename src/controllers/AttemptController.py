@@ -13,13 +13,13 @@ class AttemptBaseResource(Resource):
     method_decorators = [require_api_key(ATTEMPT_API_KEY)]
 
 class AttemptResource(AttemptBaseResource):
-    def post(self, hospede_id):
+    def post(self, hospede_id, reserva_id):
         attempt_service = AttemptService(db.session)
         schema = AttemptSchema(exclude=("hospedes",))
         try:
             data = request.get_json()
 
-            resultado = attempt_service.criar_attempt(data, hospede_id)
+            resultado = attempt_service.criar_attempt(data, hospede_id, reserva_id)
 
             attempt_serialized = schema.dump(resultado["attempt"])
             

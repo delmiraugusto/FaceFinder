@@ -7,17 +7,21 @@ from src.service.hospede_service import HospedeService
 from src.service.verificacao_service import verify_faces
 from src.service.documentData_service import DocumentDataService
 from src.models.Hospede_Attempt import hospede_attempt
+from src.service.reserva_service import ReservaService
 
 class AttemptService:
     def __init__(self, session: Session):
         self.repo = AttemptRepository(session)
         self.hosp = HospedeService(session)
+        self.reser = ReservaService(session)
         self.doc = DocumentDataService(session)
         self.session = session
 
-    def criar_attempt(self, data, hospede_id):
+    def criar_attempt(self, data, hospede_id, reserva_id):
 
-        hospede = self.hosp.listar_hospede(hospede_id)
+        self.hosp.listar_hospede(hospede_id)
+
+        self.reser.listar_reserva(reserva_id)
 
         document_base64 = data.get("document")
         selfie_base64 = data.get("selfie")
@@ -36,6 +40,8 @@ class AttemptService:
         status = attempt.status
         
         self.hosp.forcar_status_hospede(hospede_id, status)
+
+        self.reser.forcar_status_reserva(reserva_id, status)
         
         tentativas_restantes = 3 - tentativas_invalidas_hoje
 

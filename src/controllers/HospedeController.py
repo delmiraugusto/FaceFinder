@@ -71,7 +71,9 @@ class HospedeStatusResource(HospedeBaseResource):
         hospede_service = HospedeService(db.session)
         schema = HospedeSchema(exclude=("reservas", "attempts"))
         try:
-            hospede = hospede_service.forcar_status_hospede(hospede_id)
+            data = request.get_json()
+            status = data.get("status")
+            hospede = hospede_service.forcar_status_hospede(hospede_id, status)
             return schema.dump(hospede), 200
         except Exception as e:
             return {"error": str(e)}, 400

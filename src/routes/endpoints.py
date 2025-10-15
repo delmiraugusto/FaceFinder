@@ -22,6 +22,6 @@ def initialize_endpoints(api):
     api.add_resource(HospedeStatusResource, "/hospede/status/<string:hospede_id>")
 
     #Attempt Endpoints
-    api.add_resource(AttemptResource, "/attempt/hospede/<string:hospede_id>")
+    api.add_resource(AttemptResource, "/attempt/hospede/<string:hospede_id>/reserva/<string:reserva_id>")
     api.add_resource(AttemptListResource, "/attempt/<string:attempt_id>")
     api.add_resource(AttemptStatusResource, "/attempt/<string:attempt_id>/status")

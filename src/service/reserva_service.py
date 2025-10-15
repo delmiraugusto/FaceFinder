@@ -56,13 +56,10 @@ class ReservaService:
 
         return self.repo.update_put_reserva(reserva, data)
     
-    def forcar_status_reserva(self, reserva_id):
+    def forcar_status_reserva(self, reserva_id, status):
         reserva = self.listar_reserva(reserva_id)
 
-        if reserva.status is True:
-            reserva.status = False
-        else:
-            reserva.status = True
+        reserva.status = status
         
         return self.repo.forcar_status_reserva(reserva)
 
