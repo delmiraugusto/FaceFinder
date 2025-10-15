@@ -386,6 +386,23 @@
         "documentation": {}
     },
     {
+        "label": "date",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "sqlalchemy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
         "label": "Column",
         "importPath": "sqlalchemy",
         "description": "sqlalchemy",
@@ -679,6 +696,22 @@
         "description": "sqlalchemy.orm",
         "isExtraImport": true,
         "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "hospede_attempt",
+        "importPath": "src.models.Hospede_Attempt",
+        "description": "src.models.Hospede_Attempt",
+        "isExtraImport": true,
+        "detail": "src.models.Hospede_Attempt",
+        "documentation": {}
+    },
+    {
+        "label": "hospede_attempt",
+        "importPath": "src.models.Hospede_Attempt",
+        "description": "src.models.Hospede_Attempt",
+        "isExtraImport": true,
+        "detail": "src.models.Hospede_Attempt",
         "documentation": {}
     },
     {
@@ -1448,7 +1481,7 @@
         "kind": 6,
         "importPath": "src.service.attempt_service",
         "description": "src.service.attempt_service",
-        "peekOfCode": "class AttemptService:\n    def __init__(self, session: Session):\n        self.repo = AttemptRepository(session)\n        self.hosp = HospedeService(session)\n        self.doc = DocumentDataService(session)\n        self.session = session\n    def criar_attempt(self, data, hospede_id):\n        self.hosp.listar_hospede(hospede_id)\n        document_base64 = data.get(\"document\")\n        selfie_base64 = data.get(\"selfie\")",
+        "peekOfCode": "class AttemptService:\n    def __init__(self, session: Session):\n        self.repo = AttemptRepository(session)\n        self.hosp = HospedeService(session)\n        self.doc = DocumentDataService(session)\n        self.session = session\n    def criar_attempt(self, data, hospede_id):\n        hospede = self.hosp.listar_hospede(hospede_id)\n        document_base64 = data.get(\"document\")\n        selfie_base64 = data.get(\"selfie\")",
         "detail": "src.service.attempt_service",
         "documentation": {}
     },

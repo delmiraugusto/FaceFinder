@@ -1,10 +1,12 @@
 import re
+import sqlalchemy
 from sqlalchemy.orm import Session
 from src.models.Attempt import Attempt
 from src.repository.attempt_repository import AttemptRepository
 from src.service.hospede_service import HospedeService
 from src.service.verificacao_service import verify_faces
 from src.service.documentData_service import DocumentDataService
+from src.models.Hospede_Attempt import hospede_attempt
 
 class AttemptService:
     def __init__(self, session: Session):
@@ -15,7 +17,7 @@ class AttemptService:
 
     def criar_attempt(self, data, hospede_id):
 
-        self.hosp.listar_hospede(hospede_id)
+        hospede = self.hosp.listar_hospede(hospede_id)
 
         document_base64 = data.get("document")
         selfie_base64 = data.get("selfie")
@@ -25,6 +27,17 @@ class AttemptService:
         attempt = Attempt(
             status=resultadoVerify["verification"]["verified"]
         )
+
+        tentativas_invalidas_hoje = self.repo.contar_attempts_invalidas_hoje(hospede_id)
+
+        if  tentativas_invalidas_hoje >= 3:
+            raise ValueError("Limite de tentativas inválidas atingidas por hoje.")
+        
+        status = attempt.status
+        
+        self.hosp.forcar_status_hospede(hospede_id, status)
+        
+        tentativas_restantes = 3 - tentativas_invalidas_hoje
 
         attempt = self.repo.add(attempt, hospede_id)
 
@@ -36,7 +49,8 @@ class AttemptService:
             "verification": resultadoVerify["verification"],
             "document_data": resultadoVerify["document_data"],
             "faces": resultadoVerify["faces"],
-            "attempt": attempt
+            "attempt": attempt,
+            "tentativas_invalidas_restantes": max(tentativas_restantes, 0)
         }
 
     

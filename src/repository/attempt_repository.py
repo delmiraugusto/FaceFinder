@@ -1,6 +1,9 @@
+import sqlalchemy
 from sqlalchemy.orm import Session
+from datetime import date
 from src.models.Attempt import Attempt
 from src.models.Hospede import Hospede
+from src.models.Hospede_Attempt import hospede_attempt
 
 class AttemptRepository:
     def __init__(self, session: Session):
@@ -59,3 +62,15 @@ class AttemptRepository:
             self.session.commit()
         return True
     
+    def contar_attempts_invalidas_hoje(self, hospede_uuid):
+        return (
+            self.session.query(Attempt)
+            .join(hospede_attempt, Attempt.codigo_uuid == hospede_attempt.c.attempt_uuid)
+            .filter(
+                hospede_attempt.c.hospede_uuid == hospede_uuid,
+                Attempt.dia == date.today(),
+                Attempt.status.is_(False)
+            )
+            .count()
+        )
+        

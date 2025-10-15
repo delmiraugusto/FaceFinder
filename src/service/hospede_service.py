@@ -53,13 +53,10 @@ class HospedeService:
 
         return self.repo.update_put_hospede(hospede, data)
     
-    def forcar_status_hospede(self, hospede_id):
+    def forcar_status_hospede(self, hospede_id, status):
         hospede = self.listar_hospede(hospede_id)
 
-        if hospede.status is True:
-            hospede.status = False
-        else:
-            hospede.status = True
+        hospede.status = status
         
         return self.repo.forcar_status_hospede(hospede)
 

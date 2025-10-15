@@ -23,7 +23,7 @@ class DocumentDataService:
         documentData = self.repo.listar_documentData(documentData_id)
 
         if documentData is None:
-            raise ValueError("DocumentData nao encontrada")
+            raise ValueError("Documento nao encontrado")
         
         return documentData
     
